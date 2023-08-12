@@ -7,9 +7,10 @@ import { useAccount, useConnect, useEnsName } from "wagmi"
 // import { InjectedConnector } from "wagmi/connectors/injected"
 import { MetaMaskConnector } from "wagmi/connectors/metaMask"
 import { polygonMumbai } from "wagmi/chains"
+import { ConnectButton } from "@rainbow-me/rainbowkit"
 
 const Navbar = () => {
-  const { address, isConnected } = useAccount()
+  const { address, isConnected, isDisconnected } = useAccount()
   const { data: ensName } = useEnsName({ address })
   const { connect } = useConnect({
     // chainId: polygonMumbai.id,
@@ -19,12 +20,18 @@ const Navbar = () => {
     },
   })
 
-  React.useEffect(() => {
-    const AUTH = localStorage.getItem("CONNECT_TOKEN")
-    if (AUTH) {
-      connect()
-    }
-  }, [])
+  // React.useEffect(() => {
+  //   const AUTH = localStorage.getItem("CONNECT_TOKEN")
+  //   if (AUTH) {
+  //     connect()
+  //   }
+  // }, [])
+
+  // React.useEffect(() => {
+  //   if (isDisconnected == true) {
+  //     localStorage.setItem("CONNECT_TOKEN", "null")
+  //   }
+  // }, [isDisconnected])
 
   return (
     <>
@@ -39,10 +46,94 @@ const Navbar = () => {
           {/* <span className=" font-bold text-[33px] leading-10">0XLOOY</span> */}
         </div>
         <div>
-          <Button onClick={() => connect()}>
-            connect wallet
-            {/* {isConnected ? "con" : "not"} */}
-          </Button>
+          <ConnectButton.Custom>
+            {({
+              account,
+              chain,
+              openAccountModal,
+              openChainModal,
+              openConnectModal,
+              authenticationStatus,
+              mounted,
+            }) => {
+              // Note: If your app doesn't use authentication, you
+              // can remove all 'authenticationStatus' checks
+              const ready = mounted && authenticationStatus !== "loading"
+              const connected =
+                ready &&
+                account &&
+                chain &&
+                (!authenticationStatus || authenticationStatus === "authenticated")
+
+              return (
+                <div
+                  {...(!ready && {
+                    "aria-hidden": true,
+                    style: {
+                      opacity: 0,
+                      pointerEvents: "none",
+                      userSelect: "none",
+                    },
+                  })}
+                >
+                  {(() => {
+                    if (!connected) {
+                      return (
+                        <Button onClick={openConnectModal}>
+                          Looter
+                        </Button>
+                      )
+                    }
+
+                    if (chain.unsupported) {
+                      return (
+                        <button onClick={openChainModal} type="button">
+                          Wrong network
+                        </button>
+                      )
+                    }
+
+                    return (
+                      <div style={{ display: "flex", gap: 12 }}>
+                        <button
+                          onClick={openChainModal}
+                          style={{ display: "flex", alignItems: "center" }}
+                          type="button"
+                        >
+                          {chain.hasIcon && (
+                            <div
+                              style={{
+                                background: chain.iconBackground,
+                                width: 12,
+                                height: 12,
+                                borderRadius: 999,
+                                overflow: "hidden",
+                                marginRight: 4,
+                              }}
+                            >
+                              {chain.iconUrl && (
+                                <img
+                                  alt={chain.name ?? "Chain icon"}
+                                  src={chain.iconUrl}
+                                  style={{ width: 12, height: 12 }}
+                                />
+                              )}
+                            </div>
+                          )}
+                          {chain.name}
+                        </button>
+
+                        <button onClick={openAccountModal} type="button">
+                          {account.displayName}
+                          {account.displayBalance ? ` (${account.displayBalance})` : ""}
+                        </button>
+                      </div>
+                    )
+                  })()}
+                </div>
+              )
+            }}
+          </ConnectButton.Custom>
         </div>
       </nav>
       <Toaster />
