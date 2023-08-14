@@ -42,7 +42,12 @@ const Navbar = () => {
             <Glass className="translate-y-1 " />
           </div>
           <div className="h-[100%] -translate-x-3 flex items-center justify-center w-[2px] bg-zinc-900 " />
-          <span className=" font-bold text-[33px] leading-10">{address?.slice(0, 4)}</span>
+          <span className=" font-bold text-[33px] leading-10">0XLOOY</span>
+          {/* {address ? (
+            <span className=" font-bold text-[33px] leading-10">{address?.slice(0, 4).toString() || ""}</span>
+          ) : (
+          )} */}
+          {/* <p className=" font-bold text-[33px] leading-10">{address?.slice(0, 4).toString()}</p> */}
           {/* <span className=" font-bold text-[33px] leading-10">0XLOOY</span> */}
         </div>
         <div>
@@ -78,11 +83,7 @@ const Navbar = () => {
                 >
                   {(() => {
                     if (!connected) {
-                      return (
-                        <Button onClick={openConnectModal}>
-                          Looter
-                        </Button>
-                      )
+                      return <Button onClick={openConnectModal}>Looter</Button>
                     }
 
                     if (chain.unsupported) {
@@ -95,7 +96,7 @@ const Navbar = () => {
 
                     return (
                       <div style={{ display: "flex", gap: 12 }}>
-                        <button
+                        {/* <button
                           onClick={openChainModal}
                           style={{ display: "flex", alignItems: "center" }}
                           type="button"
@@ -118,15 +119,15 @@ const Navbar = () => {
                                   style={{ width: 12, height: 12 }}
                                 />
                               )}
+                              
                             </div>
                           )}
-                          {chain.name}
-                        </button>
+                          {chain.name}2222
+                        </button> */}
 
-                        <button onClick={openAccountModal} type="button">
+                        <Button onClick={openAccountModal} type="button">
                           {account.displayName}
-                          {account.displayBalance ? ` (${account.displayBalance})` : ""}
-                        </button>
+                        </Button>
                       </div>
                     )
                   })()}
