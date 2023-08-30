@@ -129,7 +129,7 @@ const Faq = () => {
             if (i == 8) BgColor = "bg-[#FED200]"
 
             return (
-              <div className="mx-auto w-full max-w-lg rounded-2xl bg-white p-2 ">
+              <div className="mx-auto w-full max-w-lg rounded-2xl bg-white p-2 " key={i}>
                 <Disclosure>
                   {({ open }) => (
                     <>

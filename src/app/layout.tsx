@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils"
 import "./globals.css"
-import type { Metadata } from "next"
 import { Inter, Poppins, Zen_Dots } from "next/font/google"
 import Head from "next/head"
 import Providers from "@/components/Provider"
+import { Metadata } from 'next'
 
 const popping1 = Inter({
   subsets: ["latin"],
@@ -14,6 +14,8 @@ export const metadata: Metadata = {
   title: "Lootery",
   description: "NFT Polygon",
 }
+
+
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

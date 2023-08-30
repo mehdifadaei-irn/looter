@@ -62,7 +62,7 @@ const Button: FC<ButtonProps> = ({
           >
             {children}
           </p>
-        ) : null}
+        ) : (null)}
       </button>
     </div>
   )

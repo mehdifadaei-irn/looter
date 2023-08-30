@@ -173,7 +173,7 @@ const HomeTable = () => {
                 </div>
                 <div className="flex bg-white text-black font-medium py-2 text-[25px] justify-center border border-black">
                   <p>{item.winner}</p>
-                </div>
+                </div>  
               </>
             ))}
           </div>

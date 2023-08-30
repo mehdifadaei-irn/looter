@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image from "next/image"
 import React from "react"
 import Reveal from "./ui/Reveal"
@@ -155,7 +155,7 @@ const NftList = () => {
       {/* <button onClick={logg}>logg</button> */}
       <div className="flex  flex-wrap px-[4rem] xl:justify-between justify-center gap-y-12">
         {chanceRooms.map((room: any, i) => (
-          <Reveal>
+          <Reveal key={i}>
             <HomeChanceRoomItem
               i={i}
               contractAddress={room.address}
