@@ -11,6 +11,9 @@ import {
   walletConnectWallet,
   trustWallet,
   metaMaskWallet,
+  coinbaseWallet,
+  phantomWallet,
+  ledgerWallet,
 } from "@rainbow-me/rainbowkit/wallets"
 
 import {
@@ -21,12 +24,20 @@ import {
 import { mainnet, polygon, optimism, arbitrum, zora, sepolia, polygonMumbai } from "wagmi/chains"
 import { alchemyProvider } from "wagmi/providers/alchemy"
 import { publicProvider } from "wagmi/providers/public"
-// a OZiUMNTZ4bLFW_i52If0jt1gZvJ1YiDh
-// id 8b613e9540de4d92d09f5ed1611877c9
+import { Toaster } from "sonner"
+import { ApolloClient, InMemoryCache, ApolloProvider, gql } from "@apollo/client"
+
+// alchemy OZiUMNTZ4bLFW_i52If0jt1gZvJ1YiDh
+// id wallet 8b613e9540de4d92d09f5ed1611877c9
 // const { chains, publicClient, webSocketPublicClient } = configureChains(
 //   [mainnet, polygon],
 //   [publicProvider()],
 // )
+
+const clinet = new ApolloClient({
+  uri: "https://rickandmortyapi.com/graphql",
+  cache: new InMemoryCache(),
+})
 
 const { chains, publicClient } = configureChains(
   [mainnet, polygon, optimism, arbitrum, zora, sepolia, polygonMumbai],
@@ -39,7 +50,16 @@ const connectors = connectorsForWallets([
     wallets: [
       injectedWallet({ chains }),
       trustWallet({ chains, projectId: "8b613e9540de4d92d09f5ed1611877c9" }),
-      metaMaskWallet({ chains, projectId: "metaMaskWallet" }),
+      walletConnectWallet({ chains, projectId: "8b613e9540de4d92d09f5ed1611877c9" }),
+      metaMaskWallet({ chains, projectId: "8b613e9540de4d92d09f5ed1611877c9" }),
+      coinbaseWallet({ appName: "lootery", chains }),
+    ],
+  },
+  {
+    groupName: "Others",
+    wallets: [
+      phantomWallet({ chains }),
+      ledgerWallet({ chains, projectId: "8b613e9540de4d92d09f5ed1611877c9" }),
     ],
   },
 ])
@@ -55,9 +75,12 @@ interface LayoutProps {
 const Providers: FC<LayoutProps> = ({ children }) => {
   return (
     <>
-      <WagmiConfig config={wagmiConfig}>
-        <RainbowKitProvider chains={chains}>{children}</RainbowKitProvider>
-      </WagmiConfig>
+      <ApolloProvider client={clinet}>
+        <WagmiConfig config={wagmiConfig}>
+          <RainbowKitProvider chains={chains}>{children}</RainbowKitProvider>
+          <Toaster position="top-right" richColors />
+        </WagmiConfig>
+      </ApolloProvider>
     </>
   )
 }

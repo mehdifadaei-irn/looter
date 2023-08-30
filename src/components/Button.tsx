@@ -2,28 +2,67 @@ import { FC } from "react"
 import Loader2 from "../assets/img/loader-2.svg"
 import Yellow from "../assets/img/yellow.svg"
 import Clip from "../assets/img/Clip2.svg"
+import { cn } from "@/lib/utils"
+import { twMerge } from "tailwind-merge"
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean
+  scale?: string
+  fontW?: string
+  styless?: string
 }
 
-const Button: FC<ButtonProps> = ({ children, isLoading, ...props }) => {
+const Button: FC<ButtonProps> = ({
+  children,
+  isLoading,
+  scale = "1",
+  styless,
+  fontW,
+  ...props
+}) => {
   return (
     <div
-      className=" relative duration-800 w-56  active:translate-x-[2px] active:translate-y-[2px] transition-colors  disabled:opacity-50 disabled:pointer-events-none scaleres"
-      style={
-        {
-          // transform: "scale(0.90)"
-        }
-      }
+      // className="relative duration-800 w-56 active:translate-x-[2px] active:translate-y-[2px] transition-colors  disabled:opacity-50 disabled:pointer-events-none scaleres"
+      className={twMerge(
+        "relative duration-800 w-56 active:translate-x-[2px] active:translate-y-[2px] transition-colors  disabled:opacity-50 disabled:pointer-events-none scaleres",
+        styless,
+      )}
+      style={{
+        transform: `scale(${scale})`,
+        cursor: isLoading ? "not-allowed" : "pointer",
+        opacity: isLoading ? 0.8 : 1,
+      }}
     >
       <Yellow className=" bg-[#EDD136] w-[255px] h-[67px] rounded-3xl absolute z-0  translate-x-1 translate-y-1" />
       <Clip className="rounded-3xl absolute z-10" />
       <button
         {...props}
-        className=" bg-gray-100 hover:bg-gray-200 duration-300 ease-linear absolute z-20 w-[256px]  -translate-x-[4px] h-[62px] -translate-y-[4px] border-[3px] border-zinc-900 rounded-3xl       "
+        disabled={isLoading}
+        // className=" bg-gray-100 hover:bg-gray-200 duration-300 ease-linear absolute z-20 w-[256px]  -translate-x-[4px] h-[62px] -translate-y-[4px] border-[3px] border-zinc-900 rounded-3xl"
+        style={{
+          cursor: isLoading ? "not-allowed" : "pointer",
+        }}
+        className={cn(
+          ` bg-gray-100 hover:bg-gray-200 duration-200 ease-linear absolute z-20 w-[256px]  -translate-x-[4px] h-[62px] -translate-y-[4px] border-[3px] border-zinc-900 rounded-3xl ${
+            !isLoading ? "active:translate-y-[2px]" : null
+          }`,
+        )}
       >
-        {isLoading ? <Loader2 className="mr-2 animate-spin" /> : null}
-        <p className=" font-bold text-[24px] leading-9 text-center">{children}</p>
+        {isLoading ? (
+          <div className="w-full flex justify-center items-center bg-slate-300 h-full rounded-3xl">
+            <Loader2 className="mr-2 animate-spin scale-120" />
+          </div>
+        ) : null}
+        {!isLoading ? (
+          <p
+            className={twMerge(
+              "flex justify-center font-bold text-[28px] leading-9 text-center",
+              fontW,
+            )}
+            style={{}}
+          >
+            {children}
+          </p>
+        ) : null}
       </button>
     </div>
   )
