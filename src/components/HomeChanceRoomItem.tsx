@@ -86,10 +86,10 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
       data[1]?.result["Uint256"].maximumTicket.toString()}/${//@ts-ignore
       data[1]?.result["Uint256"].soldTickets.toString()}`,
       price: data //@ts-ignore
-        ? !parseInt(data[1]?.result["Uint256"].ticketPrice.toString().slice(0, -1)) / 10 ** 18
+        ? !parseInt(data?.at(1)?.result?.Uint256?.ticketPrice.toString().slice(0, -1)) / 10 ** 18
           ? "0"
           : //@ts-ignore
-            parseInt(data[1]?.result["Uint256"].ticketPrice.toString().slice(0, -1)) / 10 ** 18
+            parseInt(data?.at(1)?.result?.Uint256?.ticketPrice.toString().slice(0, -1)) / 10 ** 18
         : null,
     })
   }
@@ -102,7 +102,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
     const date = new Date()
     return (
       <div key={i} className=" w-[23rem] flex flex-col items-center ">
-        <button onClick={logg}>logg</button>
+        {/* <button onClick={logg}>logg</button> */}
 
         {isLoading ? (
           <span>loading..</span>
@@ -132,10 +132,10 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
               <span className="font-pop font-bold text-[28px]">suplly: </span>
               <span className="font-pop font-[500] text-[26px]">
                 {//@ts-ignore
-                data[1]?.result["Uint256"].maximumTicket.toString()}
+                data?.at(1)?.result?.Uint256?.maximumTicket.toString()}
                 {"/"}
                 {//@ts-ignore
-                data[1]?.result["Uint256"].soldTickets.toString()}
+                data?.at(1)?.result?.Uint256?.soldTickets.toString()}
               </span>
             </p>
             <p className="mb-2">
@@ -143,12 +143,12 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
               <span className="font-pop font-[500] text-[26px]">
                 {/* @ts-ignore */}
                 {data ? ( //@ts-ignore
-                  !parseInt(data[1]?.result["Uint256"].ticketPrice.toString().slice(0, -1)) /
+                  !parseInt(data?.at(1)?.result?.Uint256?.ticketPrice.toString().slice(0, -1)) /
                   10 ** 18 ? (
                     <span>0</span>
                   ) : (
                     //@ts-ignore
-                    parseInt(data[1]?.result["Uint256"].ticketPrice.toString().slice(0, -1)) /
+                    parseInt(data?.at(1)?.result?.Uint256?.ticketPrice.toString().slice(0, -1)) /
                     10 ** 18
                   )
                 ) : null}
