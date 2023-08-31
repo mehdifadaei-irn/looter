@@ -25,7 +25,7 @@ import { mainnet, polygon, optimism, arbitrum, zora, sepolia, polygonMumbai } fr
 import { alchemyProvider } from "wagmi/providers/alchemy"
 import { publicProvider } from "wagmi/providers/public"
 import { Toaster } from "sonner"
-import { ApolloClient, InMemoryCache, ApolloProvider, gql } from "@apollo/client"
+// import { ApolloClient, InMemoryCache, ApolloProvider, gql } from "@apollo/client"
 
 // alchemy OZiUMNTZ4bLFW_i52If0jt1gZvJ1YiDh
 // id wallet 8b613e9540de4d92d09f5ed1611877c9
@@ -34,10 +34,10 @@ import { ApolloClient, InMemoryCache, ApolloProvider, gql } from "@apollo/client
 //   [publicProvider()],
 // )
 
-const clinet = new ApolloClient({
-  uri: "https://rickandmortyapi.com/graphql",
-  cache: new InMemoryCache(),
-})
+// const clinet = new ApolloClient({
+//   uri: "https://rickandmortyapi.com/graphql",
+//   cache: new InMemoryCache(),
+// })
 
 const { chains, publicClient } = configureChains(
   [mainnet, polygon, optimism, arbitrum, zora, sepolia, polygonMumbai],
@@ -75,12 +75,12 @@ interface LayoutProps {
 const Providers: FC<LayoutProps> = ({ children }) => {
   return (
     <>
-      <ApolloProvider client={clinet}>
-        <WagmiConfig config={wagmiConfig}>
-          <RainbowKitProvider chains={chains}>{children}</RainbowKitProvider>
-          <Toaster position="top-right" richColors />
-        </WagmiConfig>
-      </ApolloProvider>
+      {/* <ApolloProvider client={clinet}> */}
+      <WagmiConfig config={wagmiConfig}>
+        <RainbowKitProvider chains={chains}>{children}</RainbowKitProvider>
+        <Toaster position="top-right" richColors />
+      </WagmiConfig>
+      {/* </ApolloProvider> */}
     </>
   )
 }

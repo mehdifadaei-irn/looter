@@ -78,7 +78,7 @@ body {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #fdc600 !important;
+  background: #fdc600;
   border-radius: 5px;
 }
 
