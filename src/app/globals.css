@@ -9,7 +9,8 @@ body {
   /* font-family: "VT323", monospace; */
 }
 .tra {
-  animation: spin 7400ms linear infinite;
+  animation: spin 1400ms linear infinite;
+
   z-index: 30;
 }
 .spinnerr {
@@ -81,7 +82,6 @@ body {
   background: #fdc600;
   border-radius: 5px;
 }
-
 
 @media only screen and (max-width: 1200px) {
   .grid-cont {

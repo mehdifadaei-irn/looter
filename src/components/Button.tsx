@@ -9,6 +9,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   scale?: string
   fontW?: string
   styless?: string
+  disable?: boolean
 }
 
 const Button: FC<ButtonProps> = ({
@@ -17,13 +18,14 @@ const Button: FC<ButtonProps> = ({
   scale = "1",
   styless,
   fontW,
+  disable,
   ...props
 }) => {
   return (
     <div
       // className="relative duration-800 w-56 active:translate-x-[2px] active:translate-y-[2px] transition-colors  disabled:opacity-50 disabled:pointer-events-none scaleres"
       className={twMerge(
-        "relative duration-800 w-56 active:translate-x-[2px] active:translate-y-[2px] transition-colors  disabled:opacity-50 disabled:pointer-events-none scaleres",
+        "relative h-[4rem] flex justify-center items-center  duration-800 w-56 active:translate-x-[2px] active:translate-y-[2px] transition-colors  disabled:opacity-50 disabled:pointer-events-none scaleres",
         styless,
       )}
       style={{
@@ -32,7 +34,7 @@ const Button: FC<ButtonProps> = ({
         opacity: isLoading ? 0.8 : 1,
       }}
     >
-      <Yellow className=" bg-[#EDD136] w-[255px] h-[67px] rounded-3xl absolute z-0  translate-x-1 translate-y-1" />
+      <Yellow className=" bg-[#EDD136] w-[255px] h-[67px] rounded-3xl absolute z-0" />
       <Clip className="rounded-3xl absolute z-10" />
       <button
         {...props}
@@ -49,7 +51,7 @@ const Button: FC<ButtonProps> = ({
       >
         {isLoading ? (
           <div className="w-full flex justify-center items-center bg-slate-300 h-full rounded-3xl">
-            <Loader2 className="mr-2 animate-spin scale-120" />
+            {disable ? null : <Loader2 className="mr-2 animate-spin scale-120" />}
           </div>
         ) : null}
         {!isLoading ? (
@@ -62,7 +64,7 @@ const Button: FC<ButtonProps> = ({
           >
             {children}
           </p>
-        ) : (null)}
+        ) : null}
       </button>
     </div>
   )

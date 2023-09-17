@@ -52,6 +52,7 @@ const Navbar = () => {
             openConnectModal,
             authenticationStatus,
             mounted,
+
           }) => {
             // Note: If your app doesn't use authentication, you
             // can remove all 'authenticationStatus' checks
@@ -78,9 +79,9 @@ const Navbar = () => {
                     return (
                       <div className="border-zinc-900 pr-4  border-[2.5px] flex rounded-3xl">
                         <div className="flex justify-center w-20 items-center border-r-2 border-zinc-900">
-                          <Glass className="translate-y-1 " />
+                          <Glass className="translate-y-1 translate-x-3 " />
                         </div>
-                        <div className="h-[100%] -translate-x-3 flex items-center justify-center w-[2px] bg-zinc-900 duration-700" />
+                        <div className="h-[100%] -translate-x-3 flex items-center justify-center w-[2px] bg-zinc-900 duration-700 text-center" />
                         <NoSSRPara isConnected={isConnected} address={address} />
                       </div>
                     )
@@ -90,7 +91,7 @@ const Navbar = () => {
                     return (
                       <div className="border-zinc-900 pr-4  border-[2.5px] flex rounded-3xl">
                         <div className="flex justify-center w-20 items-center border-r-2 border-zinc-900">
-                          <Glass className="translate-y-1 " />
+                          <Glass className="translate-y-1  " />
                         </div>
                         <div className="h-[100%] -translate-x-3 flex items-center justify-center w-[2px] bg-zinc-900 duration-700" />
                         <p className="font-semibold text-[33px] leading-10">Wrong network</p>
@@ -140,14 +141,6 @@ const Navbar = () => {
             )
           }}
         </ConnectButton.Custom>
-        {/* <div className="border-zinc-900 pr-4  border-[2.5px] flex rounded-3xl">
-          <div className="flex justify-center items-center">
-            <Glass className="translate-y-1 " />
-            </div>
-            <div className="h-[100%] -translate-x-3 flex items-center justify-center w-[2px] bg-zinc-900 duration-700" />
-            <NoSSRPara isConnected={isConnected} address={address} />
-          </div> */}
-
         <div>
           <ConnectButton.Custom>
             {({
@@ -171,7 +164,7 @@ const Navbar = () => {
 
               return (
                 <div
-                  className=" font-pop"
+                  className=" font-pop -translate-y-2"
                   {...(!ready && {
                     "aria-hidden": true,
                     style: {
@@ -215,7 +208,6 @@ const Navbar = () => {
           </ConnectButton.Custom>
         </div>
       </nav>
-      
     </>
   )
 }

@@ -41,7 +41,7 @@ const Hero = () => {
               can draw the winner, The NFT, and the organizer's money will transfer automatically.
             </p>
           </div>
-          <div className="w-full bg-sky-500 flex justify-center mt-5">
+          <div className="w-full flex justify-center mt-7">
             <Button fontW="font-extrabold">LUNCH</Button>
           </div>
         </main>

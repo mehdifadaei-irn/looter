@@ -3,6 +3,21 @@
 import { FC, ReactNode } from "react"
 import { WagmiConfig, createConfig, configureChains } from "wagmi"
 
+import {
+  // RainbowKitProvider,
+  AvatarComponent,
+} from "@rainbow-me/rainbowkit"
+
+import { stringToColour } from "@/lib/generateColorFromHash"
+
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query"
+
 import "@rainbow-me/rainbowkit/styles.css"
 
 import {
@@ -25,6 +40,7 @@ import { mainnet, polygon, optimism, arbitrum, zora, sepolia, polygonMumbai } fr
 import { alchemyProvider } from "wagmi/providers/alchemy"
 import { publicProvider } from "wagmi/providers/public"
 import { Toaster } from "sonner"
+
 // import { ApolloClient, InMemoryCache, ApolloProvider, gql } from "@apollo/client"
 
 // alchemy OZiUMNTZ4bLFW_i52If0jt1gZvJ1YiDh
@@ -39,9 +55,12 @@ import { Toaster } from "sonner"
 //   cache: new InMemoryCache(),
 // })
 
+const queryClient = new QueryClient()
+
 const { chains, publicClient } = configureChains(
-  [mainnet, polygon, optimism, arbitrum, zora, sepolia, polygonMumbai],
-  [alchemyProvider({ apiKey: "OZiUMNTZ4bLFW_i52If0jt1gZvJ1YiDh" }), publicProvider()],
+  [mainnet, polygon, sepolia, polygonMumbai],
+  // [alchemyProvider({ apiKey: "" }), publicProvider()],
+  [alchemyProvider({ apiKey: "0MsDcTulwe_aZJEcg150EPv6Tnwn2qn5" })],
 )
 
 const connectors = connectorsForWallets([
@@ -77,8 +96,10 @@ const Providers: FC<LayoutProps> = ({ children }) => {
     <>
       {/* <ApolloProvider client={clinet}> */}
       <WagmiConfig config={wagmiConfig}>
-        <RainbowKitProvider chains={chains}>{children}</RainbowKitProvider>
-        <Toaster position="top-right" richColors />
+        <QueryClientProvider client={queryClient}>
+          <RainbowKitProvider coolMode chains={chains}>{children}</RainbowKitProvider>
+          <Toaster position="top-right" richColors />
+        </QueryClientProvider>
       </WagmiConfig>
       {/* </ApolloProvider> */}
     </>

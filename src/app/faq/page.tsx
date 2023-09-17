@@ -18,6 +18,7 @@ import Lucky from "../../assets/img/home/lucky.svg"
 import Flesh from "../../assets/img/home/flesh.svg"
 import Image from "next/image"
 import Link from "next/link"
+import Button from "@/components/Button"
 
 const lonfrina = Londrina_Solid({
   subsets: ["latin"],
@@ -103,6 +104,9 @@ const Faq = () => {
             height={1400}
             className="absolute "
             alt="vec"
+            style={{
+              height: "49rem",
+            }}
           />
           <Image
             src={"/home/vecy.png"}
@@ -110,15 +114,12 @@ const Faq = () => {
             width={730}
             height={9000}
             alt="vec"
+            style={{
+              height: "49rem",
+            }}
           />
         </div>
-        <div className="absolute flex z-30 w-full  h-full items-center  flex-col pt-[96px] pr-[88px]">
-          <Link
-            href={"/"}
-            className="absolute z-[500] text-[#2862FF] cursor-pointer top-10 left-10"
-          >
-            Home <span className="text-zinc-800">/</span>
-          </Link>
+        <div className="absolute flex z-30 w-full  h-full items-center  flex-col pt-[96px] sm:pr-[88px] pr-[70px]">
           {QandA.map((item, i) => {
             let BgColor = "bg-[#EDD136]"
             if (i == 0) BgColor = "bg-[#EDD136]"
@@ -161,14 +162,19 @@ const Faq = () => {
         </div>
       </div>
       {/* main */}
-      <div className="w-[25%]  2xl:flex hidden flex-col justify-between pt-20">
+      <div className="w-[25%]  2xl:flex hidden flex-col justify-between pt-0">
+        <div className="w-full flex justify-end pt-3">
+          <Button scale="0.8">
+            <Link href={"/"} className="w-full h-full">Home</Link>
+          </Button>
+        </div>
         <div>
           <div>
             <Aline />
             <Tah className="-translate-y-10 -translate-x-5" />
           </div>
         </div>
-        <div className="h-[47%] mb-14">
+        <div className="h-[47%] mb-10">
           <Lucky />
           <p className="text-[120px] tracking-widest font-[300] text-[#F6CD46]">Wagmi</p>
         </div>

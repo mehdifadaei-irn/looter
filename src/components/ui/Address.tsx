@@ -15,6 +15,7 @@ const Address = () => {
         authenticationStatus,
         mounted,
       }) => {
+        // console.log(account)
         // Note: If your app doesn't use authentication, you
         // can remove all 'authenticationStatus' checks
         const ready = mounted && authenticationStatus !== "loading"
@@ -54,8 +55,8 @@ const Address = () => {
 
               return (
                 <div style={{ display: "flex", gap: 12 }}>
-                  <button onClick={openAccountModal} type="button">
-                    {account.displayName}11
+                  <button onClick={openAccountModal} type="button" className="text-xl text-black font-medium">
+                    {account.displayName}
                     {account.ensAvatar}
                     {/* {account.displayBalance ? ` (${account.displayBalance})` : ""} */}
                   </button>
