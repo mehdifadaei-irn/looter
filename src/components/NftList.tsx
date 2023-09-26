@@ -20,7 +20,6 @@ import {
 
 import { useConnectModal } from "@rainbow-me/rainbowkit"
 import HomeChanceRoomItem from "./HomeChanceRoomItem"
-import { sampAbi } from "@/assets/abis/smap"
 import Link from "next/link"
 import { FactoryAbi, secondAbiBC3, secondAbiFB6, wagmiAbiii } from "@/assets/abis/mainAbis"
 import { BaseError, parseEther, formatEther } from "viem"

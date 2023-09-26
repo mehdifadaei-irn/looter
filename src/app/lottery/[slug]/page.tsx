@@ -34,7 +34,7 @@ const page = ({ params: { slug } }: lotteryProps) => {
       <div className="w-full bg-[#B1C5FB] absolute z-0 h-screen " />
       <div className="backlottery  absolute w-full z-10 h-screen top-0 right-0 bottom-0 left-0">
         {/* Nav */}
-        <nav className="flex justify-between w-full xl:pt-8 pt-2 h-[25%]">
+        <nav className="flex justify-between w-full xl:pt-8 pt-2 h-[25%] mx-5">
           <div className="lg:hidden flex flex-col gap-y-4  mix-w-[900px]:w-[10rem] pl-3 lg:pl-0">
             <LeftMenu />
           </div>
@@ -52,11 +52,11 @@ const page = ({ params: { slug } }: lotteryProps) => {
             </Button>
           </div>
           <ChanseRoomName contractAddress={slug} />
-          <div className="flex gap-x-2">
+          <div className="flex gap-x-2 mr-14">
             <div className="2xl:block hidden">
               <Image src={"/eyes.png"} className=" mr-2" width={90} height={50} alt="Eyes" />
             </div>
-            <div className="xl:pr-0 pr-3">
+            <div className="xl:pr-0">
               <Indentic randString={slug} />
 
               {/* <Image src={"/acc.png"} className="pt-" width={50} height={50} alt="acc" /> */}

@@ -182,14 +182,14 @@ const page = ({ params: { slug } }: any) => {
   return (
     <div className="fixed inset-0 bg-zinc-900/20 z-50" style={{}} ref={overlay} onClick={onClick}>
       <div
-        className="flex container items-center h-full  justify-center max-w-[65%] mx-auto"
+        className="flex container items-center h-full  justify-center xl:[65%] lg:w-[90%] w-full mx-auto"
         ref={wrapper}
       >
         <div className="relative bg-secondaryLight w-full  h-[60%] px-2 rounded-3xl border-4 border-black">
           {/* <span className="absolute top-4 right-4 cursor-pointer" onClick={() => router.back()}>
             X
           </span> */}
-          <div className="w-full h-full flex flex-col justify-between py-5 items-center">
+          <div className="w-full h-full flex xl:flex-col flex-row justify-between py-5 items-center">
             <div className="w-full flex xl:flex-row flex-col-reverse justify-between px-3">
               <div>
                 <a
@@ -197,7 +197,10 @@ const page = ({ params: { slug } }: any) => {
                   target="_blank"
                   className="font-medium text-[30px] font-pop underline w-full"
                 >
-                  <span className="">{slug}</span>
+                  <span className="">
+                    <span className="hidden xl:block">{slug}</span>
+                    <span className="block xl:hidden">{slug?.slice(0, 9)}</span>
+                  </span>
                 </a>
                 <p className="font-zen text-2xl mt-3">{data?.at(3).result.slice(0, 15)}</p>
                 <p>
@@ -245,7 +248,7 @@ const page = ({ params: { slug } }: any) => {
               </div>
             </div>
             {/* Btns */}
-            <div className="flex justify-between items-center lg:flex-row flex-col w-[90%] mx-auto mt-10">
+            <div className="flex justify-between items-center xl:flex-row flex-col w-[90%] mx-auto mt-10 xl:pr-0 pr-5">
               <Button fontW="font-zen" scale="0.85">
                 <a className="w-full h-full" href={"/"}>
                   Home

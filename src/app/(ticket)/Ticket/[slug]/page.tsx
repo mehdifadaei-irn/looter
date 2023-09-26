@@ -25,6 +25,7 @@ import { useQuery } from "@tanstack/react-query"
 import { Skeleton } from "@mui/material"
 import { useDebounce } from "@/hooks/useDebounce"
 import ChanseRoomName from "@/components/chanceRoom/ChanseRoomName"
+import Navbar from "@/components/Navbar"
 const page = ({ params: { slug } }: any) => {
   const [amount, setAmount] = React.useState<number>(1)
   const route = useRouter()
@@ -172,17 +173,21 @@ const page = ({ params: { slug } }: any) => {
     })
 
   return (
-    <div className=" w-full h-screen backg flex items-center">
+    <div className=" w-full h-screen backg flex items-center flex-col">
+      <Navbar />
       <div className=" w-full h-full flex justify-center items-center flex-col">
-        <div className=" w-[70%] px-5 rounded-3xl bg-secondaryLight h-[60%] flex flex-col justify-end items-center mx-auto border-4 border-black">
-          <div className=" flex justify-between flex-col-reverse gap-x-5 w-full xl:flex-row lg:gap-y-10 gap-y-1">
+        <div className=" xl:w-[70%] lg:w-[97%] w-full px-5 rounded-3xl bg-secondaryLight lg:h-[70%] h-[80%] flex flex-col justify-end items-center mx-auto border-4 border-black">
+          <div className=" flex justify-between gap-x-5 w-full flex-row lg:gap-y-10 gap-y-1">
             <div>
               <a
                 href={`https://polygonscan.com/address/${slug}`}
                 target="_blank"
                 className="font-medium text-[30px] font-pop underline w-full"
               >
-                <span className="">{slug}</span>
+                <span className="">
+                  <span className="hidden xl:block">{slug}</span>
+                  <span className="block xl:hidden">{slug?.slice(0, 9)}</span>
+                </span>
               </a>
               {isLoading ? (
                 <div>loading</div>
@@ -285,7 +290,7 @@ const page = ({ params: { slug } }: any) => {
           </div>
         </div>
 
-        <div className="flex justify-between items-center lg:flex-row flex-col w-[70%] mx-auto">
+        <div className="flex justify-between items-center flex-row xl:w-[70%] w-[90%] mx-auto">
           <Button fontW="font-zen" scale="0.85">
             <a className="w-full h-full" href={"/"}>
               Home
