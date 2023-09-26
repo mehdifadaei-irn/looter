@@ -3,27 +3,12 @@
 import { FC, ReactNode } from "react"
 import { WagmiConfig, createConfig, configureChains } from "wagmi"
 
-import {
-  // RainbowKitProvider,
-  AvatarComponent,
-} from "@rainbow-me/rainbowkit"
-
-import { stringToColour } from "@/lib/generateColorFromHash"
-
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
 import "@rainbow-me/rainbowkit/styles.css"
 
 import {
   injectedWallet,
-  rainbowWallet,
-  walletConnectWallet,
   trustWallet,
   metaMaskWallet,
   coinbaseWallet,
@@ -62,7 +47,7 @@ const queryClient = new QueryClient()
 const { chains, publicClient } = configureChains(
   [polygon],
   // [alchemyProvider({ apiKey: "" }), publicProvider()],
-  [alchemyProvider({ apiKey: "0MsDcTulwe_aZJEcg150EPv6Tnwn2qn5" })],
+  [alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY! })],
 )
 
 const connectors = connectorsForWallets([
@@ -70,8 +55,8 @@ const connectors = connectorsForWallets([
     groupName: "Recommended",
     wallets: [
       injectedWallet({ chains }),
-      trustWallet({ chains, projectId: "8b613e9540de4d92d09f5ed1611877c92" }),
-      metaMaskWallet({ chains, projectId: "8b613e9540de4d92d09f5ed16112877c9" }),
+      trustWallet({ chains, projectId: process.env.NEXT_PUBLIC_WALLET_PROJECT_ID! }),
+      metaMaskWallet({ chains, projectId: process.env.NEXT_PUBLIC_WALLET_PROJECT_ID! }),
       coinbaseWallet({ appName: "lootery", chains }),
     ],
   },
@@ -79,7 +64,7 @@ const connectors = connectorsForWallets([
     groupName: "Others",
     wallets: [
       phantomWallet({ chains }),
-      ledgerWallet({ chains, projectId: "8b613e9540de411d92d09f5ed1611877c9" }),
+      ledgerWallet({ chains, projectId: process.env.NEXT_PUBLIC_WALLET_PROJECT_ID! }),
     ],
   },
 ])
