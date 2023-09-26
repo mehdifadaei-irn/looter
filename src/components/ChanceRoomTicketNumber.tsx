@@ -18,7 +18,7 @@ const ChanceRoomTicketNumber = ({
   contractAddress: `0x${string}`
   totallSupply: number
 }) => {
-  const { address: accountAddress} = useAccount()
+  const { address: accountAddress } = useAccount()
   const { data: balanceOf, isLoading }: { data: any; isLoading: boolean } = useContractRead({
     address: contractAddress,
     abi: secondAbiBC3,
@@ -52,7 +52,7 @@ const ChanceRoomTicketNumber = ({
   return (
     <>
       <div className="relative bg-slate-200 rounded-xl border-2 border-primary">
-        <p className="absolute top-3 right-4">
+        <p className="absolute top-2 -right-7 z-20 font-semibold text-xl">
           <div>x{!balanceOf ? "0" : balanceOf?.toString()}</div>
         </p>
 

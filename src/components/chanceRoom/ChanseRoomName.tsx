@@ -26,30 +26,13 @@ async function getData(contractAddress: string) {
 }
 
 const ChanseRoomName = async ({ contractAddress }: { contractAddress: string }) => {
-  // const { data: metaData, isLoading }: { data: any; isLoading: boolean } = useQuery({
-  //   queryKey: ["getMetadata", `${contractAddress}`],
-  //   queryFn: async () => {
-  //     const { data } = await axios.get(
-  //       `https://deep-index.moralis.io/api/v2.2/nft/${contractAddress}/0?chain=polygon&format=decimal&normalizeMetadata=true&media_items=false`,
-  //       {
-  //         headers: {
-  //           accept: "application/json",
-  //           "X-API-Key": process.env.NEXT_PUBLIC_MORALIS_API_KEY,
-  //         },
-  //       },
-  //     )
-
-  //     return data
-  //   },
-  // })
-
   const data1 = await getData(contractAddress)
 
   function loff9() {
     console.log(data1)
   }
 
-  console.log(data1)
+  // console.log(data1)
 
   return (
     <div className="flex flex-col text-center justify-start items-center w-[42%]">

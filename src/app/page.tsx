@@ -12,7 +12,7 @@ import HomeFooter from "@/components/HomeFooter"
 
 export default function Home() {
   return (
-    <div className=" w-full h-auto relative overflow-y-hidden">
+    <div className=" w-full h-auto">
       <div className=" backg">
         <Navbar />
         {/* Hero section =Home= */}

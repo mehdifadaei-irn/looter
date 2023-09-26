@@ -18,10 +18,11 @@ import {
   useWaitForTransaction,
 } from "wagmi"
 
+import { useConnectModal } from "@rainbow-me/rainbowkit"
 import HomeChanceRoomItem from "./HomeChanceRoomItem"
 import { sampAbi } from "@/assets/abis/smap"
 import Link from "next/link"
-import { secondAbiBC3, secondAbiFB6, wagmiAbiii } from "@/assets/abis/mainAbis"
+import { FactoryAbi, secondAbiBC3, secondAbiFB6, wagmiAbiii } from "@/assets/abis/mainAbis"
 import { BaseError, parseEther, formatEther } from "viem"
 import { stringify } from "@/lib/stringify"
 import { useDebounce } from "@/hooks/useDebounce"
@@ -31,9 +32,9 @@ const chanceRooms = [
   // { address: "0x00000ed1c3b249ca62252d70f813369f9d8a8bc3" },
   // { address: "0x0000e01d6b4a67b605c9b86c3815b89b4564a77d" },
   // { address: "0x000004189e37496d9e8acc68e8e19074696902a2" },
-  // { address: "0x00000cb9b9920a4eed7b48aee33c038dc4234478" },
-  // { address: "0x0000094ab825b6275a3482287981471e3ebcadde" },
-  // { address: "0x000004f83f0f31ccbefe14ca8eb33ace92ada3a8" },
+  { address: "0x00000cb9b9920a4eed7b48aee33c038dc4234478" },
+  { address: "0x0000094ab825b6275a3482287981471e3ebcadde" },
+  { address: "0x000004f83f0f31ccbefe14ca8eb33ace92ada3a8" },
   { address: "0x00000783facddb2593dafdf596f7962d506d31bd" },
   { address: "0x00000b324663D7982e44f87a3F6bf077EdA21c2f" },
 ]
@@ -50,6 +51,7 @@ function SimpleDialog(props: SimpleDialogProps) {
   const [amount, setAmount] = React.useState<number>(1)
   const route = useRouter()
   const account = useAccount()
+  const { openConnectModal } = useConnectModal()
   // const realPriceOf = modalContent?.realPrice?.toString()
   const balanceOfTicket = useDebounce(modalContent.realPrice1)
 
@@ -91,25 +93,31 @@ function SimpleDialog(props: SimpleDialogProps) {
   }
 
   function handleamount(work: "inc" | "dec") {
-    if (work === "inc") {
-      if (amount < 10) {
-        setAmount((prev) => prev + 1)
-      } else {
-        toast("just 10 ticket available now!")
-      }
-    }
-    if (work === "dec") {
-      if (amount > 1) {
-        setAmount((prev) => prev - 1)
-      } else {
-        toast("you must have at least 1 ticket")
-      }
-    }
+    toast("sorry you can buy just 1 ticket for now!")
+    // if (work === "inc") {
+    //   if (amount < 10) {
+    //     setAmount((prev) => prev + 1)
+    //   } else {
+    //     toast("just 10 ticket available now!")
+    //   }
+    // }
+    // if (work === "dec") {
+    //   if (amount > 1) {
+    //     setAmount((prev) => prev - 1)
+    //   } else {
+    //     toast("you must have at least 1 ticket")
+    //   }
+    // }
   }
 
   function handleBuyTicket() {
-    console.log(modalContent.realPrice1)
-    write?.()
+    // console.log(account.isConnected)
+    if (account.isConnected) {
+      write?.()
+    } else {
+      toast.error("you must connect your wallet!")
+      openConnectModal?.()
+    }
   }
 
   function logg() {
@@ -125,7 +133,7 @@ function SimpleDialog(props: SimpleDialogProps) {
       sx={{ display: "flex", height: "100%", flexDirection: "column", borderRadius: 67 }}
     >
       <div className="rounded-3xl border-7 border-black  px-10 pt-5 bg-secondaryLight overflow-hidden">
-        <div className="w-full flex justify-between flex-col-reverse xl:flex-row gap-y-10">
+        <div className="w-full flex justify-between flex-col-reverse xl:flex-row lg:gap-y-10 gap-y-1">
           <div>
             <a
               href={`https://polygonscan.com/address/${modalContent.contractAddress}`}
@@ -214,7 +222,7 @@ function SimpleDialog(props: SimpleDialogProps) {
                   totalSupply: modalContent.totalSuplly,
                 },
               }}
-              className="w-full h-full"
+              className="w-full h-[60px] pt-1"
             >
               Continue
             </Link>
@@ -240,24 +248,28 @@ const NftList = () => {
     // setSelectedValue(value)
   }
 
+  const { data, isError, isLoading } = useContractRead({
+    address: "0x000004911bedE2053923bAF3b59e1a9f034482C9",
+    abi: FactoryAbi,
+    functionName: "chanceRooms",
+  })
+
   function logg() {
-    console.log("wtf")
+    console.log()
   }
 
   return (
     <div className="w-full mt-10">
-      {/* <button onClick={logg}>logg</button> */}
-
       <div className="flex  flex-wrap px-[4rem] xl:justify-between justify-center gap-y-12">
-        {chanceRooms.map((room: any, i) => (
-          <Reveal key={i}>
-            <HomeChanceRoomItem
-              i={i}
-              contractAddress={room.address}
-              handleClickOpen={handleClickOpen}
-            />
-          </Reveal>
-        ))}
+        {data
+          //@ts-ignore
+          ?.slice(-5)
+          ?.reverse()
+          .map((room: any, i: string) => (
+            <Reveal key={i}>
+              <HomeChanceRoomItem i={i} contractAddress={room} handleClickOpen={handleClickOpen} />
+            </Reveal>
+          ))}
       </div>
       {/* <Toaster richColors position="top-right" /> */}
       <SimpleDialog open={open} onClose={handleClose} modalContent={modalContent} />

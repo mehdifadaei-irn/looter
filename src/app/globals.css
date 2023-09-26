@@ -26,6 +26,12 @@ body {
   background-size: cover;
   /* background: #333; */
 }
+.spinnertrans {
+  transform: translateX(-110px) !important;
+}
+.imgTrans {
+  transform: translateX(-40px) !important;
+}
 
 @media only screen and (max-width: 900px) {
   .scaleres {
@@ -44,6 +50,10 @@ body {
   font-family: "Poppins", sans-serif !important;
   /* font-family: "VT323", monospace; */
 }
+
+/* .recharts-responsive-container {
+  width: 250% !important;
+} */
 
 .font-zen {
   /* font-family: "Zen Dots", cursive !important; */

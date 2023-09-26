@@ -50,8 +50,12 @@ const Button: FC<ButtonProps> = ({
         )}
       >
         {isLoading ? (
-          <div className="w-full flex justify-center items-center bg-slate-300 h-full rounded-3xl">
-            {disable ? null : <Loader2 className="mr-2 animate-spin scale-120" />}
+          <div className="w-full flex justify-center items-center bg-slate-300 h-full rounded-3xl ">
+            {disable ? (
+              <span className="font-bold text-[28px]">{children}</span>
+            ) : (
+              <Loader2 className="mr-2 animate-spin scale-120" />
+            )}
           </div>
         ) : null}
         {!isLoading ? (

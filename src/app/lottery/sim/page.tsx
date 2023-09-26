@@ -1,136 +1,53 @@
 "use client"
-import React, { PureComponent, useEffect, useState } from "react"
-import { PieChart, Pie, Sector, ResponsiveContainer, Cell } from "recharts"
-const data = [
-  { name: "Group A", value: 400 },
-  { name: "Group B", value: 300 },
-  { name: "Group C", value: 300 },
-  { name: "Group D", value: 200 },
-]
+import { VrFABI } from "@/assets/abis/smap"
+import { motion, useTime, useTransform } from "framer-motion"
+import { useEffect, useState } from "react"
+import { useContractEvent } from "wagmi"
 
-const renderActiveShape = (props: any) => {
-  const RADIAN = Math.PI / 180
-  const {
-    cx,
-    cy,
-    midAngle,
-    innerRadius,
-    outerRadius,
-    startAngle,
-    endAngle,
-    fill,
-    payload,
-    percent,
-    value,
-  } = props
-  const sin = Math.sin(-RADIAN * midAngle)
-  const cos = Math.cos(-RADIAN * midAngle)
-  const sx = cx + (outerRadius + 10) * cos
-  const sy = cy + (outerRadius + 10) * sin
-  const mx = cx + (outerRadius + 30) * cos
-  const my = cy + (outerRadius + 30) * sin
-  const ex = mx + (cos >= 0 ? 1 : -1) * 22
-  const ey = my
-  const textAnchor = cos >= 0 ? "start" : "end"
+// [
+//   {
+//     address: '0x3d2341adb2d31f1c5530cdc622016af293177ae0',
+//     blockHash:
+//       '0xd2e6466326034d41ed483619220c00e2b4d637f3e0681ed1914a98b65c17a8bf',
+//     blockNumber: 47979428n,
+//     data:
+//       '0xf86195cf7690c55907b2b611ebb7343a6f649bff128701cc542f0569e2c549da74ede4ca0b824aa2af43c6ca00653f79335b8a327888ad1dada714d4e672f9c1000000000000000000000000401c2ae98e1aea385d4f450cbf1348930b1b47bf00000000000000000000000000000000000000000000000000005af3107a4000c1cd820b915c5d78bc8bd77674ed1e0c14db370486fb1a05846dabb1169a0a4a',
+//     logIndex: 315,
+//     removed: false,
+//     topics: [
+//       '0x56bd374744a66d531874338def36c906e3a6cf31176eb1e9afd9f1de69725d51', '0x3936613861323666643432363437383438643866666233383764346438333435'
+//     ],
+//     transactionHash:
+//       '0x09401a3dd010f29ace067c6ae5bb05a15425fdccfc447447df9bda343d6ec428',
+//     transactionIndex: 80,
+//     args: {
+//       jobID: '0x3936613861323666643432363437383438643866666233383764346438333435',
+//       keyHash:
+//         '0xf86195cf7690c55907b2b611ebb7343a6f649bff128701cc542f0569e2c549da',
+//       seed: 52888612235299707191459921500103681710807591126076038221910712031886420670913n,
+//       sender: '0x401c2aE98e1AEA385d4F450Cbf1348930b1B47bf',
+//       fee: 100000000000000n,
+//       requestID:
+//         '0xc1cd820b915c5d78bc8bd77674ed1e0c14db370486fb1a05846dabb1169a0a4a'
+//     },
+//     eventName: 'RandomnessRequest'
+//   }
+// ]
 
-  return (
-    <g>
-      <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
-        {payload.name}
-      </text>
-      <Sector
-        cx={cx}
-        cy={cy}
-        innerRadius={innerRadius}
-        outerRadius={outerRadius}
-        startAngle={startAngle}
-        endAngle={endAngle}
-        fill={fill}
-      />
-      <Sector
-        cx={cx}
-        cy={cy}
-        startAngle={startAngle}
-        endAngle={endAngle}
-        innerRadius={outerRadius + 6}
-        outerRadius={outerRadius + 10}
-        fill={fill}
-      />
-      <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
-      <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-      <text
-        x={ex + (cos >= 0 ? 1 : -1) * 12}
-        y={ey}
-        textAnchor={textAnchor}
-        fill="#333"
-      >{`PV ${value}`}</text>
-      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
-        {`(Rate ${(percent * 100).toFixed(2)}%)`}
-      </text>
-    </g>
-  )
-}
-
-const RADIAN = Math.PI / 180
-
-const renderCustomizedLabel = ({
-  cx,
-  cy,
-  midAngle,
-  innerRadius,
-  outerRadius,
-  percent,
-  index,
-}: any) => {
-  const radius = innerRadius + (outerRadius - innerRadius) * 0.5
-  const x = cx + radius * Math.cos(-midAngle * RADIAN)
-  const y = cy + radius * Math.sin(-midAngle * RADIAN)
-
-  return (
-    <text
-      x={x}
-      y={y}
-      fill="white"
-      textAnchor={x > cx ? "start" : "end"}
-      dominantBaseline="central"
-      style={{
-        fontSize: 28,
-        fontWeight: 500,
-      }}
-    >
-      {index == 1 ? "you" : ""}
-    </text>
-  )
-}
-
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"]
 const page = () => {
-  return (
-    <div className="w-screen h-screen bg-slate-900">
-        a
+  // useContractEvent({
+  //   address: "0x3d2341ADb2D31f1c5530cDC622016af293177AE0",
+  //   abi: VrFABI,
+  //   eventName: "RandomnessRequest",
+  //   listener(log) {
+  //     console.log("loged")
+  //     console.log(log)
+  //   },
+  // })
 
-      <ResponsiveContainer width="100%" height="100%">
-        <PieChart width={400} height={400}>
-          <Pie
-            activeIndex={1}
-            activeShape={renderActiveShape}
-            data={data}
-            cx="60%"
-            cy="50%"
-            innerRadius={150}
-            outerRadius={190}
-            fill="#8884d8"
-            dataKey="value"
-            // onMouseEnter={onPieEnter}
-            label={renderCustomizedLabel}
-            paddingAngle={3}
-          >
-            {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}{" "}
-          </Pie>
-        </PieChart>
-      </ResponsiveContainer>
+  return (
+    <div className="w-full h-screen flex justify-center items-center">
+      <h1>Hello</h1>
     </div>
   )
 }

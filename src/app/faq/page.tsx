@@ -165,7 +165,7 @@ const Faq = () => {
       <div className="w-[25%]  2xl:flex hidden flex-col justify-between pt-0">
         <div className="w-full flex justify-end pt-3">
           <Button scale="0.8">
-            <Link href={"/"} className="w-full h-full">Home</Link>
+            <Link href={"/"} className="w-full h-[65px]  pt-1">Home</Link>
           </Button>
         </div>
         <div>

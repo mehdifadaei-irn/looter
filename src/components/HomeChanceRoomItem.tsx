@@ -19,6 +19,8 @@ import dynamic from "next/dynamic"
 import axios from "axios"
 import { useQuery } from "@tanstack/react-query"
 import { formatEther } from "viem"
+import { polygon } from "wagmi/chains"
+import Link from "next/link"
 const NoSSRZero = dynamic(() => import("../components/ui/Zero"), { ssr: false })
 
 type ChanceRoomItemProps = {
@@ -72,6 +74,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
         //@ts-ignore
         abi: secondAbiBC3,
         functionName: "status",
+        chainId: polygon.id,
       },
       //@ts-ignore
       {
@@ -79,6 +82,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
         //@ts-ignore
         abi: secondAbiBC3,
         functionName: "layout",
+        chainId: polygon.id,
       },
       //@ts-ignore
       {
@@ -87,6 +91,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
         abi: secondAbiBC3,
         functionName: "tokenURI",
         args: ["0"],
+        chainId: polygon.id,
       },
       //@ts-ignore
       {
@@ -94,6 +99,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
         //@ts-ignore
         abi: secondAbiBC3,
         functionName: "name",
+        chainId: polygon.id,
       },
     ],
     onSuccess(data) {
@@ -113,8 +119,8 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
     //@ts-ignore
     // console.log(data[1]?.result["Uint256"].maximumTicket)
     //@ts-ignore
-    console.log(data, "met")
-    console.log(metaData, "ts")
+    // console.log(data, "met")
+    // console.log(metaData, "ts")
     // console.log("loged")
     // console.log(data?.at(0).result.at(0))
   }
@@ -153,7 +159,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
       <div key={i} className=" w-[23rem] flex flex-col items-center relative">
         <div className="w-full flex justify-center items-center h-full absolute -top-[10%] bottom-0 right-0 left-0 flex-col gap-y-3">
           {ChanceRoomState?.at(0) === "Ticket selling" ? null : (
-            <div className="w-[70%] z-30">
+            <div className="w-[70%] z-30 pb-8">
               <p className="font-bold text-xl opacity-100 z-30 w-full text-center">
                 {ChanceRoomState?.at(0)}
               </p>
@@ -252,16 +258,23 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
 
         <Button
           scale="0.66"
-          onClick={handlePopUp}
+          // onClick={handlePopUp}
           // isLoading={ChanceRoomState?.at(0) === "Ticket selling" ? false : true}
           // disable={ChanceRoomState?.at(0) === "Ticket selling" ? false : true}
         >
-          ADD
+          <Link
+            href={`/Ticket/${contractAddress}`}
+            key={"231zasraw2"}
+            className="cursor-pointer w-full h-[65px] pt-1"
+            scroll={false}
+          >
+            ADD
+          </Link>
         </Button>
         <a
           href={`https://polygonscan.com/address/${contractAddress}`}
           target="_blank"
-          className=" mt-[60px] text-[13px] text-primary cursor-pointer z-50"
+          className=" mt-[60px] text-[13px] text-primary cursor-pointer z-30"
         >
           view on Polygonscan
         </a>

@@ -13,12 +13,12 @@ type IdenticProps = {
 
 const Indentic = ({ randString, fg, bg }: IdenticProps) => {
   const { address } = useAccount()
-  console.log()
+  // console.log()
   return (
     <div
       className="w-12 h-12 bg-slate-500 rounded-full"
       style={{
-        backgroundColor: stringToColour(address ? address?.toString() : "1"),
+        backgroundColor: stringToColour(address ? address?.toString().toLocaleLowerCase() : "1"),
       }}
     ></div>
   )

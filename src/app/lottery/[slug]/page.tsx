@@ -1,9 +1,9 @@
 import Button from "@/components/Button"
 import Image from "next/image"
 import Link from "next/link"
-import React from "react"
+import React, { useMemo, useState } from "react"
 
-import Spinner from "@/components/ui/Spinner"
+import Spinner from "@/components/chanceRoom/Spinner"
 import Table from "../../../assets/img/home/table.svg"
 import Settel from "../../../assets/img/home/sett.svg"
 import Ticket from "@/../public/home/ticket.svg"
@@ -17,6 +17,10 @@ import ChanseRoomName from "@/components/chanceRoom/ChanseRoomName"
 import { Drawer } from "@mui/material"
 import LeftMenu from "@/components/chanceRoom/LeftMenu"
 import Sound from "@/components/chanceRoom/Sound"
+import Winner from "@/components/chanceRoom/Winner"
+import { useContractEvent } from "wagmi"
+import { secondAbi1Bd } from "@/assets/abis/mainAbis"
+import { VrFABI } from "@/assets/abis/smap"
 
 type lotteryProps = {
   params: {
@@ -36,13 +40,13 @@ const page = ({ params: { slug } }: lotteryProps) => {
           </div>
           <div className="lg:flex hidden flex-col gap-y-2 justify-center items-center mix-w-[900px]:w-[11rem]">
             <Button fontW="text-[20px]" scale="1" styless="mb-2">
-              <Link href={"/"} className="w-full h-full">
+              <a href={`/Ticket/${slug}`} className="w-full h-[65px] pt-2">
                 Mint more ticket
-              </Link>
+              </a>
             </Button>
             <Sound />
             <Button styless="" scale="0.8">
-              <Link href={"/"} className="w-full h-full">
+              <Link href={"/"} className="w-full h-[60px] pt-1">
                 BACK
               </Link>
             </Button>
@@ -73,22 +77,8 @@ const page = ({ params: { slug } }: lotteryProps) => {
             </div>
           </div>
           <Spinner contractAddress={slug} />
-
-          {/* <div className="flex flex-col text-center justify-end  w-[30%] pb-14">
-            <span>winner</span>
-            <span>0x231f214123a23</span>
-            <span>congrats!</span>
-            <div className="flex text-center w-full justify-center">
-              <div className="flex flex-col">
-                <span>owner item #32</span>
-                <span>you can settel</span>
-              </div>
-              <Settel />
-            </div>
-            <span>and recieve you NFT prize.</span>
-            <span className="text-[#2862FF] underline">etherscan link</span>
-            <span className="text-[#2862FF] underline">contract address</span>
-          </div> */}
+          {/* <button onClick={logg}>clogg</button> */}
+          <Winner />
         </div>
       </div>
     </div>

@@ -44,14 +44,14 @@ const page = ({ params, ...other }: any) => {
         <p className="lg:font-[400] font-light lg:text-[36px] text-[24px]">GO TO CHANCE ROOOM</p>
         <div className="flex justify-between gap-x-14 min-w-[600px] w-[45%] ">
           <Button>
-            <Link href={"/"} className="w-full h-full">
+            <Link href={"/"} className="w-full h-[65px] pt-1">
               BACK
             </Link>
           </Button>
           <Button>
             <Link
               href={`/lottery/${other.searchParams.chanceRoomAddress}`}
-              className="w-full h-full"
+              className="w-full h-[65px] pt-1"
             >
               LET’S GO
             </Link>

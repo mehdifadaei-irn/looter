@@ -3,7 +3,7 @@ import "./globals.css"
 import { Inter, Poppins, Zen_Dots } from "next/font/google"
 import Head from "next/head"
 import Providers from "@/components/Provider"
-import { Metadata } from 'next'
+import { Metadata } from "next"
 
 const popping1 = Inter({
   subsets: ["latin"],
@@ -15,16 +15,18 @@ export const metadata: Metadata = {
   description: "NFT Polygon",
 }
 
-
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+  buyTicketModal,
+}: {
+  children: React.ReactNode
+  buyTicketModal: React.ReactNode
+}) {
   return (
     <html lang="en">
-      <Head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-      </Head>
-      <body className={cn("antialiased ", popping1.className, zenD.className)}>
+      <body className={cn("", zenD.className)}>
         <Providers>
+          {buyTicketModal}
           <div>{children}</div>
         </Providers>
       </body>

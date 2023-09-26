@@ -40,6 +40,8 @@ import { mainnet, polygon, optimism, arbitrum, zora, sepolia, polygonMumbai } fr
 import { alchemyProvider } from "wagmi/providers/alchemy"
 import { publicProvider } from "wagmi/providers/public"
 import { Toaster } from "sonner"
+import { store } from "@/redux/store"
+import { Provider } from "react-redux"
 
 // import { ApolloClient, InMemoryCache, ApolloProvider, gql } from "@apollo/client"
 
@@ -58,7 +60,7 @@ import { Toaster } from "sonner"
 const queryClient = new QueryClient()
 
 const { chains, publicClient } = configureChains(
-  [mainnet, polygon, sepolia, polygonMumbai],
+  [polygon],
   // [alchemyProvider({ apiKey: "" }), publicProvider()],
   [alchemyProvider({ apiKey: "0MsDcTulwe_aZJEcg150EPv6Tnwn2qn5" })],
 )
@@ -68,9 +70,8 @@ const connectors = connectorsForWallets([
     groupName: "Recommended",
     wallets: [
       injectedWallet({ chains }),
-      trustWallet({ chains, projectId: "8b613e9540de4d92d09f5ed1611877c9" }),
-      walletConnectWallet({ chains, projectId: "8b613e9540de4d92d09f5ed1611877c9" }),
-      metaMaskWallet({ chains, projectId: "8b613e9540de4d92d09f5ed1611877c9" }),
+      trustWallet({ chains, projectId: "8b613e9540de4d92d09f5ed1611877c92" }),
+      metaMaskWallet({ chains, projectId: "8b613e9540de4d92d09f5ed16112877c9" }),
       coinbaseWallet({ appName: "lootery", chains }),
     ],
   },
@@ -78,7 +79,7 @@ const connectors = connectorsForWallets([
     groupName: "Others",
     wallets: [
       phantomWallet({ chains }),
-      ledgerWallet({ chains, projectId: "8b613e9540de4d92d09f5ed1611877c9" }),
+      ledgerWallet({ chains, projectId: "8b613e9540de411d92d09f5ed1611877c9" }),
     ],
   },
 ])
@@ -95,12 +96,16 @@ const Providers: FC<LayoutProps> = ({ children }) => {
   return (
     <>
       {/* <ApolloProvider client={clinet}> */}
-      <WagmiConfig config={wagmiConfig}>
-        <QueryClientProvider client={queryClient}>
-          <RainbowKitProvider coolMode chains={chains}>{children}</RainbowKitProvider>
-          <Toaster position="top-right" richColors />
-        </QueryClientProvider>
-      </WagmiConfig>
+      <Provider store={store}>
+        <WagmiConfig config={wagmiConfig}>
+          <QueryClientProvider client={queryClient}>
+            <RainbowKitProvider coolMode chains={chains}>
+              {children}
+            </RainbowKitProvider>
+            <Toaster position="top-right" richColors />
+          </QueryClientProvider>
+        </WagmiConfig>
+      </Provider>
       {/* </ApolloProvider> */}
     </>
   )
