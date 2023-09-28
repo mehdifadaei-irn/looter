@@ -326,12 +326,6 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
     }
   }, [rollUpLoading])
 
-  const { data: vbala } = useBalance({
-    address: "0x00000F3a2e70e9b7b226756D024F0E0776f04C26",
-  })
-  //@ts-ignore
-  console.log(formatEther(vbala?.value))
-
   // console.log(pieData)
 
   // useContractEvent({
