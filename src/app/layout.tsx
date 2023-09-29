@@ -3,6 +3,7 @@ import "./globals.css"
 import { Inter, Poppins, Zen_Dots } from "next/font/google"
 import Head from "next/head"
 import Providers from "@/components/Provider"
+// import pgg from "../../public/iconLog.s"
 import { Metadata } from "next"
 
 const popping1 = Inter({
@@ -13,6 +14,10 @@ const zenD = Zen_Dots({ subsets: ["latin"], weight: ["400"] })
 export const metadata: Metadata = {
   title: "Lootery",
   description: "NFT Polygon",
+  icons: {
+    
+    icon: "/iconLog.svg",
+  },
 }
 
 export default function RootLayout({

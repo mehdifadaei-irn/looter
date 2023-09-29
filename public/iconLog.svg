@@ -1,0 +1,19 @@
+<svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">
+ <g id="Layer_1">
+  <title>Layer 1</title>
+  <path id="svg_21" d="m15.85257,16.09572l13.19352,-7.46772l1.85484,7.41935l-15.04836,0.04837z" opacity="NaN" stroke="#ffffff" fill="#00bf00"/>
+  <path transform="rotate(30 24.1433 16.7719)" id="svg_27" d="m16.62724,20.48672l13.00689,-7.42953l2.02532,7.11224l-15.03221,0.31729z" opacity="NaN" stroke="#ffffff" fill="#ff0000"/>
+  <path transform="rotate(60 22.8563 20.5987)" id="svg_29" d="m15.33214,24.3326l13.19352,-7.46772l1.85483,7.41935l-15.04835,0.04837z" opacity="NaN" stroke="#ffffff" fill="#00bf00"/>
+  <path transform="rotate(90 19.4204 23.4677)" id="svg_30" d="m11.90428,27.18248l13.00689,-7.42953l2.02531,7.11223l-15.0322,0.3173z" opacity="NaN" stroke="#ffffff" fill="#ff0000"/>
+  <path transform="rotate(120 15.3097 24.3039)" id="svg_32" d="m7.78553,28.03779l13.19352,-7.46772l1.85483,7.41935l-15.04835,0.04837z" opacity="NaN" stroke="#ffffff" fill="#00bf00"/>
+  <path transform="rotate(150 11.1071 22.7628)" id="svg_33" d="m3.59096,26.47755l13.00689,-7.42953l2.02531,7.11223l-15.0322,0.3173z" opacity="NaN" stroke="#ffffff" fill="#ff0000"/>
+  <path transform="rotate(180 8.52443 19.5313)" id="svg_35" d="m1.00026,23.26521l13.19352,-7.46772l1.85483,7.41935l-15.04835,0.04837z" opacity="NaN" stroke="#ffffff" fill="#00bf00"/>
+  <path transform="rotate(210 7.75782 15.1212)" id="svg_36" d="m0.2417,18.83589l13.00689,-7.42953l2.02531,7.11223l-15.0322,0.3173z" opacity="NaN" stroke="#ffffff" fill="#ff0000"/>
+  <path transform="rotate(-60 16.5312 7.64947)" id="svg_38" d="m9.00706,11.38332l13.19352,-7.46772l1.85483,7.41935l-15.04835,0.04837z" opacity="NaN" stroke="#ffffff" fill="#00bf00"/>
+  <path transform="rotate(-30 20.7339 9.19064)" id="svg_39" d="m13.21775,12.90537l13.00689,-7.42953l2.02531,7.11223l-15.0322,0.3173z" opacity="NaN" stroke="#ffffff" fill="#ff0000"/>
+  <path transform="rotate(-120 8.86413 11.4149)" id="svg_41" d="m1.33996,15.14878l13.19352,-7.46772l1.85483,7.41935l-15.04835,0.04837z" opacity="NaN" stroke="#ffffff" fill="#00bf00"/>
+  <path transform="rotate(-90 12.3001 8.54592)" id="svg_42" d="m4.78398,12.26066l13.00689,-7.42953l2.02531,7.11223l-15.0322,0.3173z" opacity="NaN" stroke="#ffffff" fill="#ff0000"/>
+  <ellipse ry="1" stroke="null" rx="2" id="svg_46" cy="15.85523" cx="16.01502" fill="#0000ff"/>
+ </g>
+
+</svg>
