@@ -45,193 +45,6 @@ export interface SimpleDialogProps {
   modalContent?: any
 }
 
-function SimpleDialog(props: SimpleDialogProps) {
-  const { onClose, open, modalContent } = props
-  const [amount, setAmount] = React.useState<number>(1)
-  const route = useRouter()
-  const account = useAccount()
-  const { openConnectModal } = useConnectModal()
-  // const realPriceOf = modalContent?.realPrice?.toString()
-  const balanceOfTicket = useDebounce(modalContent.realPrice1)
-
-  const { config } = usePrepareContractWrite({
-    address: modalContent.contractAddress,
-    abi: secondAbiBC3,
-    functionName: "purchaseTicket",
-    args: [],
-    value: balanceOfTicket ? parseEther(balanceOfTicket as `${number}`) : undefined,
-    //@ts-ignore
-    // value: parseEther("1"),
-    // onError(error) {
-    //   if (
-    //     //@ts-ignore
-    //     error?.docsPath == "/docs/contract/simulateContract"
-    //   ) {
-    //     console.log(error)
-    //   } else {
-    //     console.log("222")
-    //     toast.error("transaction rejected!")
-    //     route.refresh()
-    //   }
-    // },
-    onSuccess(data) {
-      route.refresh()
-    },
-  })
-  const { write, data, error, isLoading, isError } = useContractWrite(config)
-
-  const {
-    data: receipt,
-    isLoading: isPending,
-    isSuccess,
-  } = useWaitForTransaction({ hash: data?.hash })
-
-  const handleClose = () => {
-    onClose()
-    // console.log(modalContent)
-  }
-
-  function handleamount(work: "inc" | "dec") {
-    toast("sorry you can buy just 1 ticket for now!")
-    // if (work === "inc") {
-    //   if (amount < 10) {
-    //     setAmount((prev) => prev + 1)
-    //   } else {
-    //     toast("just 10 ticket available now!")
-    //   }
-    // }
-    // if (work === "dec") {
-    //   if (amount > 1) {
-    //     setAmount((prev) => prev - 1)
-    //   } else {
-    //     toast("you must have at least 1 ticket")
-    //   }
-    // }
-  }
-
-  function handleBuyTicket() {
-    // console.log(account.isConnected)
-    if (account.isConnected) {
-      write?.()
-    } else {
-      toast.error("you must connect your wallet!")
-      openConnectModal?.()
-    }
-  }
-
-  function logg() {
-    console.log(error)
-  }
-
-  return (
-    <Dialog
-      onClose={handleClose}
-      open={open}
-      fullWidth
-      maxWidth={"lg"}
-      sx={{ display: "flex", height: "100%", flexDirection: "column", borderRadius: 67 }}
-    >
-      <div className="rounded-3xl border-7 border-black  px-10 pt-5 bg-secondaryLight overflow-hidden">
-        <div className="w-full flex justify-between flex-col-reverse xl:flex-row lg:gap-y-10 gap-y-1">
-          <div>
-            <a
-              href={`https://polygonscan.com/address/${modalContent.contractAddress}`}
-              target="_blank"
-              className="font-medium text-[30px] font-pop underline w-full"
-            >
-              <span className="hidden lg:block">{modalContent.contractAddress}</span>
-              <span className="block lg:hidden">{modalContent.contractAddress?.slice(0, 9)}</span>
-            </a>
-            <p className="font-zen text-2xl mt-3">{modalContent.name}</p>
-            <p>
-              <span className="font-pop font-bold text-[28px]">Spain date: </span>
-              <span className="font-pop font-normal text-[26px]">
-                {modalContent.spainDate}
-                {/* {modalContent.time} */}
-              </span>
-            </p>
-            <p>
-              <span className="font-pop font-bold text-[28px]">suplly: </span>
-              <span className="font-pop font-normal text-[26px]">{modalContent.totalSuplly}</span>
-            </p>
-            <p className="mb-2">
-              <span className="font-pop font-bold text-[28px]">price:</span>
-              <span className="font-pop font-[500] text-[26px]">{modalContent.price}Matic</span>
-            </p>
-            <p className="font-pop font-bold text-[28px]">suplly</p>
-            <span className="font-pop font-bold  text-[26px]">{modalContent.suplly}</span>
-          </div>
-
-          <div className="bg-slate-100 h-[25%] border-2 border-primary px-3  rounded-3xl flex justify-center items-center">
-            <Image alt="nft" src={modalContent.nftImg} width={220} height={220} />
-          </div>
-        </div>
-        <div className="flex justify-between items-center lg:flex-row flex-col">
-          <Button fontW="font-zen" scale="0.85" onClick={handleClose}>
-            Back
-          </Button>
-          <div className="flex items-center">
-            <div className="relative">
-              <div className="relative  w-[16rem] h-[9rem]" onClick={handleBuyTicket}>
-                <span
-                  style={{
-                    opacity: isLoading ? "0.7" : "1",
-                    cursor: isLoading ? "not-allowed" : "pointer",
-                  }}
-                  className="absolute top-[27%] lg:left-[25%] left-[26%] font-medium text-2xl z-50 font-pop text-black cursor-pointer"
-                >
-                  {amount}
-                </span>
-                {/* <div className="bg-slate-300 absolute w-9 h-11">
-                </div> */}
-                <BlueBtn
-                  style={{
-                    opacity: isLoading ? "0.7" : "1",
-                    cursor: isLoading ? "not-allowed" : "pointer",
-                  }}
-                  className="cursor-pointer lg:scale-[0.8] scale-[0.9] z-0 absolute -top-4 max-[1000px]:-right-[22px] "
-                />
-              </div>
-
-              <a
-                href={`https://opensea.io/assets/matic/${modalContent.title}`}
-                target="_blank"
-                className="absolute bottom-[20%] w-full  lg:left-[0%] left-[7%] mt-[60px] text-[13px] text-primary cursor-pointer text-center"
-              >
-                view on opensea
-              </a>
-            </div>
-            <div className="mb-4 lg:-translate-x-6 translate-x-1 flex flex-col gap-y-2">
-              <Up
-                className="hover:-translate-y-1 duration-300 cursor-pointer"
-                onClick={() => handleamount("inc")}
-              />
-              <Down
-                className="hover:translate-y-1 duration-300 cursor-pointer"
-                onClick={() => handleamount("dec")}
-              />
-            </div>
-          </div>
-          <Button scale="0.85" className="translate-y-5" styless="-translate-y-5">
-            <Link
-              href={{
-                pathname: `tickets/${account.address}`,
-                query: {
-                  chanceRoomAddress: modalContent.contractAddress,
-                  totalSupply: modalContent.totalSuplly,
-                },
-              }}
-              className="w-full h-[60px] pt-1"
-            >
-              Continue
-            </Link>
-          </Button>
-        </div>
-      </div>
-    </Dialog>
-  )
-}
-
 const NftList = () => {
   const [open, setOpen] = React.useState(false)
   const [modalContent, setModalContent] = React.useState<any>({})
@@ -259,10 +72,10 @@ const NftList = () => {
 
   return (
     <div className="w-full mt-10">
-      <div className="flex  flex-wrap px-[4rem] xl:justify-between justify-center gap-y-12">
+      <div className="flex  flex-wrap md:px-[4rem] px-0 xl:justify-between justify-center gap-y-12 xl:gap-x-0 gap-x-16">
         {data
           //@ts-ignore
-          ?.slice(-5)
+          ?.slice(-4)
           ?.reverse()
           .map((room: any, i: string) => (
             <Reveal key={i}>
@@ -271,7 +84,7 @@ const NftList = () => {
           ))}
       </div>
       {/* <Toaster richColors position="top-right" /> */}
-      <SimpleDialog open={open} onClose={handleClose} modalContent={modalContent} />
+      {/* <SimpleDialog open={open} onClose={handleClose} modalContent={modalContent} /> */}
     </div>
   )
 }

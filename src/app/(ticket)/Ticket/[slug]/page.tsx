@@ -248,13 +248,13 @@ const page = ({ params: { slug } }: any) => {
 
           <div className="flex items-center">
             <div className="relative">
-              <div className="relative  w-[16rem] h-[9rem]" onClick={handleBuyTicket}>
+              <div className="relative  w-[309px] h-[165px]" onClick={handleBuyTicket}>
                 <span
                   style={{
                     opacity: !write ? "0.7" : "1",
                     cursor: !write ? "not-allowed" : "pointer",
                   }}
-                  className="absolute top-[27%] lg:left-[25%] left-[26%] font-medium text-2xl z-50 font-pop text-black cursor-pointer"
+                  className="absolute top-[52px] lg:left-[25%] left-[26%] font-medium text-[30px] z-50 font-pop text-black cursor-pointer"
                 >
                   {amount}
                 </span>

@@ -1,5 +1,5 @@
 "use client"
-import React from "react"
+import React, { useEffect } from "react"
 
 import { secondAbiBC3 } from "@/assets/abis/mainAbis"
 
@@ -10,6 +10,7 @@ import Image from "next/image"
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { formatEther } from "viem"
+import { Toaster, toast } from "sonner"
 
 const ChanceRoomTicketNumber = ({
   contractAddress,
@@ -19,12 +20,19 @@ const ChanceRoomTicketNumber = ({
   totallSupply: number
 }) => {
   const { address: accountAddress } = useAccount()
+
   const { data: balanceOf, isLoading }: { data: any; isLoading: boolean } = useContractRead({
     address: contractAddress,
     abi: secondAbiBC3,
     functionName: "balanceOf",
     args: [accountAddress],
   })
+
+  useEffect(() => {
+    if (!accountAddress) {
+      toast("please connect your wallet to see your chance!")
+    }
+  }, [])
 
   const { data: metaData }: { data: any } = useQuery({
     queryKey: ["getMetadata", `${contractAddress}`],
@@ -71,6 +79,7 @@ const ChanceRoomTicketNumber = ({
           win
         </p>
       </div>
+      <Toaster position="top-right" richColors />
     </>
   )
 }

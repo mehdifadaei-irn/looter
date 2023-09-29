@@ -7,6 +7,9 @@ import Image from "next/image"
 import Link from "next/link"
 import { twMerge } from "tailwind-merge"
 import ChanceRoomTicketNumber from "@/components/ChanceRoomTicketNumber"
+import Navbar from "@/components/Navbar"
+import { useRouter } from "next/navigation"
+import { Toaster } from "sonner"
 
 const mainList = [
   {
@@ -21,16 +24,22 @@ const mainList = [
 const page = ({ params, ...other }: any) => {
   // const accountAddress = slug
   // console.log(other.searchParams.chanceRoomAddress)
+  // const router = useRouter()
+
+  // function handleLetsGo() {
+  //   router.push(`/lottery/${other.searchParams.chanceRoomAddress}`)
+  // }
   return (
     <div
       className={twMerge(
-        "backg w-full h-screen flex flex-col  py-8 items-center overflow-hidden justify-between",
+        "backg w-full h-screen flex flex-col  pb-6 items-center overflow-hidden justify-between",
       )}
     >
+      <Navbar />
       <h3 className="lg:font-[400] lg:text-[56px] text-[40px] font-light">Your Tickets</h3>
       {/* Tickets  border-2 rounded-3xl bg-[#F7F5D0] */}
 
-      <div className="w-[95%] max-w-[955px] h-[530px] border-2 rounded-3xl bg-[#F7F5D0]  border-black mt-2 relative mb-14 overflow-hidden">
+      <div className="w-[95%] max-w-[955px] h-[530px] border-2 rounded-3xl bg-[#F7F5D0]  border-black mt-2 relative  overflow-hidden">
         <Suspense fallback={<div>helo</div>}>
           <div className="flex flex-col h-full items-center justify-between py-7  gap-y-2">
             <ChanceRoomTicketNumber
@@ -44,14 +53,14 @@ const page = ({ params, ...other }: any) => {
         <p className="lg:font-[400] font-light lg:text-[36px] text-[24px]">GO TO CHANCE ROOOM</p>
         <div className="flex justify-between gap-x-14 min-w-[600px] w-[45%] ">
           <Button>
-            <Link href={"/"} className="w-full h-[65px] pt-1">
+            <Link href={"/"} className="w-full h-[65px] pb-[4px] flex items-center justify-center">
               BACK
             </Link>
           </Button>
           <Button>
             <Link
               href={`/lottery/${other.searchParams.chanceRoomAddress}`}
-              className="w-full h-[65px] pt-1"
+              className="w-full h-[65px] pb-[4px] flex items-center justify-center"
             >
               LET’S GO
             </Link>

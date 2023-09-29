@@ -99,11 +99,11 @@ const Needle = ({
     functionName: "winner",
     chainId: polygon.id,
     onSuccess(data) {
-      console.log(data)
+      // console.log(data)
       //@ts-ignore
       if (data[1] !== "0x0000000000000000000000000000000000000000") {
         //@ts-ignore
-        stopCounting(WinnerAddr[1])
+        stopCounting(data[1])
       }
     },
   })

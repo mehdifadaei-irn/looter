@@ -115,39 +115,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
     parseInt(timstamp),
   )
 
-  function logg() {
-    //@ts-ignore
-    // console.log(data[1]?.result["Uint256"].maximumTicket)
-    //@ts-ignore
-    // console.log(data, "met")
-    // console.log(metaData, "ts")
-    // console.log("loged")
-    // console.log(data?.at(0).result.at(0))
-  }
-  function handlePopUp() {
-    handleClickOpen({
-      title: metaData.token_address,
-      name: data?.at(3).result.slice(0, 15),
-      spainDate: `${deadtime.getUTCDate()} ${deadtime.toLocaleString("default", {
-        month: "long",
-      })} -${deadtime.getUTCHours()}:${deadtime.getUTCMinutes()}:${deadtime.getUTCSeconds()}`,
-      totalSuplly: data[1]?.result["Uint256"].maximumTicket.toString(),
-      suplly: `${//@ts-ignore
-      data[1]?.result["Uint256"].maximumTicket.toString()}${"\\"}${//@ts-ignore
-      data[1]?.result["Uint256"].soldTickets.toString()}`,
-      price: data //@ts-ignore
-        ? !parseInt(data?.at(1)?.result?.Uint256?.ticketPrice.toString().slice(0, -1)) / 10 ** 17
-          ? "0"
-          : //@ts-ignore
-            parseInt(data?.at(1)?.result?.Uint256?.ticketPrice.toString().slice(0, -1)) / 10 ** 17
-        : null,
-      nftImg: metaData?.normalized_metadata.image,
-      contractAddress: contractAddress,
-      realPrice:
-        parseInt(data?.at(1)?.result?.Uint256?.ticketPrice.toString().slice(0, -1)) / 10 ** 17,
-      realPrice1: formatEther(data?.at(1)?.result?.Uint256?.ticketPrice),
-    })
-  }
+  function logg() {}
 
   if (!initialRenderComplete) {
     // Returning null will prevent the component from rendering, so the content will simply be missing from
@@ -183,10 +151,10 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
             }}
           >
             <div className="w-full flex items-center justify-center ">
-              <div className="relative w-full h-[20rem] flex items-center justify-center">
+              <div className="relative w-full h-[364px] flex items-center justify-center">
                 <Image
                   src={"/dumyNft.png"}
-                  className="absolute z-0 top-0 bottom-0 right-0 left-0 mx-auto my-auto"
+                  className="absolute z-0 top-[2px] bottom-0 right-0 left-0 mx-auto my-auto"
                   alt="Simp"
                   width={360}
                   height={380}
@@ -196,7 +164,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
                     maxWidth: "none",
                     height: "340px",
                   }}
-                  className=" absolute z-10 rounded-[24%] top-[18px] -translate-x-2  bg-contain object-contain mx-auto "
+                  className=" absolute z-10 rounded-[24%] top-[1px] -translate-x-2  bg-contain mx-auto "
                   src={metaData?.normalized_metadata.image}
                   alt="nft"
                   width={335}
@@ -265,7 +233,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
           <Link
             href={`/Ticket/${contractAddress}`}
             key={"231zasraw2"}
-            className="cursor-pointer w-full h-[65px] pt-1"
+            className="cursor-pointer w-full h-[65px] pb-[4px] flex items-center justify-center"
             scroll={false}
           >
             ADD

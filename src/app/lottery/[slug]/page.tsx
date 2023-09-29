@@ -46,7 +46,10 @@ const page = ({ params: { slug } }: lotteryProps) => {
             </Button>
             <Sound />
             <Button styless="" scale="0.8">
-              <Link href={"/"} className="w-full h-[60px] pt-1">
+              <Link
+                href={"/"}
+                className="cursor-pointer w-full h-[60px] pb-[4px] flex items-center justify-center"
+              >
                 BACK
               </Link>
             </Button>

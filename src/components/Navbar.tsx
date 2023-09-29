@@ -40,107 +40,107 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="w-full flex justify-between px-10 pt-8">
+      <nav className="w-full flex md:justify-between sm:justify-end justify-center px-10 pt-8">
         {/* <button onClick={()=> console.log(ensName)}>aa</button> */}
+        <div className="md:block hidden">
+          <ConnectButton.Custom>
+            {({
+              account,
+              chain,
+              openAccountModal,
+              openChainModal,
+              openConnectModal,
+              authenticationStatus,
+              mounted,
+            }) => {
+              // Note: If your app doesn't use authentication, you
+              // can remove all 'authenticationStatus' checks
+              const ready = mounted && authenticationStatus !== "loading"
+              const connected =
+                ready &&
+                account &&
+                chain &&
+                (!authenticationStatus || authenticationStatus === "authenticated")
 
-        <ConnectButton.Custom>
-          {({
-            account,
-            chain,
-            openAccountModal,
-            openChainModal,
-            openConnectModal,
-            authenticationStatus,
-            mounted,
+              return (
+                <div
+                  {...(!ready && {
+                    "aria-hidden": true,
+                    style: {
+                      opacity: 0,
+                      pointerEvents: "none",
+                      userSelect: "none",
+                    },
+                  })}
+                >
+                  {(() => {
+                    if (!connected) {
+                      return (
+                        <div className="border-zinc-900 pr-4  border-[2.5px] flex rounded-3xl">
+                          <div className="flex justify-center w-20 items-center border-r-2 border-zinc-900">
+                            <Glass className="translate-y-1 translate-x-3 " />
+                          </div>
+                          <div className="h-[100%] -translate-x-3 flex items-center justify-center w-[2px] bg-zinc-900 duration-700 text-center" />
+                          <NoSSRPara isConnected={isConnected} address={address} />
+                        </div>
+                      )
+                    }
 
-          }) => {
-            // Note: If your app doesn't use authentication, you
-            // can remove all 'authenticationStatus' checks
-            const ready = mounted && authenticationStatus !== "loading"
-            const connected =
-              ready &&
-              account &&
-              chain &&
-              (!authenticationStatus || authenticationStatus === "authenticated")
+                    if (chain.unsupported) {
+                      return (
+                        <div className="border-zinc-900 pr-4  border-[2.5px] flex rounded-3xl">
+                          <div className="flex justify-center w-20 items-center border-r-2 border-zinc-900">
+                            <Glass className="translate-y-1  " />
+                          </div>
+                          <div className="h-[100%] -translate-x-3 flex items-center justify-center w-[2px] bg-zinc-900 duration-700" />
+                          <p className="font-semibold text-[33px] leading-10">Wrong network</p>
+                        </div>
+                      )
+                    }
 
-            return (
-              <div
-                {...(!ready && {
-                  "aria-hidden": true,
-                  style: {
-                    opacity: 0,
-                    pointerEvents: "none",
-                    userSelect: "none",
-                  },
-                })}
-              >
-                {(() => {
-                  if (!connected) {
                     return (
-                      <div className="border-zinc-900 pr-4  border-[2.5px] flex rounded-3xl">
-                        <div className="flex justify-center w-20 items-center border-r-2 border-zinc-900">
-                          <Glass className="translate-y-1 translate-x-3 " />
+                      <button
+                        onClick={openChainModal}
+                        style={{ display: "flex", alignItems: "center" }}
+                        type="button"
+                        className="border-zinc-500 pr-2 pl-1 h-[45px]  border-[2.5px] flex rounded-3xl font-pop"
+                      >
+                        <div className="h-[45px] flex items-center border-r-2 border-zinc-400">
+                          <div className="flex justify-center items-center ">
+                            {chain.hasIcon && (
+                              <div
+                                style={{
+                                  background: chain.iconBackground,
+                                  width: 36,
+                                  height: 36,
+                                  borderRadius: 999,
+                                  overflow: "hidden",
+                                  marginRight: 4,
+                                }}
+                              >
+                                {chain.iconUrl && (
+                                  <img
+                                    alt={chain.name ?? "Chain icon"}
+                                    src={chain.iconUrl}
+                                    style={{ width: 36, height: 36 }}
+                                  />
+                                )}
+                              </div>
+                            )}
+                          </div>
                         </div>
-                        <div className="h-[100%] -translate-x-3 flex items-center justify-center w-[2px] bg-zinc-900 duration-700 text-center" />
-                        <NoSSRPara isConnected={isConnected} address={address} />
-                      </div>
+
+                        <p className="font-semibold text-[20px] pl-1 leading-10  font-pop">
+                          {chain.name}
+                        </p>
+                      </button>
                     )
-                  }
-
-                  if (chain.unsupported) {
-                    return (
-                      <div className="border-zinc-900 pr-4  border-[2.5px] flex rounded-3xl">
-                        <div className="flex justify-center w-20 items-center border-r-2 border-zinc-900">
-                          <Glass className="translate-y-1  " />
-                        </div>
-                        <div className="h-[100%] -translate-x-3 flex items-center justify-center w-[2px] bg-zinc-900 duration-700" />
-                        <p className="font-semibold text-[33px] leading-10">Wrong network</p>
-                      </div>
-                    )
-                  }
-
-                  return (
-                    <button
-                      onClick={openChainModal}
-                      style={{ display: "flex", alignItems: "center" }}
-                      type="button"
-                      className="border-zinc-500 pr-2 pl-1 h-[45px]  border-[2.5px] flex rounded-3xl font-pop"
-                    >
-                      <div className="h-[45px] flex items-center border-r-2 border-zinc-400">
-                        <div className="flex justify-center items-center ">
-                          {chain.hasIcon && (
-                            <div
-                              style={{
-                                background: chain.iconBackground,
-                                width: 36,
-                                height: 36,
-                                borderRadius: 999,
-                                overflow: "hidden",
-                                marginRight: 4,
-                              }}
-                            >
-                              {chain.iconUrl && (
-                                <img
-                                  alt={chain.name ?? "Chain icon"}
-                                  src={chain.iconUrl}
-                                  style={{ width: 36, height: 36 }}
-                                />
-                              )}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-
-                      <p className="font-semibold text-[20px] pl-1 leading-10  font-pop">
-                        {chain.name}
-                      </p>
-                    </button>
-                  )
-                })()}
-              </div>
-            )
-          }}
-        </ConnectButton.Custom>
+                  })()}
+                </div>
+              )
+            }}
+          </ConnectButton.Custom>
+        </div>
         <div>
           <ConnectButton.Custom>
             {({
