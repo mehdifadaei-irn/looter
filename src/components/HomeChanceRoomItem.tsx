@@ -21,6 +21,7 @@ import { useQuery } from "@tanstack/react-query"
 import { formatEther } from "viem"
 import { polygon } from "wagmi/chains"
 import Link from "next/link"
+import { MyButton } from "./ui/MyButton"
 const NoSSRZero = dynamic(() => import("../components/ui/Zero"), { ssr: false })
 
 type ChanceRoomItemProps = {
@@ -224,8 +225,11 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
           </div>
         )}
 
-        <Button
-          scale="0.66"
+        <MyButton
+          // scale="0.66"
+          IWidth={100}
+          IHeight={90}
+          sm={true}
           // onClick={handlePopUp}
           // isLoading={ChanceRoomState?.at(0) === "Ticket selling" ? false : true}
           // disable={ChanceRoomState?.at(0) === "Ticket selling" ? false : true}
@@ -233,12 +237,12 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
           <Link
             href={`/Ticket/${contractAddress}`}
             key={"231zasraw2"}
-            className="cursor-pointer w-full h-[65px] pb-[4px] flex items-center justify-center"
+            className="cursor-pointer w-full h-[65px] pb-[4px] flex items-center justify-center font-bold"
             scroll={false}
           >
             ADD
           </Link>
-        </Button>
+        </MyButton>
         <a
           href={`https://polygonscan.com/address/${contractAddress}`}
           target="_blank"

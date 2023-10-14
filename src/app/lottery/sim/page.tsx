@@ -1,5 +1,6 @@
 "use client"
 import { VrFABI } from "@/assets/abis/smap"
+import { MyButton } from "@/components/ui/MyButton"
 import { motion, useTime, useTransform } from "framer-motion"
 import { useEffect, useState } from "react"
 import { useContractEvent } from "wagmi"
@@ -46,8 +47,14 @@ const page = () => {
   // })
 
   return (
-    <div className="w-full h-screen flex justify-center items-center">
-      <h1>Hello</h1>
+    <div className="w-full flex">
+      <div className="mt-5 ml-5">
+        <MyButton IHeight={90} IWidth={250} isLoading={true}>
+          <p className="font-bold text-2xl">CONNECT</p>
+        </MyButton>
+        <h1>helo</h1>
+      </div>
+      <h2>melo</h2>
     </div>
   )
 }

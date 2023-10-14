@@ -11,6 +11,7 @@ import { polygonMumbai } from "wagmi/chains"
 import { ConnectButton } from "@rainbow-me/rainbowkit"
 import dynamic from "next/dynamic"
 import Reveal from "./ui/Reveal"
+import { MyButton } from "./ui/MyButton"
 
 const NoSSRPara = dynamic(() => import("../components/ui/Paragraph"), { ssr: false })
 
@@ -40,7 +41,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="w-full flex md:justify-between sm:justify-end justify-center px-10 pt-8">
+      <nav className="w-full flex md:justify-between sm:justify-end justify-center px-40 pt-6">
         {/* <button onClick={()=> console.log(ensName)}>aa</button> */}
         <div className="md:block hidden">
           <ConnectButton.Custom>
@@ -76,24 +77,29 @@ const Navbar = () => {
                   {(() => {
                     if (!connected) {
                       return (
-                        <div className="border-zinc-900 pr-4  border-[2.5px] flex rounded-3xl">
-                          <div className="flex justify-center w-20 items-center border-r-2 border-zinc-900">
-                            <Glass className="translate-y-1 translate-x-3 " />
+                        <div className="border-zinc-900 pr-3  mt-[4px]  border-[2.5px] flex gap-x-2 rounded-[50px] relative">
+                          <div className="flex justify-center w-20 items-center h-[56px]  border-r-2 border-x-zinc-900">
+                            <Glass className="translate-y-2 -translate-x-[4px]" width="60" />
                           </div>
-                          <div className="h-[100%] -translate-x-3 flex items-center justify-center w-[2px] bg-zinc-900 duration-700 text-center" />
-                          <NoSSRPara isConnected={isConnected} address={address} />
+                          <div className="flex justify-center items-center h-[56px]">
+                            <NoSSRPara isConnected={isConnected} address={address} />
+                          </div>
                         </div>
                       )
                     }
 
                     if (chain.unsupported) {
                       return (
-                        <div className="border-zinc-900 pr-4  border-[2.5px] flex rounded-3xl">
-                          <div className="flex justify-center w-20 items-center border-r-2 border-zinc-900">
-                            <Glass className="translate-y-1  " />
+                        <div
+                          className="border-zinc-900 pr-4  border-[2.5px] flex rounded-[50px] mt-2 gap-x-2 cursor-pointer"
+                          onClick={openChainModal}
+                        >
+                          <div className="flex justify-center w-20 items-center h-[56px]  border-r-2 border-x-zinc-900">
+                            <Glass className="translate-y-2 -translate-x-[4px]" width="60" />
                           </div>
-                          <div className="h-[100%] -translate-x-3 flex items-center justify-center w-[2px] bg-zinc-900 duration-700" />
-                          <p className="font-semibold text-[33px] leading-10">Wrong network</p>
+                          <div className="flex justify-center items-center h-[56px]">
+                            <p className="font-semibold text-[29px] leading-10">wrong network</p>
+                          </div>
                         </div>
                       )
                     }
@@ -103,9 +109,9 @@ const Navbar = () => {
                         onClick={openChainModal}
                         style={{ display: "flex", alignItems: "center" }}
                         type="button"
-                        className="border-zinc-500 pr-2 pl-1 h-[45px]  border-[2.5px] flex rounded-3xl font-pop"
+                        className="border-zinc-500 pr-3 pl-2 h-[55px]  border-[2.5px] flex rounded-[50px] font-pop mt-2"
                       >
-                        <div className="h-[45px] flex items-center border-r-2 border-zinc-400">
+                        <div className="h-[55px] flex items-center border-r-2 border-zinc-400">
                           <div className="flex justify-center items-center ">
                             {chain.hasIcon && (
                               <div
@@ -177,28 +183,41 @@ const Navbar = () => {
                   {(() => {
                     if (!connected) {
                       return (
-                        <Button onClick={openConnectModal} type="button">
-                          Connect Wallet
-                        </Button>
+                        <MyButton
+                          IHeight={90}
+                          IWidth={220}
+                          onClick={openConnectModal}
+                          type="button"
+                        >
+                          <span className="font-bold text-[23px] tracking-tight">
+                            connect wallet
+                          </span>
+                        </MyButton>
                       )
                     }
 
                     if (chain.unsupported) {
                       return (
-                        <Button onClick={openChainModal} type="button">
-                          Wrong network
-                        </Button>
+                        <MyButton IHeight={90} IWidth={220} onClick={openChainModal} type="button">
+                          <span className="font-semibold text-[23px] tracking-tight">
+                            wrong network
+                          </span>
+                        </MyButton>
                       )
                     }
 
                     return (
                       <div style={{ display: "flex", gap: 0 }} className="flex font-pop ">
-                        <Button onClick={openAccountModal} scale="0.77" type="button">
-                          {account.displayName}
-                          {/* <span className="hidden lg:block">
-                            {account.displayBalance ? ` (${account.displayBalance})` : ""}
-                          </span> */}
-                        </Button>
+                        <MyButton
+                          IHeight={80}
+                          IWidth={190}
+                          onClick={openAccountModal}
+                          type="button"
+                        >
+                          <span className="font-bold text-[23px] tracking-tight">
+                            {account.displayName}
+                          </span>
+                        </MyButton>
                       </div>
                     )
                   })()}

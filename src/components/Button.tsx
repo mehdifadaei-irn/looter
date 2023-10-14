@@ -1,5 +1,6 @@
 import { FC } from "react"
 import Loader2 from "../assets/img/loader-2.svg"
+// import Loader2 from "../assets"
 import Yellow from "../assets/img/yellow.svg"
 import Clip from "../assets/img/Clip2.svg"
 import { cn } from "@/lib/utils"
