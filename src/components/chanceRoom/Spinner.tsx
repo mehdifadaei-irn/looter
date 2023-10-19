@@ -17,7 +17,7 @@ import {
   usePrepareContractWrite,
   useBalance,
 } from "wagmi"
-import { secondAbiBC3 } from "@/assets/abis/mainAbis"
+import { mainAbi } from "@/assets/abis/mainAbis"
 import { stringToColour } from "@/lib/generateColorFromHash"
 import Needle from "./Needle"
 import { toast } from "sonner"
@@ -26,6 +26,7 @@ import { polygon } from "wagmi/chains"
 import { chanceRoomAbi } from "@/assets/abis/samp2"
 import { useDispatch } from "react-redux"
 import { setWinner } from "@/redux/slices/winnerSelcet"
+import { MyButton } from "../ui/MyButton"
 
 const renderActiveShape = (props: any) => {
   const RADIAN = Math.PI / 180
@@ -161,12 +162,12 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
   })
   const { data: contractDataLayout, isLoading: isLayoutLoading } = useContractRead({
     address: contractAddress,
-    abi: secondAbiBC3,
+    abi: mainAbi,
     functionName: "layout",
   })
   const { data: StautsData, isLoading: isSatusLoading } = useContractRead({
     address: contractAddress,
-    abi: secondAbiBC3,
+    abi: mainAbi,
     functionName: "status",
     onSuccess(data: string[]) {
       setStatus(data)
@@ -206,33 +207,36 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
     onSuccess(data) {
       //@ts-ignore
       const TotalTickets: number = parseInt(contractDataLayout?.Uint256?.maximumTicket)
-      console.log(TotalTickets)
+      console.log(TotalTickets, "tot")
       let amo: number = 0
-      console.log(data)
-      const pied = data.result.reduce((acc: { name: string; value: number }[], cur: any) => {
+      console.log(data, "events111")
+      const pied = data.result.reduce((acc: any, cur: any) => {
         const address: `0x${string}` = cur.data.to.toString()
-        // console.log(address)
-        //@ts-ignore
-        if (address.toLocaleLowerCase() !== contractAddress.toLocaleLowerCase()) {
+        console.log(address, "5a")
+        if (data.result.length == 1) {
+          acc[contractAddress] = TotalTickets
+        } else {
           //@ts-ignore
-          if (acc[address]) {
-            amo++
-            if (address != contractAddress) {
-              //@ts-ignore
-              acc[address.toString()]++
-            }
-          } else {
-            amo++
-            if (address.toLocaleLowerCase() != contractAddress.toLocaleLowerCase()) {
-              // console.log("hey")
-              //@ts-ignore
-              acc[address] = 1
-            }
+          if (address.toLocaleLowerCase() !== contractAddress.toLocaleLowerCase()) {
             //@ts-ignore
-            acc[contractAddress] = TotalTickets - amo
+            if (acc[address]) {
+              amo++
+              if (address != contractAddress) {
+                //@ts-ignore
+                acc[address.toString()]++
+              }
+            } else {
+              amo++
+              if (address.toLocaleLowerCase() != contractAddress.toLocaleLowerCase()) {
+                // console.log("hey")
+                //@ts-ignore
+                acc[address] = 1
+              }
+              //@ts-ignore
+              acc[contractAddress] = TotalTickets - amo
+            }
           }
         }
-
         return acc
       }, {})
 
@@ -281,6 +285,7 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
         )
         setBtnDisable(true)
       } else {
+        setIsStarted(true)
         setBtnDisable(true)
       }
     } else if (status[0] === "Deadline execude") {
@@ -300,7 +305,7 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
 
   const { config } = usePrepareContractWrite({
     address: contractAddress,
-    abi: chanceRoomAbi,
+    abi: mainAbi,
     functionName: "rollup",
     chainId: polygon.id,
     args: [],
@@ -316,13 +321,11 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
         return
       }
     }
-    console.log("first")
     write?.()
   }
   useEffect(() => {
     if (isSuccess) {
       setIsStarted(true)
-      console.log(data)
     }
   }, [rollUpLoading])
 
@@ -330,7 +333,7 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
 
   // useContractEvent({
   //   address: "0x00000b324663D7982e44f87a3F6bf077EdA21c2f",
-  //   abi: secondAbiBC3,
+  //   abi: mainAbi,
   //   eventName: "Transfer",
   //   listener(log) {
   //     console.log(log, "e")
@@ -338,21 +341,27 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
   // })
   useContractEvent({
     address: contractAddress,
-    abi: secondAbiBC3,
-    eventName: "Trigger",
+    abi: mainAbi,
+    eventName: "Rollup",
     listener(log) {
-      console.log(log)
+      // console.log(log)
       setIsStarted(true)
     },
   })
 
+  // console.log(pieData, "picData")
+
   return (
-    <div className="relative xl:w-[37%] min-w-[32rem] xl:ml-0 w-full flex flex-col items-center ">
+    <div className="relative xl:w-[37%] min-w-[38rem] xl:ml-0 w-full flex flex-col items-center ">
       <div className=" flex justify-center absolute top-[3.6rem] xl:left-[42%]  left-[50%]">
         {!isLoading ? (
           <Image
             alt="nft1"
-            src={metaData?.normalized_metadata.image}
+            src={
+              metaData?.normalized_metadata.image.toString().slice(0, 4) == "http"
+                ? "https://ipfs.io/ipfs/QmT37EzSmQSUV1iMxxBBmG5T3WAt15rfPZvQfajEhsVATF/pfp0_5566.png"
+                : metaData?.normalized_metadata.image
+            }
             width={250}
             height={250}
             className={`opacity-70 z-100  `}
@@ -368,12 +377,12 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
         )}
       </div>
 
-      <div className="absolute w-full h-full flex justify-center ">
-        <div className="w-full h-full absolute flex justify-center items-center -top-[7rem] -left-[0rem] ">
+      <div className="absolute w-full h-full flex justify-center 2xl:-top-[10rem] xl:-top-[8rem] -top-[9rem] xl:-left-[0rem] left-8">
+        <div className="w-full h-full flex justify-center items-center  ">
           <ResponsiveContainer
             width="120%"
             height="100%"
-            className={`flex justify-center items-center   `}
+            className={`flex justify-center items-center`}
           >
             <PieChart width={600} height={300}>
               <Pie
@@ -414,18 +423,24 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
             alt="hand"
             src={"/hand.png"}
             className="translate-x-9 z-40"
-            width={70}
+            width={80}
             height={50}
           />
-          <Button
-            styless=""
-            scale="1"
+
+          <MyButton
+            IHeight={100}
+            IWidth={240}
+            type="button"
+            className={`my-2 ${!write ? "opacity-70" : "opacity-100"}`}
             onClick={handleStart}
-            disable={btnDisable}
+            disabled={btnDisable}
+            // disabled
             isLoading={btnDisable}
           >
-            {TimeLeft ? TimeLeft : "spin"}
-          </Button>
+            <span className="w-[230px] h-[90px] flex justify-center items-center font-semibold text-[1.2rem]">
+              {TimeLeft ? `${status[1]?.slice(-13)}` : "spin"}
+            </span>
+          </MyButton>
         </div>
         {/* <span>Time Left: (1:20:30)</span> */}
       </div>

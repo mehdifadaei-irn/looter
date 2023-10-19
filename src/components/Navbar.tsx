@@ -12,6 +12,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit"
 import dynamic from "next/dynamic"
 import Reveal from "./ui/Reveal"
 import { MyButton } from "./ui/MyButton"
+import Image from "next/image"
 
 const NoSSRPara = dynamic(() => import("../components/ui/Paragraph"), { ssr: false })
 
@@ -41,7 +42,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="w-full flex md:justify-between sm:justify-end justify-center px-40 pt-6">
+      <nav className="w-full flex md:justify-between sm:justify-end justify-center px-40 pt-6 h-[4.2rem]">
         {/* <button onClick={()=> console.log(ensName)}>aa</button> */}
         <div className="md:block hidden">
           <ConnectButton.Custom>
@@ -77,14 +78,23 @@ const Navbar = () => {
                   {(() => {
                     if (!connected) {
                       return (
-                        <div className="border-zinc-900 pr-3  mt-[4px]  border-[2.5px] flex gap-x-2 rounded-[50px] relative">
-                          <div className="flex justify-center w-20 items-center h-[56px]  border-r-2 border-x-zinc-900">
-                            <Glass className="translate-y-2 -translate-x-[4px]" width="60" />
-                          </div>
-                          <div className="flex justify-center items-center h-[56px]">
-                            <NoSSRPara isConnected={isConnected} address={address} />
-                          </div>
+                        <div>
+                          <Image
+                            src={"/home/navL.png"}
+                            width={200}
+                            height={70}
+                            alt="NavLeft"
+                            className="scale-[1.2] mt-2"
+                          />
                         </div>
+                        // <div className="border-zinc-900 pr-3  mt-[4px]  border-[2.5px] flex gap-x-2 rounded-[50px] relative">
+                        //   <div className="flex justify-center w-20 items-center h-[56px]  border-r-2 border-x-zinc-900">
+                        //     <Glass className="translate-y-2 -translate-x-[4px]" width="60" />
+                        //   </div>
+                        //   <div className="flex justify-center items-center h-[56px]">
+                        //     <NoSSRPara isConnected={isConnected} address={address} />
+                        //   </div>
+                        // </div>
                       )
                     }
 
@@ -109,36 +119,15 @@ const Navbar = () => {
                         onClick={openChainModal}
                         style={{ display: "flex", alignItems: "center" }}
                         type="button"
-                        className="border-zinc-500 pr-3 pl-2 h-[55px]  border-[2.5px] flex rounded-[50px] font-pop mt-2"
+                        className="relative w-[98px] scale-[1.14] mt-8"
                       >
-                        <div className="h-[55px] flex items-center border-r-2 border-zinc-400">
-                          <div className="flex justify-center items-center ">
-                            {chain.hasIcon && (
-                              <div
-                                style={{
-                                  background: chain.iconBackground,
-                                  width: 36,
-                                  height: 36,
-                                  borderRadius: 999,
-                                  overflow: "hidden",
-                                  marginRight: 4,
-                                }}
-                              >
-                                {chain.iconUrl && (
-                                  <img
-                                    alt={chain.name ?? "Chain icon"}
-                                    src={chain.iconUrl}
-                                    style={{ width: 36, height: 36 }}
-                                  />
-                                )}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-
-                        <p className="font-semibold text-[20px] pl-1 leading-10  font-pop">
-                          {chain.name}
-                        </p>
+                        <Image
+                          src={"/home/navL.png"}
+                          width={220}
+                          height={80}
+                          alt="NavLeft"
+                          className="scale-[1.7] absolute mt-2 z-0 h-[30px] w-[140px]"
+                        />
                       </button>
                     )
                   })()}

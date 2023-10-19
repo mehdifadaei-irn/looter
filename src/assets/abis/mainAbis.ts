@@ -1,9 +1,13 @@
 export const mainAbi = [
   {
-    inputs: [{ internalType: "contract IFactory", name: "chanceRoomFactory", type: "address" }],
+    inputs: [
+      { internalType: "contract IFactory", name: "chanceRoomFactory", type: "address" },
+      { internalType: "address payable", name: "swapBurnerAddr", type: "address" },
+    ],
     stateMutability: "nonpayable",
     type: "constructor",
   },
+  { inputs: [], name: "Empty", type: "error" },
   {
     anonymous: false,
     inputs: [
@@ -38,6 +42,15 @@ export const mainAbi = [
   },
   {
     anonymous: false,
+    inputs: [
+      { indexed: false, internalType: "address", name: "winner", type: "address" },
+      { indexed: false, internalType: "uint256", name: "ticketId", type: "uint256" },
+    ],
+    name: "Response",
+    type: "event",
+  },
+  {
+    anonymous: false,
     inputs: [{ indexed: false, internalType: "address", name: "msgSender", type: "address" }],
     name: "Rollup",
     type: "event",
@@ -66,6 +79,13 @@ export const mainAbi = [
     inputs: [],
     name: "ChanceRoomFactory",
     outputs: [{ internalType: "contract IFactory", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "NFT_IMG_URI",
+    outputs: [{ internalType: "string", name: "", type: "string" }],
     stateMutability: "view",
     type: "function",
   },
@@ -115,6 +135,13 @@ export const mainAbi = [
     type: "function",
   },
   {
+    inputs: [{ internalType: "string", name: "_nft_img_uri", type: "string" }],
+    name: "change_NFT_IMG_URI",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [
       { internalType: "uint256", name: "randomness", type: "uint256" },
       { internalType: "uint256", name: "numTickets", type: "uint256" },
@@ -158,6 +185,7 @@ export const mainAbi = [
   {
     inputs: [
       { internalType: "string", name: "_tempName_", type: "string" },
+      { internalType: "string", name: "_nft_img_uri", type: "string" },
       { internalType: "address", name: "_nftAddr_", type: "address" },
       { internalType: "uint256", name: "_nftId_", type: "uint256" },
       { internalType: "uint256", name: "_maximumTicket_", type: "uint256" },
@@ -271,6 +299,13 @@ export const mainAbi = [
     type: "function",
   },
   {
+    inputs: [{ internalType: "uint256", name: "numTickets", type: "uint256" }],
+    name: "purchaseBatchTicket",
+    outputs: [],
+    stateMutability: "payable",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "purchaseTicket",
     outputs: [],
@@ -287,7 +322,14 @@ export const mainAbi = [
     stateMutability: "nonpayable",
     type: "function",
   },
-  { inputs: [], name: "refund", outputs: [], stateMutability: "nonpayable", type: "function" },
+  { inputs: [], name: "refund", outputs: [], stateMutability: "payable", type: "function" },
+  {
+    inputs: [{ internalType: "uint256", name: "ticketId", type: "uint256" }],
+    name: "refundTicket",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
   { inputs: [], name: "rollup", outputs: [], stateMutability: "payable", type: "function" },
   {
     inputs: [
@@ -364,6 +406,13 @@ export const mainAbi = [
     type: "function",
   },
   {
+    inputs: [{ internalType: "uint256", name: "numTickets", type: "uint256" }],
+    name: "ticketsPrice",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [{ internalType: "uint256", name: "tokenId", type: "uint256" }],
     name: "tokenURI",
     outputs: [{ internalType: "string", name: "", type: "string" }],
@@ -391,6 +440,7 @@ export const mainAbi = [
     stateMutability: "view",
     type: "function",
   },
+  { stateMutability: "payable", type: "receive" },
 ]
 
 export const secondAbiFB6 = [

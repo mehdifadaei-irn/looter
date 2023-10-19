@@ -66,9 +66,13 @@ const ChanceRoomTicketNumber = ({
 
         <Image
           alt="nft"
-          src={metaData?.normalized_metadata.image}
-          width={270}
-          height={270}
+          src={
+            metaData?.normalized_metadata.image.toString().slice(0, 4) == "http"
+              ? "https://ipfs.io/ipfs/QmT37EzSmQSUV1iMxxBBmG5T3WAt15rfPZvQfajEhsVATF/pfp0_5566.png"
+              : metaData?.normalized_metadata.image
+          }
+          width={230}
+          height={230}
           priority={true}
         />
       </div>

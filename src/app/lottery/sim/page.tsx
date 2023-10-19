@@ -1,62 +1,72 @@
 "use client"
-import { VrFABI } from "@/assets/abis/smap"
-import { MyButton } from "@/components/ui/MyButton"
-import { motion, useTime, useTransform } from "framer-motion"
 import { useEffect, useState } from "react"
-import { useContractEvent } from "wagmi"
+import { AnimatePresence, motion } from "framer-motion"
+import useMeasure from "react-use-measure"
 
-// [
-//   {
-//     address: '0x3d2341adb2d31f1c5530cdc622016af293177ae0',
-//     blockHash:
-//       '0xd2e6466326034d41ed483619220c00e2b4d637f3e0681ed1914a98b65c17a8bf',
-//     blockNumber: 47979428n,
-//     data:
-//       '0xf86195cf7690c55907b2b611ebb7343a6f649bff128701cc542f0569e2c549da74ede4ca0b824aa2af43c6ca00653f79335b8a327888ad1dada714d4e672f9c1000000000000000000000000401c2ae98e1aea385d4f450cbf1348930b1b47bf00000000000000000000000000000000000000000000000000005af3107a4000c1cd820b915c5d78bc8bd77674ed1e0c14db370486fb1a05846dabb1169a0a4a',
-//     logIndex: 315,
-//     removed: false,
-//     topics: [
-//       '0x56bd374744a66d531874338def36c906e3a6cf31176eb1e9afd9f1de69725d51', '0x3936613861323666643432363437383438643866666233383764346438333435'
-//     ],
-//     transactionHash:
-//       '0x09401a3dd010f29ace067c6ae5bb05a15425fdccfc447447df9bda343d6ec428',
-//     transactionIndex: 80,
-//     args: {
-//       jobID: '0x3936613861323666643432363437383438643866666233383764346438333435',
-//       keyHash:
-//         '0xf86195cf7690c55907b2b611ebb7343a6f649bff128701cc542f0569e2c549da',
-//       seed: 52888612235299707191459921500103681710807591126076038221910712031886420670913n,
-//       sender: '0x401c2aE98e1AEA385d4F450Cbf1348930b1B47bf',
-//       fee: 100000000000000n,
-//       requestID:
-//         '0xc1cd820b915c5d78bc8bd77674ed1e0c14db370486fb1a05846dabb1169a0a4a'
-//     },
-//     eventName: 'RandomnessRequest'
-//   }
-// ]
+export default function Home() {
+  let [ref, { width }] = useMeasure()
+  let [count, setCount] = useState(1)
+  let prev = usePrevious(count)
+  let direction = count > prev ? 1 : -1
 
-const page = () => {
-  // useContractEvent({
-  //   address: "0x3d2341ADb2D31f1c5530cDC622016af293177AE0",
-  //   abi: VrFABI,
-  //   eventName: "RandomnessRequest",
-  //   listener(log) {
-  //     console.log("loged")
-  //     console.log(log)
-  //   },
-  // })
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount((prev) => prev + 1)
+    }, 3000)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [])
 
   return (
-    <div className="w-full flex">
-      <div className="mt-5 ml-5">
-        <MyButton IHeight={90} IWidth={250} isLoading={true}>
-          <p className="font-bold text-2xl">CONNECT</p>
-        </MyButton>
-        <h1>helo</h1>
+    <div className="flex justify-center">
+      <div className="mt-12 w-full max-w-lg text-white">
+        <div className="flex justify-between px-4">
+          <button onClick={() => setCount(count - 1)}>LLLL</button>
+          <button onClick={() => setCount(count + 1)}>RRRR</button>
+        </div>
+        <div className="mt-8 flex justify-center">
+          <div className="aspect-square w-2/5">
+            <div
+              ref={ref}
+              className="relative flex h-full items-center justify-center overflow-hidden bg-gray-700"
+            >
+              <AnimatePresence custom={{ direction, width }}>
+                <motion.div
+                  key={count}
+                  variants={variants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  custom={{ direction, width }}
+                  className={`absolute flex h-2/3 w-2/3 items-center justify-center text-3xl font-bold `}
+                >
+                  <p>{colors[Math.abs(count) % 4]}</p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+        </div>
       </div>
-      <h2>melo</h2>
     </div>
   )
 }
 
-export default page
+let variants = {
+  enter: ({ direction, width }: any) => ({ x: direction * width }),
+  center: { x: 0 },
+  exit: ({ direction, width }: any) => ({ x: direction * -width }),
+}
+
+let colors = ["bg-red-500", "bg-blue-500", "bg-green-500", "bg-yellow-500"]
+
+function usePrevious(state: any) {
+  let [tuple, setTuple] = useState([null, state])
+
+  if (tuple[1] !== state) {
+    setTuple([tuple[1], state])
+  }
+
+  return tuple[0]
+}

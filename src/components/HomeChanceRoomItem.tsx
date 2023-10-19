@@ -1,45 +1,28 @@
 "use client"
 import React, { useState } from "react"
-import Button from "./Button"
 import Image from "next/image"
 import { useContractReads } from "wagmi"
-import {
-  mainAbi,
-  secondAbiFB6,
-  secondAbi1Bd,
-  secondAbi2a2,
-  secondAbi3a8,
-  secondAbi478,
-  secondAbi77D,
-  secondAbiBC3,
-  secondAbidDe,
-} from "@/assets/abis/mainAbis"
-import { nftType } from "@/types/nft"
-import dynamic from "next/dynamic"
+import { mainAbi } from "@/assets/abis/mainAbis"
+
 import axios from "axios"
 import { useQuery } from "@tanstack/react-query"
-import { formatEther } from "viem"
 import { polygon } from "wagmi/chains"
 import Link from "next/link"
 import { MyButton } from "./ui/MyButton"
-const NoSSRZero = dynamic(() => import("../components/ui/Zero"), { ssr: false })
+import NftImage from "./ui/NftImage"
+import { VT323 } from "next/font/google"
+import { cn } from "@/lib/utils"
+
+const VT323Font = VT323({
+  subsets: ["latin"],
+  weight: ["400"],
+})
 
 type ChanceRoomItemProps = {
   contractAddress: `0x${string}` | undefined
   i: number | string
   handleClickOpen: (nft: any) => void
   nft?: any
-}
-
-function addressToAbi(index: number | string) {
-  if (index == 0) return secondAbiFB6
-  if (index == 1) return secondAbiBC3
-  if (index == 2) return secondAbi77D
-  if (index == 3) return secondAbi2a2
-  if (index == 4) return secondAbi478
-  if (index == 5) return secondAbidDe
-  if (index == 6) return secondAbi3a8
-  if (index == 7) return secondAbi1Bd
 }
 
 const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: ChanceRoomItemProps) => {
@@ -73,7 +56,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
       {
         address: contractAddress,
         //@ts-ignore
-        abi: secondAbiBC3,
+        abi: mainAbi,
         functionName: "status",
         chainId: polygon.id,
       },
@@ -81,7 +64,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
       {
         address: contractAddress,
         //@ts-ignore
-        abi: secondAbiBC3,
+        abi: mainAbi,
         functionName: "layout",
         chainId: polygon.id,
       },
@@ -89,7 +72,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
       {
         address: contractAddress,
         //@ts-ignore
-        abi: secondAbiBC3,
+        abi: mainAbi,
         functionName: "tokenURI",
         args: ["0"],
         chainId: polygon.id,
@@ -98,13 +81,13 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
       {
         address: contractAddress,
         //@ts-ignore
-        abi: secondAbiBC3,
+        abi: mainAbi,
         functionName: "name",
         chainId: polygon.id,
       },
     ],
     onSuccess(data) {
-      // console.log(data, "2")
+      console.log(data, "2")
       setChanceRoomSate(data[0]?.result)
     },
   })
@@ -116,7 +99,9 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
     parseInt(timstamp),
   )
 
-  function logg() {}
+  function logg() {
+    console.log(metaData)
+  }
 
   if (!initialRenderComplete) {
     // Returning null will prevent the component from rendering, so the content will simply be missing from
@@ -129,10 +114,20 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
         <div className="w-full flex justify-center items-center h-full absolute -top-[10%] bottom-0 right-0 left-0 flex-col gap-y-3">
           {ChanceRoomState?.at(0) === "Ticket selling" ? null : (
             <div className="w-[70%] z-30 pb-8">
-              <p className="font-bold text-xl opacity-100 z-30 w-full text-center">
+              <p
+                className={cn(
+                  "font-bold text-4xl opacity-100 z-30  w-full text-center",
+                  VT323Font.className,
+                )}
+              >
                 {ChanceRoomState?.at(0)}
               </p>
-              <p className="font-bold text-xl opacity-100 z-30  w-full text-center">
+              <p
+                className={cn(
+                  "font-bold text-4xl opacity-100 z-30  w-full text-center",
+                  VT323Font.className,
+                )}
+              >
                 {ChanceRoomState?.at(1)}
               </p>
             </div>
@@ -166,35 +161,40 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
                     height: "340px",
                   }}
                   className=" absolute z-10 rounded-[24%] top-[1px] -translate-x-2  bg-contain mx-auto "
-                  src={metaData?.normalized_metadata.image}
+                  src={
+                    metaData?.normalized_metadata.image.toString().slice(0, 4) == "http"
+                      ? "https://ipfs.io/ipfs/QmT37EzSmQSUV1iMxxBBmG5T3WAt15rfPZvQfajEhsVATF/pfp0_5566.png"
+                      : metaData?.normalized_metadata.image
+                  }
                   alt="nft"
                   width={335}
                   height={320}
                 />
+                {/* <NftImage contractAddress={contractAddress}/> */}
               </div>
             </div>
-            <p className="font-zen text-xl mt-3">{data?.at(3)?.result?.slice(0, 15)}</p>
+            <p className={cn("text-4xl mt-3", VT323Font.className)}>
+              {data?.at(3)?.result?.slice(0, 15)}
+            </p>
             {/* <p className="font-zen text-xl mt-3">{contractAddress?.slice(4, 10)}</p> */}
             <p className="flex">
-              <span className="font-pop font-bold text-[28px]">Spain date: </span>
+              <span className="font-pop font-bold text-[25px]">Spain date: </span>
               <span className="font-pop font-[500] text-[26px] flex flex-col">
                 <span>
                   {deadtime.getUTCDate()}
-                  {deadtime.toLocaleString("default", { month: "long" })}
+                  {deadtime.toLocaleString("default", { month: "short" })}
                 </span>
               </span>
+              <p className="font-pop font-normal text-[26px]">
+                <span className="w-full text-center">
+                  {" - "}
+                  {deadtime.getUTCHours()}
+                  {":"}
+                  {deadtime.getUTCMinutes()} {"utc"}
+                </span>
+              </p>
             </p>
-            <p className="font-pop font-normal text-[26px]">
-              <span className="w-full text-center">
-                {"-"}
-                {deadtime.getUTCHours()}
-                {":"}
-                {deadtime.getUTCMinutes()}
-                {":"}
-                {deadtime.getUTCSeconds()}
-                {"utc"}
-              </span>
-            </p>
+
             <p>
               <span className="font-pop font-bold text-[28px]">suplly: </span>
               <span className="font-pop font-[500] text-[26px]">
@@ -205,9 +205,9 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
                 data?.at(1)?.result?.Uint256?.soldTickets.toString()}
               </span>
             </p>
-            <p className="mb-2">
+            <p className="mb-2 flex">
               <span className="font-pop font-bold text-[28px]">price:</span>
-              <span className="font-pop font-[500] text-[26px]">
+              <span className="font-pop font-[500] text-[26px] flex">
                 {/* @ts-ignore */}
                 {data ? ( //@ts-ignore
                   !parseInt(data?.at(1)?.result?.Uint256?.ticketPrice.toString().slice(0, -1)) /
@@ -220,6 +220,13 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
                   )
                 ) : null}
                 <span className="font-pop font-normal text-[26px]">Matic</span>
+                <Image
+                  src={"/home/Matic.png"}
+                  alt="matic"
+                  width={35}
+                  height={35}
+                  className="ml-5"
+                />
               </span>
             </p>
           </div>
@@ -237,7 +244,10 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
           <Link
             href={`/Ticket/${contractAddress}`}
             key={"231zasraw2"}
-            className="cursor-pointer w-full h-[65px] pb-[4px] flex items-center justify-center font-bold"
+            className={cn(
+              "cursor-pointer w-[100px] h-[50px] pb-[4px] flex items-center justify-center font-bold text-3xl ",
+              VT323Font.className,
+            )}
             scroll={false}
           >
             ADD
@@ -246,7 +256,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
         <a
           href={`https://polygonscan.com/address/${contractAddress}`}
           target="_blank"
-          className=" mt-[60px] text-[13px] text-primary cursor-pointer z-30"
+          className=" mt-[20px] text-[13px] text-primary cursor-pointer z-30"
         >
           view on Polygonscan
         </a>

@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    domains: ["punksvsapes.mypinata.cloud", "ipfs.io"],
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -9,5 +12,5 @@ const nextConfig = {
     return config
   },
 }
-
+//punksvsapes.mypinata.cloud
 module.exports = nextConfig

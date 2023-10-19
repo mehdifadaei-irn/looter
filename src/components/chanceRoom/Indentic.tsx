@@ -1,8 +1,7 @@
 "use client"
 import React from "react"
 import { stringToColour } from "@/lib/generateColorFromHash"
-//@ts-ignore
-import Identicon from "react-identicons"
+
 
 import { useAccount } from "wagmi"
 type IdenticProps = {
