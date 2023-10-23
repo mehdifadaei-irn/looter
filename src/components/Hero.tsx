@@ -21,25 +21,8 @@ const Hero = () => {
               width={1120}
               height={550}
               alt="hero"
-              className="translate-x-10 2xl:scale-95 xl:scale-90 scale-[0.81]"
+              className="translate-x-5 2xl:scale-95 xl:scale-90 scale-[0.81]"
             />
-            {/* <div className="flex lg:justify-between justify-center lg:mt-2 mt-0 w-[85%] max-w-[88rem]  xl:w-[72%]">
-              <Ghost className="scale-125 hidden lg:block" />
-              <div className="md:w-[50%] sm:w-[64%] w-[86%] lg:w-[52%] font-pop">
-                <p className=" md:font-bold font-semibold md:text-[70px] sm:text-[60px] text-[55px] flex flex-col text-center">
-                  <span className="">Lootery</span>
-                  <span className="flex lg:gap-x-4 xl:pl-[17%] w-full ">
-                    <span className="text-[#F24C00] ">NFT</span>
-                    <span className="relative -translate-y-2">
-                      <span className=" absolute left-9 z-30">polygon</span>
-                      <Circle className=" lg:scale-[1] scale-[0.9] z-0  absolute lg:left-6 left-4" />
-                    </span>
-                  </span>
-                  <span>decentralize</span>
-                </p>
-              </div>
-              <Punk1 className="mt-10 hidden lg:block" />
-            </div> */}
           </div>
 
           <div className="w-[100%] max-w-[88rem]  xl:w-[72%] mx-auto flex xl:justify-start justify-center mt-1">

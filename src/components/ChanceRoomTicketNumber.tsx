@@ -60,7 +60,7 @@ const ChanceRoomTicketNumber = ({
   return (
     <>
       <div className="relative bg-slate-200 rounded-xl border-2 border-primary">
-        <p className="absolute top-2 -right-7 z-20 font-semibold text-xl">
+        <p className="absolute top-0 -right-7 z-20 font-semibold text-xl">
           <div>x{!balanceOf ? "0" : balanceOf?.toString()}</div>
         </p>
 

@@ -212,7 +212,7 @@ const page = ({ params: { slug } }: any) => {
     }
   }
   return (
-    <div className="fixed inset-0 bg-zinc-900/20 z-50" style={{}} ref={overlay} onClick={onClick}>
+    <div className="fixed inset-0 bg-zinc-900/20 z-50 bgfblur" style={{}} ref={overlay} onClick={onClick}>
       <Toaster position="top-right" richColors />
       <div
         className="flex container items-center h-full  justify-center xl:w-[65%] lg:w-[90%] w-full mx-auto"

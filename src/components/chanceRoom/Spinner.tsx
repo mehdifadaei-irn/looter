@@ -207,38 +207,44 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
     onSuccess(data) {
       //@ts-ignore
       const TotalTickets: number = parseInt(contractDataLayout?.Uint256?.maximumTicket)
-      console.log(TotalTickets, "tot")
-      let amo: number = 0
-      console.log(data, "events111")
-      const pied = data.result.reduce((acc: any, cur: any) => {
-        const address: `0x${string}` = cur.data.to.toString()
-        console.log(address, "5a")
-        if (data.result.length == 1) {
-          acc[contractAddress] = TotalTickets
-        } else {
-          //@ts-ignore
-          if (address.toLocaleLowerCase() !== contractAddress.toLocaleLowerCase()) {
-            //@ts-ignore
-            if (acc[address]) {
-              amo++
-              if (address != contractAddress) {
-                //@ts-ignore
-                acc[address.toString()]++
-              }
-            } else {
-              amo++
-              if (address.toLocaleLowerCase() != contractAddress.toLocaleLowerCase()) {
-                // console.log("hey")
-                //@ts-ignore
-                acc[address] = 1
-              }
-              //@ts-ignore
-              acc[contractAddress] = TotalTickets - amo
+
+      let mainArrayData = data.result
+      mainArrayData.pop()
+
+      let firstArr: any = []
+      let compList: string[] = []
+
+      mainArrayData.map((item: any, i: any) => {
+        if (!compList.includes(item.data.tokenId)) {
+          for (let index = TotalTickets; index > 0; index--) {
+            if (item.data.tokenId == index) {
+              firstArr.push(item)
+              compList.push(index.toString())
+              break
             }
+          }
+        }
+      })
+
+      let emptyRemain = TotalTickets - compList.length
+
+      let pied = firstArr.reduce((acc: any, cur: any) => {
+        let addressTo: string = cur.data.to.toString()
+
+        if (cur.data.to === "0x0000000000000000000000000000000000000000") {
+          emptyRemain++
+        } else {
+          if (acc[addressTo]) {
+            acc[addressTo.toString()]++
+          } else {
+            acc[addressTo] = 1
           }
         }
         return acc
       }, {})
+      pied[contractAddress] = emptyRemain
+
+      // console.log(pied, "PIECKE")
 
       const arr = Object.entries(pied).map(([key, value]) => ({ [key]: value }))
       // console.log(arr)
@@ -352,8 +358,11 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
   // console.log(pieData, "picData")
 
   return (
-    <div className="relative xl:w-[37%] min-w-[38rem] xl:ml-0 w-full flex flex-col items-center ">
-      <div className=" flex justify-center absolute top-[3.6rem] xl:left-[42%]  left-[50%]">
+    <div className="relative w-1/2 flex flex-col items-center ">
+      {/* <div className="w-[700px] h-[700px] bg-slate-600">
+
+      </div> */}
+      <div className="flex justify-center absolute w-[250px] h-[250px] translate-x-[17px] 2xl:translate-y-[28px] translate-y-[43px]">
         {!isLoading ? (
           <Image
             alt="nft1"
@@ -377,15 +386,26 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
         )}
       </div>
 
-      <div className="absolute w-full h-full flex justify-center 2xl:-top-[10rem] xl:-top-[8rem] -top-[9rem] xl:-left-[0rem] left-8">
-        <div className="w-full h-full flex justify-center items-center  ">
-          <ResponsiveContainer
-            width="120%"
-            height="100%"
-            className={`flex justify-center items-center`}
-          >
-            <PieChart width={600} height={300}>
+      <div className="absolute w-[250px] h-[250px] flex justify-center items-center translate-x-[17px] 2xl:translate-y-[28px] translate-y-[43px]">
+        <Needle
+          pieData={pieData}
+          isStarted={isStarted}
+          //@ts-ignore
+          totalSupply={parseInt(contractDataLayout?.Uint256?.maximumTicket)}
+          contractAddress={contractAddress}
+        />
+      </div>
+
+      <div className="absolute w-full h-full flex justify-center 2xl:-top-[12rem]  -top-[11rem] xl:scale-100 scale-90">
+        <div className="flex justify-center items-center   w-[700px] h-[700px] ">
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart
+              width={300}
+              height={300}
+              className={`flex justify-center items-center  -translate-x-[3.3rem]`}
+            >
               <Pie
+                className="bg-yellow-300"
                 activeIndex={WinnerIndex}
                 activeShape={renderActiveShape}
                 data={pieData}
@@ -405,19 +425,10 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
               </Pie>
             </PieChart>
           </ResponsiveContainer>
-          <div className="absolute w-[70%] h-[70%] translate-x-10">
-            <Needle
-              pieData={pieData}
-              isStarted={isStarted}
-              //@ts-ignore
-              totalSupply={parseInt(contractDataLayout?.Uint256?.maximumTicket)}
-              contractAddress={contractAddress}
-            />
-          </div>
         </div>
       </div>
       {/* Spin */}
-      <div className="absolute w-[70%]  flex flex-col justify-center items-center bottom-[10%] z-50">
+      <div className="absolute w-[70%]  flex flex-col justify-center items-center bottom-[10%] z-50 ">
         <div className="flex">
           <Image
             alt="hand"

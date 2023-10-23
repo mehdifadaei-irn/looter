@@ -9,7 +9,7 @@ const Winner = () => {
   const { Winner, addressOfContract } = useSelector((state) => state.winner)
   if (Winner == "") return null
   return (
-    <div className="flex flex-col text-center justify-end  w-[30%] pb-14">
+    <div className="flex flex-col text-center justify-end  w-[25%] pb-14">
       <span>winner</span>
       <span className="underline">
         {Winner.slice(0, 5)}...{Winner.slice(39, 42)}

@@ -5,6 +5,7 @@ import { setWinner } from "@/redux/slices/winnerSelcet"
 import { useDispatch } from "react-redux"
 
 import Spinner from "../../assets/img/home/stopper.svg"
+import Spinner1 from "../../assets/img/home/stoppp.svg"
 import { toast } from "sonner"
 import { useSelector } from "react-redux"
 import { useContractEvent, useContractRead } from "wagmi"
@@ -148,7 +149,7 @@ const Needle = ({
         }}
         whileTap={{ scale: 1.2 }}
       >
-        <Spinner className={`rotate-180  `} />
+        <Spinner1 className={`rotate-180  `} />
       </motion.div>
       {/* <h1>{count}</h1> */}
       {/* <button

@@ -116,16 +116,15 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
             <div className="w-[70%] z-30 pb-8">
               <p
                 className={cn(
-                  "font-bold text-4xl opacity-100 z-30  w-full text-center",
-                  VT323Font.className,
+                  "font-bold text-xl opacity-100 z-30  w-full text-center",
                 )}
               >
                 {ChanceRoomState?.at(0)}
               </p>
               <p
                 className={cn(
-                  "font-bold text-4xl opacity-100 z-30  w-full text-center",
-                  VT323Font.className,
+                  "font-bold text-xl opacity-100 z-30  w-full text-center",
+                  
                 )}
               >
                 {ChanceRoomState?.at(1)}
@@ -173,7 +172,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
                 {/* <NftImage contractAddress={contractAddress}/> */}
               </div>
             </div>
-            <p className={cn("text-4xl mt-3", VT323Font.className)}>
+            <p className={cn("text-2xl mt-3")}>
               {data?.at(3)?.result?.slice(0, 15)}
             </p>
             {/* <p className="font-zen text-xl mt-3">{contractAddress?.slice(4, 10)}</p> */}
@@ -234,8 +233,8 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
 
         <MyButton
           // scale="0.66"
-          IWidth={100}
-          IHeight={90}
+          IWidth={95}
+          IHeight={110}
           sm={true}
           // onClick={handlePopUp}
           // isLoading={ChanceRoomState?.at(0) === "Ticket selling" ? false : true}
@@ -256,7 +255,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
         <a
           href={`https://polygonscan.com/address/${contractAddress}`}
           target="_blank"
-          className=" mt-[20px] text-[13px] text-primary cursor-pointer z-30"
+          className=" mt-[0px] text-[13px] text-primary cursor-pointer z-30"
         >
           view on Polygonscan
         </a>

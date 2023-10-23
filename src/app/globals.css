@@ -100,6 +100,9 @@
     right: -60%;
   }
 }
+.bgfblur {
+  backdrop-filter: blur(7px);
+}
 
 @media only screen and (max-width: 1500px) {
   .grid-cont {

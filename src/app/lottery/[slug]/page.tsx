@@ -32,7 +32,7 @@ const page = ({ params: { slug } }: lotteryProps) => {
   return (
     <div className="w-full min-h-[100vh] relative overflow-hidden ">
       <div className="w-full bg-[#B1C5FB] absolute z-0 h-screen " />
-      <div className="backlottery  absolute w-full z-10 h-screen top-0 right-0 bottom-0 left-0">
+      <div className="backlottery  absolute w-full z-10 min-h-[100vh] top-0 right-0 bottom-0 left-0">
         {/* Nav */}
         <nav className="flex justify-between w-full xl:pt-8 pt-2 h-[25%] mx-5">
           <div className="lg:hidden flex flex-col gap-y-4  mix-w-[900px]:w-[10rem] pl-3 lg:pl-0">
@@ -74,14 +74,17 @@ const page = ({ params: { slug } }: lotteryProps) => {
         </nav>
 
         <div className="w-full flex h-[75%]">
-          <div className="flex-col lg:w-[27%] w-0 justify-end pl-14 flex">
-            <div className="relative xl:flex hidden h-[40%] flex-col justify-end">
-              <div className="absolute -top-2">
-                <Image src={"/frog.png"} width={150} className="" height={150} alt="frog" />
-              </div>
-              <Table className="" />
-            </div>
+          {/*  */}
+          <div className="flex-col w-[25%] justify-end pl-24 flex  pb-4 ">
+            <Image
+              src={"/home/chanceFrog.png"}
+              width={430}
+              className="xl:block hidden"
+              height={430}
+              alt="frog"
+            />
           </div>
+          {/*  */}
           <Spinner contractAddress={slug} />
           {/* <button onClick={logg}>clogg</button> */}
           <Winner />
