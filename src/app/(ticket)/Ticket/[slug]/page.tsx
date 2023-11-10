@@ -28,8 +28,11 @@ import { Skeleton } from "@mui/material"
 import { useDebounce } from "@/hooks/useDebounce"
 import ChanseRoomName from "@/components/chanceRoom/ChanseRoomName"
 import Navbar from "@/components/Navbar"
-import { ArrowBack, RectMain } from "@/components/Icons"
+import { ArrowBack, BlueBttn, RectMain } from "@/components/Icons"
 import { MyButton } from "@/components/ui/MyButton"
+
+const edr = true
+
 const page = ({ params: { slug } }: any) => {
   const [amount, setAmount] = React.useState<number>(1)
   const route = useRouter()
@@ -110,10 +113,8 @@ const page = ({ params: { slug } }: any) => {
 
   //@ts-ignore
 
-  // console.log(data?.at(1)?.result.Uint256?.ticketPrice)
   const balanceOfTicket = useDebounce(realPricee)
   const balanceOfTicket1 = (balanceOfTicket * amount).toString()
-  // console.log(balanceOfTicket1)
 
   const { config: mainConf } = usePrepareContractWrite({
     address: slug,
@@ -130,7 +131,10 @@ const page = ({ params: { slug } }: any) => {
       if (ticketLeftNUmber == 0) {
         toast.error("no more Ticker left!")
       } else {
-        toast.error("You don't have enough matic + Gas for this transaction.")
+        // console.log(, "the1E")
+        if (err.toString().slice(0, 10) !== "ContractFu") {
+          toast.error("You don't have enough matic + Gas for this transaction.")
+        }
       }
     },
   })
@@ -144,6 +148,12 @@ const page = ({ params: { slug } }: any) => {
   } = useWaitForTransaction({
     hash: writeData?.hash,
     onSuccess(data) {
+      toast.success(
+        <div className="flex flex-row items-center justify-center gap-x-5">
+          <span className="text-lg font-bold">You Buyed {amount.toString()} Ticket</span>
+          <Image src={"/peClap.gif"} alt="my gif" height={30} width={30} />
+        </div>,
+      )
       refetch()
     },
   })
@@ -195,9 +205,9 @@ const page = ({ params: { slug } }: any) => {
   }
 
   function logg() {}
-  console.log(metaData?.normalized_metadata.image.toString().slice(0, 2), "met")
+  // console.log(metaData?.normalized_metadata.image.toString().slice(0, 2), "met")
   return (
-    <div className=" w-full overflow-hidden h-screen backg flex items-center justify-between flex-col  relative">
+    <div className=" w-full overflow-y-auto h-screen backg flex items-center justify-between flex-col  relative">
       <RectMain
         width={1100}
         height={620}
@@ -285,32 +295,45 @@ const page = ({ params: { slug } }: any) => {
           </div>
 
           <div className="flex items-center">
-            <div className="relative">
-              <div className="relative  w-[309px] h-[165px]" onClick={handleBuyTicket}>
+            <div className="flex flex-col">
+              <div
+                className="relative  w-[250px] h-[68px] flex justify-center items-center"
+                onClick={handleBuyTicket}
+                style={{
+                  opacity: !write || isPending ? "0.7" : "1",
+                  cursor: !write || isPending ? "not-allowed" : "pointer",
+                }}
+              >
                 <span
                   style={{
-                    opacity: !write ? "0.7" : "1",
-                    cursor: !write ? "not-allowed" : "pointer",
+                    opacity: !write || isPending ? "0.7" : "1",
+                    cursor: !write || isPending ? "not-allowed" : "pointer",
                   }}
-                  className="absolute top-[52px] lg:left-[25%] left-[26%] font-medium text-[30px] z-50 font-pop text-black cursor-pointer"
+                  className={`absolute top-[10px]  ${
+                    isPending ? "left-[8%] " : "left-[22%]"
+                  } font-medium text-[30px] z-50 font-pop text-black cursor-pointer`}
                 >
-                  {amount}
+                  {isPending ? <Loader2 className="mt-2  animate-spin scale-120" /> : `${amount}`}
                 </span>
-                {/* <div className="bg-slate-300 absolute w-9 h-11">
-                </div> */}
-                <BlueBtn
+                <div className={isPending ? "scale-x-[1.3] scale-y-[1.1] mr-5" : ""}>
+                  <BlueBttn width={180} height={150} />
+                </div>
+                <span
+                  className="absolute top-[13px] pl-4 font-bold  z-50 font-pop text-black"
                   style={{
-                    opacity: !write ? "0.7" : "1",
-                    cursor: !write ? "not-allowed" : "pointer",
+                    opacity: !write || isPending ? "0.7" : "1",
+                    cursor: !write || isPending ? "not-allowed" : "pointer",
+                    fontSize: !write || isPending ? "23px" : "28px",
                   }}
-                  className="cursor-pointer lg:scale-[0.8] scale-[0.9] z-0 absolute -top-4 max-[1000px]:-right-[22px] "
-                />
+                >
+                  {isPending ? "Pending..." : "Mint"}
+                </span>
               </div>
 
               <a
                 href={`https://opensea.io/assets/matic/${metaData?.token_address}`}
                 target="_blank"
-                className="absolute bottom-[20%] w-full  lg:left-[0%] left-[7%] mt-[60px] text-[13px] text-primary cursor-pointer text-center"
+                className="  text-[13px] text-primary cursor-pointer text-center"
               >
                 view on opensea
               </a>

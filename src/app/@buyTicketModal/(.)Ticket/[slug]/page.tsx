@@ -26,6 +26,7 @@ import Button from "@/components/Button"
 import Link from "next/link"
 import { useDebounce } from "@/hooks/useDebounce"
 import { MyButton } from "@/components/ui/MyButton"
+import { BlueBttn } from "@/components/Icons"
 const page = ({ params: { slug } }: any) => {
   const router = useRouter()
   const overlay = useRef(null)
@@ -142,6 +143,12 @@ const page = ({ params: { slug } }: any) => {
   } = useWaitForTransaction({
     hash: writeData?.hash,
     onSuccess(data) {
+      toast.success(
+        <div className="flex flex-row items-center justify-center gap-x-5">
+          <span className="text-lg font-bold">You Buyed {amount.toString()} Ticket</span>
+          <Image src={"/peClap.gif"} alt="my gif" height={30} width={30} />
+        </div>,
+      )
       refetch()
     },
   })
@@ -212,16 +219,19 @@ const page = ({ params: { slug } }: any) => {
     }
   }
   return (
-    <div className="fixed inset-0 bg-zinc-900/20 z-50 bgfblur" style={{}} ref={overlay} onClick={onClick}>
+    <div
+      className="fixed inset-0 bg-zinc-900/20 z-50 bgfblur"
+      style={{}}
+      ref={overlay}
+      onClick={onClick}
+    >
       <Toaster position="top-right" richColors />
       <div
         className="flex container items-center h-full  justify-center xl:w-[65%] lg:w-[90%] w-full mx-auto"
         ref={wrapper}
       >
         <div className="relative bg-secondaryLight w-full  h-[37rem] px-2 rounded-3xl border-4 border-black">
-          {/* <span className="absolute top-4 right-4 cursor-pointer" onClick={() => router.back()}>
-            X
-          </span> */}
+          
           <div className="w-full h-full flex xl:flex-col flex-row justify-between py-5 items-center">
             <div className="w-full flex xl:flex-row flex-col-reverse justify-between px-3">
               <div>
@@ -307,32 +317,49 @@ const page = ({ params: { slug } }: any) => {
                 </a>
               </MyButton>
               <div className="flex items-center">
-                <div className="relative">
-                  <div className="relative   w-[309px] h-[165px]" onClick={handleBuyTicket}>
+                <div className="flex flex-col">
+                  <div
+                    className="relative  w-[250px] h-[68px] flex justify-center items-center"
+                    onClick={handleBuyTicket}
+                    style={{
+                      opacity: !write || isPending ? "0.7" : "1",
+                      cursor: !write || isPending ? "not-allowed" : "pointer",
+                    }}
+                  >
                     <span
                       style={{
-                        opacity: !write ? "0.7" : "1",
-                        cursor: !write ? "not-allowed" : "pointer",
+                        opacity: !write || isPending ? "0.7" : "1",
+                        cursor: !write || isPending ? "not-allowed" : "pointer",
                       }}
-                      className="absolute top-[56px] lg:left-[25%] left-[26%] font-medium text-[30px] z-50 font-pop text-black cursor-pointer"
+                      className={`absolute top-[10px]  ${
+                        isPending ? "left-[8%] " : "left-[22%]"
+                      } font-medium text-[30px] z-50 font-pop text-black cursor-pointer`}
                     >
-                      {amount}
+                      {isPending ? (
+                        <Loader2 className="mt-2  animate-spin scale-120" />
+                      ) : (
+                        `${amount}`
+                      )}
                     </span>
-                    {/* <div className="bg-slate-300 absolute w-9 h-11">
-                </div> */}
-                    <BlueBtn
+                    <div className={isPending ? "scale-x-[1.3] scale-y-[1.1] mr-5" : ""}>
+                      <BlueBttn width={180} height={150} />
+                    </div>
+                    <span
+                      className="absolute top-[13px] pl-4 font-bold  z-50 font-pop text-black"
                       style={{
-                        opacity: !write ? "0.7" : "1",
-                        cursor: !write ? "not-allowed" : "pointer",
+                        opacity: !write || isPending ? "0.7" : "1",
+                        cursor: !write || isPending ? "not-allowed" : "pointer",
+                        fontSize: !write || isPending ? "23px" : "28px",
                       }}
-                      className="cursor-pointer lg:scale-[0.8] scale-[0.9] z-0 absolute -top-4 max-[1000px]:-right-[22px] "
-                    />
+                    >
+                      {isPending ? "Pending..." : "Mint"}
+                    </span>
                   </div>
 
                   <a
                     href={`https://opensea.io/assets/matic/${metaData?.token_address}`}
                     target="_blank"
-                    className="absolute bottom-[20%] w-full  lg:left-[0%] left-[7%] mt-[60px] text-[13px] text-primary cursor-pointer text-center"
+                    className="  text-[13px] text-primary cursor-pointer text-center"
                   >
                     view on opensea
                   </a>

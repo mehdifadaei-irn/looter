@@ -8,6 +8,7 @@ import axios from "axios"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { Skeleton } from "@mui/material"
 import { useSelector } from "react-redux"
+import Loader2 from "../../assets/img/loader-2.svg"
 
 import {
   useContractEvent,
@@ -87,6 +88,7 @@ const renderActiveShape = (props: any) => {
 }
 
 const RADIAN = Math.PI / 180
+const edr = true
 
 const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
   const { address, isConnecting, isDisconnected } = useAccount()
@@ -121,16 +123,17 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
       <text
         x={x}
         y={y}
-        fill="white"
+        fill="#000"
         textAnchor={x > cx ? "start" : "end"}
         dominantBaseline="central"
         style={{
           fontSize: 23,
           fontWeight: 500,
+          zIndex: 300,
+          opacity: 1,
         }}
       >
-        {/* @ts-ignore */}
-        {name.toLocaleLowerCase() === address.toLocaleLowerCase()
+        {name.toLocaleLowerCase() == address?.toLocaleLowerCase()
           ? "you"
           : name.slice(2, 5) === "000"
           ? percent == 0
@@ -307,7 +310,6 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
   useEffect(() => {
     mutate()
   }, [])
-  useEffect(() => {}, [])
 
   const { config } = usePrepareContractWrite({
     address: contractAddress,
@@ -354,15 +356,24 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
       setIsStarted(true)
     },
   })
+  useContractEvent({
+    address: contractAddress,
+    abi: mainAbi,
+    eventName: "Transfer",
+    listener(log) {
+      // console.log(log)
+      toast("fetching new Users...")
+      mutate()
+    },
+  })
 
-  // console.log(pieData, "picData")
 
   return (
     <div className="relative w-1/2 flex flex-col items-center ">
       {/* <div className="w-[700px] h-[700px] bg-slate-600">
 
       </div> */}
-      <div className="flex justify-center absolute w-[250px] h-[250px] translate-x-[17px] 2xl:translate-y-[28px] translate-y-[43px]">
+      <div className="flex justify-center absolute w-[320px] h-[320px] translate-x-[17px] 2xl:translate-y-[28px] translate-y-[43px] z-10 opacity-70">
         {!isLoading ? (
           <Image
             alt="nft1"
@@ -371,22 +382,22 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
                 ? "https://ipfs.io/ipfs/QmT37EzSmQSUV1iMxxBBmG5T3WAt15rfPZvQfajEhsVATF/pfp0_5566.png"
                 : metaData?.normalized_metadata.image
             }
-            width={250}
-            height={250}
-            className={`opacity-70 z-100  `}
+            width={320}
+            height={320}
+            className={`opacity-70 z-100 xl:scale-100 scale-90 `}
           />
         ) : (
           <Skeleton
             animation="wave"
-            width={280}
-            height={280}
+            width={320}
+            height={320}
             variant="rounded"
             // sx={{ mt: "56px" }}
           />
         )}
       </div>
 
-      <div className="absolute w-[250px] h-[250px] flex justify-center items-center translate-x-[17px] 2xl:translate-y-[28px] translate-y-[43px]">
+      <div className="absolute w-[320px] h-[320px] flex justify-center items-center translate-x-[17px] 2xl:translate-y-[28px] translate-y-[43px] z-[200]">
         <Needle
           pieData={pieData}
           isStarted={isStarted}
@@ -396,35 +407,42 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
         />
       </div>
 
-      <div className="absolute w-full h-full flex justify-center 2xl:-top-[12rem]  -top-[11rem] xl:scale-100 scale-90">
-        <div className="flex justify-center items-center   w-[700px] h-[700px] ">
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart
-              width={300}
-              height={300}
-              className={`flex justify-center items-center  -translate-x-[3.3rem]`}
-            >
-              <Pie
-                className="bg-yellow-300"
-                activeIndex={WinnerIndex}
-                activeShape={renderActiveShape}
-                data={pieData}
-                cx="60%"
-                cy="50%"
-                innerRadius={200}
-                outerRadius={240}
-                fill="#8884d8"
-                dataKey="value"
-                onMouseEnter={onPieEnter}
-                label={renderCustomizedLabel}
-                paddingAngle={2}
+      <div className="absolute w-full h-full flex justify-center 2xl:-top-[9.7rem]  -top-[9rem] xl:scale-100 scale-90 z-10">
+        <div className="flex justify-center items-center   w-[700px] h-[700px]  z-10">
+          {/* EventLoading */}
+          {EventLoading ? (
+            <div className="z-[600] w-full flex justify-center items-center scale-[9] translate-x-[2.3rem]">
+              <Loader2 className="mt-1 mr-1 animate-spin " />
+            </div>
+          ) : (
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart
+                width={300}
+                height={300}
+                className={`flex justify-center items-center  -translate-x-[3.3rem] `}
               >
-                {pieData.map((entry: any, index: any) => (
-                  <Cell key={`cell-${index}`} fill={stringToColour(entry.name)} />
-                ))}
-              </Pie>
-            </PieChart>
-          </ResponsiveContainer>
+                <Pie
+                  className="opacity-70"
+                  activeIndex={WinnerIndex}
+                  activeShape={renderActiveShape}
+                  data={pieData}
+                  cx="60%"
+                  cy="50%"
+                  innerRadius={80}
+                  outerRadius={240}
+                  fill="#8884d8"
+                  dataKey="value"
+                  onMouseEnter={onPieEnter}
+                  label={renderCustomizedLabel}
+                  paddingAngle={2}
+                >
+                  {pieData.map((entry: any, index: any) => (
+                    <Cell key={`cell-${index}`} fill={stringToColour(entry.name)} />
+                  ))}
+                </Pie>
+              </PieChart>
+            </ResponsiveContainer>
+          )}
         </div>
       </div>
       {/* Spin */}

@@ -1,3 +1,4 @@
+"use client"
 import Button from "@/components/Button"
 import React, { Suspense } from "react"
 
@@ -9,34 +10,37 @@ import { twMerge } from "tailwind-merge"
 import ChanceRoomTicketNumber from "@/components/ChanceRoomTicketNumber"
 import Navbar from "@/components/Navbar"
 import { useRouter } from "next/navigation"
-import { Toaster } from "sonner"
+import { Toaster, toast } from "sonner"
 import { MyButton } from "@/components/ui/MyButton"
 import { ArrowBack, RectMain } from "@/components/Icons"
+import { useAccount } from "wagmi"
 
 const page = ({ params, ...other }: any) => {
   // const accountAddress = slug
   // console.log(other.searchParams.chanceRoomAddress)
-  // const router = useRouter()
+  const { isConnected } = useAccount()
+  const router = useRouter()
 
-  // function handleLetsGo() {
-  //   router.push(`/lottery/${other.searchParams.chanceRoomAddress}`)
-  // }
+  function handleLetsGo() {
+    if (isConnected) {
+      router.push(`/lottery/${other.searchParams.chanceRoomAddress}`)
+    } else {
+      toast.error("you need to connect your wallet to see chance room")
+    }
+  }
   return (
     <div
       className={twMerge(
         "backg w-full flex flex-col items-center overflow-hidden relative  min-h-[100vh]",
       )}
     >
+      <Toaster position="top-right" richColors />
       <Navbar />
       <h3 className="font-[400] text-[56px]  -translate-y-14 opacity-0 xl:opacity-100">
         Your Tickets
       </h3>
       {/* Tickets  border-2 rounded-3xl bg-[#F7F5D0] */}
-      <RectMain
-        width={900}
-        height={490}
-        className="absolute z-0 top-[116px] w-[90%] "
-      />
+      <RectMain width={900} height={490} className="absolute z-0 top-[116px] lg:w-[90%] w-full sm:block hidden " />
 
       <div className="flex flex-col justify-between h-[75vh]">
         <div className="w-[95%] max-w-[955px]  min-h-[440px]  relative  overflow-hidden">
@@ -52,7 +56,7 @@ const page = ({ params, ...other }: any) => {
 
         <div className="flex flex-col items-center w-full">
           <p className="font-[400] text-[32px] z-40">GO TO CHANCE ROOOM</p>
-          <div className="flex justify-between gap-x-14 min-w-[900px] w-[45%] relative mt-auto">
+          <div className="flex justify-between gap-x-14 lg:min-w-[900px] min-w-[560px] w-[45%] relative mt-auto">
             <ArrowBack
               width={130}
               height={200}
@@ -66,13 +70,10 @@ const page = ({ params, ...other }: any) => {
                 BACK
               </Link>
             </MyButton>
-            <MyButton IHeight={90} IWidth={220} type="button">
-              <Link
-                href={`/lottery/${other.searchParams.chanceRoomAddress}`}
-                className="w-[220px] h-[70px] pb-[4px] flex items-center justify-center font-bold text-[1.4rem]"
-              >
+            <MyButton IHeight={90} IWidth={220} type="button" onClick={handleLetsGo}>
+              <p className="w-[220px] h-[70px] pb-[4px] flex items-center justify-center font-bold text-[1.4rem]">
                 LET’S GO
-              </Link>
+              </p>
             </MyButton>
           </div>
         </div>

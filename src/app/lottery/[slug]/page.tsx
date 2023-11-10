@@ -47,7 +47,7 @@ const page = ({ params: { slug } }: lotteryProps) => {
                 Mint more ticket
               </a>
             </MyButton>
-            <Sound />
+            <Sound contractAddress={slug} />
             <MyButton IHeight={80} IWidth={200} type="button" className="mt-2">
               <Link
                 href={"/"}
@@ -57,8 +57,10 @@ const page = ({ params: { slug } }: lotteryProps) => {
               </Link>
             </MyButton>
           </div>
-          <ChanseRoomName contractAddress={slug} />
-          <div className="flex gap-x-2 mr-14">
+          <div className=" w-full flex justify-center">
+            <ChanseRoomName contractAddress={slug} />
+          </div>
+          <div className="flex gap-x-2 mr-14 lg:min-w-[18rem]">
             <div className="2xl:block hidden">
               <Image src={"/eyes.png"} className=" mr-2" width={90} height={50} alt="Eyes" />
             </div>
@@ -77,7 +79,7 @@ const page = ({ params: { slug } }: lotteryProps) => {
           {/*  */}
           <div className="flex-col w-[25%] justify-end pl-24 flex  pb-4 ">
             <Image
-              src={"/home/chanceFrog.png"}
+              src={"/audio/pepe-music.gif"}
               width={430}
               className="xl:block hidden"
               height={430}

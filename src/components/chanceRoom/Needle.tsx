@@ -133,12 +133,12 @@ const Needle = ({
       // style={{
       //   width: Winner ? "124%" : "100%",
       // }}
-      className=" flex justify-center items-center h-full relative flex-col "
+      className=" flex justify-center items-center h-full relative flex-col z-[200]"
     >
       <motion.div
         // className=""
         // style={{ rotate }}
-        className=""
+        className="z-[200]"
         animate={{
           // x: 80,
           // y: 10,
@@ -149,7 +149,7 @@ const Needle = ({
         }}
         whileTap={{ scale: 1.2 }}
       >
-        <Spinner1 className={`rotate-180  `} />
+        <Spinner1 className={`rotate-180 z-[200] `} />
       </motion.div>
       {/* <h1>{count}</h1> */}
       {/* <button

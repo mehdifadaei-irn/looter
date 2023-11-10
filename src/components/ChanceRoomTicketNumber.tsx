@@ -30,7 +30,7 @@ const ChanceRoomTicketNumber = ({
 
   useEffect(() => {
     if (!accountAddress) {
-      toast("please connect your wallet to see your chance!")
+      toast.error("please connect your wallet to see your chance!")
     }
   }, [])
 
@@ -59,7 +59,7 @@ const ChanceRoomTicketNumber = ({
 
   return (
     <>
-      <div className="relative bg-slate-200 rounded-xl border-2 border-primary">
+      <div className="relative bg-slate-200 rounded-xl border-2 border-primary lg:scale-100 md:scale-90 scale-75">
         <p className="absolute top-0 -right-7 z-20 font-semibold text-xl">
           <div>x{!balanceOf ? "0" : balanceOf?.toString()}</div>
         </p>
@@ -73,14 +73,16 @@ const ChanceRoomTicketNumber = ({
           }
           width={230}
           height={230}
+          className=""
           priority={true}
         />
       </div>
       <p className="font-normal text-[30px] ">{metaData?.normalized_metadata?.name}</p>
       <div className="bg-[#EDD136] w-[350px] px-2 h-[110px] rounded-3xl border-2 border-black flex justify-center items-center">
-        <p className="font-normal text-[28px] text-center">
-          you have {((parseInt(balanceOf) / totallSupply) * 100).toString().slice(0, 4)}% chance to
-          win
+        <p className="font-normal lg:text-[28px] text-[25px] text-center">
+          you have{" "}
+          {!balanceOf ? "0" : ((parseInt(balanceOf) / totallSupply) * 100).toString().slice(0, 4)}%
+          chance to win
         </p>
       </div>
       <Toaster position="top-right" richColors />

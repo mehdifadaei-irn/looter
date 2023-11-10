@@ -35,7 +35,7 @@ const ChanseRoomName = async ({ contractAddress }: { contractAddress: string }) 
   // console.log(data1)
 
   return (
-    <div className="flex flex-col text-center justify-start items-center w-[42%]">
+    <div className="flex flex-col justify-start items-center w-[78%]  -translate-y-5">
       <Suspense
         fallback={
           <div className="w-full flex items-center justify-center">
@@ -54,7 +54,7 @@ const ChanseRoomName = async ({ contractAddress }: { contractAddress: string }) 
           </div>
         }
       >
-        <p className="xl:font-semibold font-medium  xl:text-[21px] text-[17px] xl:pt-0 pt-2 ">
+        <p className="xl:font-bold font-medium  xl:text-[22px] text-[17px] xl:pt-0 pt-2 ">
           {data1?.normalized_metadata.name}
         </p>
       </Suspense>
