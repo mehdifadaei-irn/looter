@@ -227,27 +227,30 @@ const page = ({ params: { slug } }: any) => {
     >
       <Toaster position="top-right" richColors />
       <div
-        className="flex container items-center h-full  justify-center xl:w-[65%] lg:w-[90%] w-full mx-auto"
+        className="flex  items-center h-full  justify-center 2xl:w-[65%] xl:w-[80%] w-[90%] mx-auto"
         ref={wrapper}
       >
-        <div className="relative bg-secondaryLight w-full  h-[37rem] px-2 rounded-3xl border-4 border-black">
-          
-          <div className="w-full h-full flex xl:flex-col flex-row justify-between py-5 items-center">
-            <div className="w-full flex xl:flex-row flex-col-reverse justify-between px-3">
+        <div className="relative bg-secondaryLight w-full  sm:h-[37rem] px-2 rounded-3xl border-4 border-black">
+          <div className="lg:w-full w-[97%] h-full flex xl:flex-col sm:flex-row flex-col justify-between py-5 items-center xl:mx-0 mx-auto">
+            <div className="w-full gap-y-2 flex xl:flex-row flex-col-reverse justify-between px-3 sm:items-start items-center">
               <div>
                 <a
                   href={`https://polygonscan.com/address/${slug}`}
                   target="_blank"
-                  className="font-medium text-[30px] font-pop underline w-full"
+                  className="font-medium xl:text-[30px] text-[25px] font-pop underline w-full"
                 >
                   <span className="">
                     {/* <span className="hidden xl:block">{slug}</span> */}
                     <span className="block">{slug?.slice(0, 10)}</span>
                   </span>
                 </a>
-                <p className="font-zen text-2xl mt-3">{data?.at(3).result.slice(0, 15)}</p>
+                <p className="font-zen 2xl:text-2xl text-xl mt-3">
+                  {data?.at(3).result.slice(0, 15)}
+                </p>
                 <p>
-                  <span className="font-pop font-bold text-[28px]">Spain date: </span>
+                  <span className="font-pop xl:font-bold font-[500] xl:text-[28px] text-[25px]">
+                    Spain date:{" "}
+                  </span>
                   <span className="font-pop font-normal text-[26px]">
                     {`${deadtime.getUTCDate()} ${deadtime.toLocaleString("default", {
                       month: "long",
@@ -257,11 +260,11 @@ const page = ({ params: { slug } }: any) => {
                   </span>
                 </p>
                 <p>
-                  <span className="font-pop font-bold text-[28px]">suplly: </span>
+                  <span className="font-pop xl:text-[28px] text-[25px]">suplly: </span>
                   {isPending ? (
                     <Loader2 className="mt-1 mr-1 animate-spin scale-120" />
                   ) : (
-                    <span className="font-pop font-bold  text-[26px]">
+                    <span className="font-pop xl:font-bold font-semibold  text-[26px]">
                       {`${//@ts-ignore
                       data[1]?.result["Uint256"].maximumTicket.toString()}${"\\"}${//@ts-ignore
                       data[1]?.result["Uint256"].soldTickets.toString()}`}
@@ -269,17 +272,19 @@ const page = ({ params: { slug } }: any) => {
                   )}
                 </p>
                 <p className="mb-2">
-                  <span className="font-pop font-bold text-[28px]">price:</span>
-                  <span className="font-pop font-[500] text-[26px]">
+                  <span className="font-pop xl:text-[28px] text-[25px]">price:</span>
+                  <span className="font-pop xl:font-[500] font-[400] text-[26px]">
                     {formatEther(data?.at(1)?.result?.Uint256?.ticketPrice)}Matic
                   </span>
                 </p>
-                <p className="font-pop font-bold text-[28px]">suplly</p>
-                <span className="font-pop font-bold  text-[26px]">
-                  {`${//@ts-ignore
-                  data[1]?.result["Uint256"].maximumTicket.toString()}${"\\"}${//@ts-ignore
-                  data[1]?.result["Uint256"].soldTickets.toString()}`}
-                </span>
+                {/* <div className="flex xl:flex-col flex-row">
+                  <p className="font-pop xl:text-[28px] text-[25px] xl:mr-0 mr-3">suplly:</p>
+                  <span className="font-pop xl:font-bold font-semibold  text-[26px]">
+                    {`${//@ts-ignore
+                    data[1]?.result["Uint256"].maximumTicket.toString()}${"\\"}${//@ts-ignore
+                    data[1]?.result["Uint256"].soldTickets.toString()}`}
+                  </span>
+                </div> */}
               </div>
               {/*  */}
               <div className="bg-slate-100 h-fit py-1 w-fit px-1 border-2 border-secondary rounded-3xl flex justify-center items-center">
@@ -301,14 +306,19 @@ const page = ({ params: { slug } }: any) => {
               </div>
             </div>
             {/* Btns */}
-            <div className="flex justify-between items-center xl:flex-row flex-col w-[90%] mx-auto mt-10 xl:pr-0 pr-5">
+            <div className="flex justify-between items-center xl:flex-row flex-col w-[90%] mx-auto md:mt-10 mt-0 xl:pr-0 md:pr-5 pr-10">
               {/* <Button fontW="font-zen" scale="0.85">
                 <a className="w-full h-full" href={"/"}>
                   Home
                 </a>
               </Button> */}
 
-              <MyButton IHeight={90} IWidth={220} type="button">
+              <MyButton
+                IHeight={90}
+                IWidth={220}
+                type="button"
+                className="md:scale-100 scale-[0.76]"
+              >
                 <a
                   className="w-[220px] h-[70px] flex justify-center items-center font-bold text-[1.7rem]"
                   href={"/"}
@@ -316,10 +326,10 @@ const page = ({ params: { slug } }: any) => {
                   Home
                 </a>
               </MyButton>
-              <div className="flex items-center">
+              <div className="flex items-center xl:translate-x-0 translate-x-6 xl:scale-100 scale-[1.15]">
                 <div className="flex flex-col">
                   <div
-                    className="relative  w-[250px] h-[68px] flex justify-center items-center"
+                    className="relative  lg:w-[250px] w-[210px] h-[68px] flex justify-center items-center z-0"
                     onClick={handleBuyTicket}
                     style={{
                       opacity: !write || isPending ? "0.7" : "1",
@@ -331,8 +341,8 @@ const page = ({ params: { slug } }: any) => {
                         opacity: !write || isPending ? "0.7" : "1",
                         cursor: !write || isPending ? "not-allowed" : "pointer",
                       }}
-                      className={`absolute top-[10px]  ${
-                        isPending ? "left-[8%] " : "left-[22%]"
+                      className={`absolute lg:top-[10px] top-[8px]  ${
+                        isPending ? "left-[8%] " : "lg:left-[22%] left-[16%]"
                       } font-medium text-[30px] z-50 font-pop text-black cursor-pointer`}
                     >
                       {isPending ? (
@@ -359,7 +369,7 @@ const page = ({ params: { slug } }: any) => {
                   <a
                     href={`https://opensea.io/assets/matic/${metaData?.token_address}`}
                     target="_blank"
-                    className="  text-[13px] text-primary cursor-pointer text-center"
+                    className="  text-[13px] text-primary cursor-pointer text-center z-20"
                   >
                     view on opensea
                   </a>
@@ -368,14 +378,12 @@ const page = ({ params: { slug } }: any) => {
                   <Up
                     style={{
                       opacity: !write ? "0.7" : "1",
-                      cursor: !write ? "not-allowed" : "pointer",
+                      // cursor: !write ? "not-allowed" : "pointer",
                     }}
                     className="hover:-translate-y-1 duration-300 cursor-pointer"
                     onClick={() => {
-                      if (!write) {
-                        if (ticketLeftNUmber == 0) {
-                          toast.error("no more Ticker left!")
-                        }
+                      if (ticketLeftNUmber == 0) {
+                        toast.error("no more Ticker left!")
                       } else {
                         handleamount("inc")
                       }
@@ -384,14 +392,12 @@ const page = ({ params: { slug } }: any) => {
                   <Down
                     style={{
                       opacity: !write ? "0.7" : "1",
-                      cursor: !write ? "not-allowed" : "pointer",
+                      // cursor: !write ? "not-allowed" : "pointer",
                     }}
                     className="hover:translate-y-1 duration-300 cursor-pointer"
                     onClick={() => {
-                      if (!write) {
-                        if (ticketLeftNUmber == 0) {
-                          toast.error("no more Ticker left!")
-                        }
+                      if (ticketLeftNUmber == 0) {
+                        toast.error("no more Ticker left!")
                       } else {
                         handleamount("dec")
                       }
@@ -400,7 +406,12 @@ const page = ({ params: { slug } }: any) => {
                 </div>
               </div>
 
-              <MyButton IHeight={90} IWidth={220} type="button">
+              <MyButton
+                IHeight={90}
+                IWidth={220}
+                type="button"
+                className="md:scale-100 scale-[0.76]"
+              >
                 <a
                   href={`/tickets/sang?chanceRoomAddress=${slug}&totalSupply=${data[1]?.result[
                     "Uint256"

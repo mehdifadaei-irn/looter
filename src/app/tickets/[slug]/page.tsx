@@ -2,9 +2,6 @@
 import Button from "@/components/Button"
 import React, { Suspense } from "react"
 
-import Zard from "@/assets/img/home/za.svg"
-import Mesh from "@/assets/img/home/mesh.svg"
-import Image from "next/image"
 import Link from "next/link"
 import { twMerge } from "tailwind-merge"
 import ChanceRoomTicketNumber from "@/components/ChanceRoomTicketNumber"
@@ -40,9 +37,9 @@ const page = ({ params, ...other }: any) => {
         Your Tickets
       </h3>
       {/* Tickets  border-2 rounded-3xl bg-[#F7F5D0] */}
-      <RectMain width={900} height={490} className="absolute z-0 top-[116px] lg:w-[90%] w-full sm:block hidden " />
+      <RectMain width={900} height={490} className="absolute z-0 top-[116px] lg:w-[90%] w-full md:block hidden  " />
 
-      <div className="flex flex-col justify-between h-[75vh]">
+      <div className="flex flex-col justify-between h-[80vh] md:w-[72%] w-full items-center">
         <div className="w-[95%] max-w-[955px]  min-h-[440px]  relative  overflow-hidden">
           <Suspense fallback={<div>helo</div>}>
             <div className="flex flex-col h-full items-center  pt-0 pb-[5rem]">
@@ -55,12 +52,12 @@ const page = ({ params, ...other }: any) => {
         </div>
 
         <div className="flex flex-col items-center w-full">
-          <p className="font-[400] text-[32px] z-40">GO TO CHANCE ROOOM</p>
-          <div className="flex justify-between gap-x-14 lg:min-w-[900px] min-w-[560px] w-[45%] relative mt-auto">
+          <p className="font-[400] text-[32px] z-40 text-center">GO TO CHANCE ROOOM</p>
+          <div className="flex justify-between gap-x-10 w-2/3 md:min-w-[35rem] min-w-[29rem] ">
             <ArrowBack
               width={130}
               height={200}
-              className="absolute z-50 -right-[41%] bottom-20 "
+              className="absolute z-50 -right-[41%] bottom-20 lg:block hidden "
             />
             <MyButton IHeight={90} IWidth={220} type="button">
               <Link

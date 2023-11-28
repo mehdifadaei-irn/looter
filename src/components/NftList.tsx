@@ -71,8 +71,8 @@ const NftList = () => {
   }
 
   return (
-    <div className="w-full mt-10">
-      <div className="flex  flex-wrap md:px-[4rem] px-0 xl:justify-between justify-center gap-y-8 xl:gap-x-0 gap-x-16">
+    <div className="w-full mt-10 overflow-x-auto scrollbar-hide">
+      <div className="flex xl:pl-[4rem] pl-[32rem] md:pr-[4rem] px-0 xl:justify-between justify-center gap-x-4 scrollbar-hide">
         {data
           //@ts-ignore
           ?.slice(-4)

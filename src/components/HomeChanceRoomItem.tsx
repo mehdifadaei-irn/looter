@@ -12,6 +12,7 @@ import { MyButton } from "./ui/MyButton"
 import NftImage from "./ui/NftImage"
 import { VT323 } from "next/font/google"
 import { cn } from "@/lib/utils"
+import { PolygIcon } from "./Icons"
 
 const VT323Font = VT323({
   subsets: ["latin"],
@@ -114,19 +115,10 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
         <div className="w-full flex justify-center items-center h-full absolute -top-[10%] bottom-0 right-0 left-0 flex-col gap-y-3">
           {ChanceRoomState?.at(0) === "Ticket selling" ? null : (
             <div className="w-[70%] z-30 pb-8">
-              <p
-                className={cn(
-                  "font-bold text-xl opacity-100 z-30  w-full text-center",
-                )}
-              >
+              <p className={cn("font-bold text-xl opacity-100 z-30  w-full text-center")}>
                 {ChanceRoomState?.at(0)}
               </p>
-              <p
-                className={cn(
-                  "font-bold text-xl opacity-100 z-30  w-full text-center",
-                  
-                )}
-              >
+              <p className={cn("font-bold text-xl opacity-100 z-30  w-full text-center")}>
                 {ChanceRoomState?.at(1)}
               </p>
             </div>
@@ -146,7 +138,11 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
             }}
           >
             <div className="w-full flex items-center justify-center ">
-              <div className="relative w-full h-[364px] flex items-center justify-center">
+              <a
+                href={`https://opensea.io/assets/matic/${metaData?.token_address}`}
+                target="_blank"
+                className="relative w-full h-[364px] flex items-center justify-center"
+              >
                 <Image
                   src={"/dumyNft.png"}
                   className="absolute z-0 top-[2px] bottom-0 right-0 left-0 mx-auto my-auto"
@@ -170,11 +166,9 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
                   height={320}
                 />
                 {/* <NftImage contractAddress={contractAddress}/> */}
-              </div>
+              </a>
             </div>
-            <p className={cn("text-2xl mt-3")}>
-              {data?.at(3)?.result?.slice(0, 15)}
-            </p>
+            <p className={cn("text-2xl mt-3")}>{data?.at(3)?.result?.slice(0, 15)}</p>
             {/* <p className="font-zen text-xl mt-3">{contractAddress?.slice(4, 10)}</p> */}
             <p className="flex">
               <span className="font-pop font-bold text-[25px]">Spain date: </span>
@@ -218,14 +212,18 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
                     10 ** 17
                   )
                 ) : null}
-                <span className="font-pop font-normal text-[26px]">Matic</span>
-                <Image
+                <span className="font-pop font-normal text-[26px] mr-4">Matic</span>
+                <PolygIcon width={35} height={35} />
+                {/* <Image
                   src={"/home/Matic.png"}
                   alt="matic"
-                  width={35}
-                  height={35}
+                  style={{
+                    opacity: "1"
+                  }}
+                  width={32}
+                  height={32}
                   className="ml-5"
-                />
+                /> */}
               </span>
             </p>
           </div>
@@ -236,6 +234,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
           IWidth={95}
           IHeight={110}
           sm={true}
+          className="md:scale-100 scale-[1.2]"
           // onClick={handlePopUp}
           // isLoading={ChanceRoomState?.at(0) === "Ticket selling" ? false : true}
           // disable={ChanceRoomState?.at(0) === "Ticket selling" ? false : true}

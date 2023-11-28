@@ -15,7 +15,7 @@ const Hero = () => {
     <>
       <Reveal width="100%">
         <main className=" w-full flex flex-col mb-[100px]" id="#top">
-          <div className="w-full flex justify-center lg:px-0 md:px-10 px-2 ">
+          <div className="w-full flex justify-center lg:px-0 md:px-10 px-2 lg:mt-0 mt-6">
             <Image
               src={"/home/hero.png"}
               width={1120}

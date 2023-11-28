@@ -207,22 +207,22 @@ const page = ({ params: { slug } }: any) => {
   function logg() {}
   // console.log(metaData?.normalized_metadata.image.toString().slice(0, 2), "met")
   return (
-    <div className=" w-full overflow-y-auto h-screen backg flex items-center justify-between flex-col  relative">
+    <div className=" w-full overflow-x-hidden overflow-y-auto h-screen backg flex items-center justify-between flex-col  relative">
       <RectMain
         width={1100}
         height={620}
-        className="absolute z-0 top-[120px] w-[90%] min-w-[56rem]"
+        className="absolute z-0 top-[120px] w-[90%] min-w-[56rem] lg:block hidden"
       />
       <Navbar />
       {/* <button onClick={logg}>Log</button> */}
-      <div className=" w-full h-full flex  items-center flex-col z-20 absolute top-[140px]">
-        <div className=" max-w-[900px] xl:w-[70%] lg:w-[97%] w-[84%] lg:pt-0 pt-5 px-5 rounded-3xl  lg:h-[35rem]  flex flex-col justify-end items-center mx-auto">
-          <div className=" flex justify-between gap-x-5 w-full flex-row lg:gap-y-10 gap-y-1">
+      <div className=" w-full h-full flex  items-center flex-col z-20 ">
+        <div className="md:mt-0 mt-4 max-w-[900px] xl:w-[70%] lg:w-[97%] w-[84%] md:pb-6 px-5 rounded-3xl  md:h-[40rem] h-[45rem]  flex flex-col justify-end items-center mx-auto">
+          <div className=" flex justify-between md:gap-x-5 w-full md:items-start items-center md:flex-row flex-col-reverse lg:gap-y-10 md:gap-y-1 gap-y-3 ">
             <div>
               <a
                 href={`https://polygonscan.com/address/${slug}`}
                 target="_blank"
-                className="font-bold text-[30px] font-pop underline w-full"
+                className="font-bold xl:text-[30px] text-[25px] font-pop underline w-full"
               >
                 <span className="">
                   {/* <span className="hidden xl:block">{slug}</span> */}
@@ -232,11 +232,15 @@ const page = ({ params: { slug } }: any) => {
               {isLoading ? (
                 <div>loading</div>
               ) : (
-                <p className="font-zen text-2xl mt-3">{data?.at(3).result.slice(0, 15)}</p>
+                <p className="font-zen 2xl:text-2xl text-xl mt-3">
+                  {data?.at(3).result.slice(0, 15)}
+                </p>
               )}
 
               <p>
-                <span className="font-pop font-bold text-[28px]">Spain date: </span>
+                <span className="font-pop xl:font-bold font-[500] xl:text-[28px] text-[25px]">
+                  Spain date:{" "}
+                </span>
                 <span className="font-pop font-normal text-[26px]">
                   {`${deadtime.getUTCDate()} ${deadtime.toLocaleString("default", {
                     month: "long",
@@ -247,27 +251,31 @@ const page = ({ params: { slug } }: any) => {
               </p>
               {/* <ChanseRoomName contractAddress={slug} /> */}
               <p>
-                <span className="font-pop font-bold text-[28px]">
+                <span className="font-pop xl:font-bold font-[500] xl:text-[28px] text-[25px]">
                   You Have {!balanceOf ? "0" : balanceOf?.toString()} Ticket
                 </span>
               </p>
               <p>
-                <span className="font-pop font-bold text-[28px]">suplly: </span>
-                <span className="font-pop font-normal text-[26px]">
+                <span className="font-pop xl:font-bold font-[500] xl:text-[28px] text-[25px]">
+                  suplly:{" "}
+                </span>
+                <span className="font-pop font-normal xl:text-[26px] text-[24px]">
                   {data[1]?.result["Uint256"].maximumTicket.toString()}
                 </span>
               </p>
               <p className="mb-2">
-                <span className="font-pop font-bold text-[28px]">price:</span>
-                <span className="font-pop font-[500] text-[26px]">
+                <span className="font-pop xl:font-bold font-[500] xl:text-[28px] text-[25px]">
+                  price:
+                </span>
+                <span className="font-pop xl:font-[500] font-[400] xl:text-[26px] text-[24px]">
                   {formatEther(data?.at(1)?.result?.Uint256?.ticketPrice)}Matic
                 </span>
               </p>
-              <p className="font-pop font-bold text-[28px]">suplly</p>
+              <p className="font-pop xl:font-bold font-[500] xl:text-[28px] text-[25px]">suplly</p>
               {isPending ? (
                 <Loader2 className="mt-1 mr-1 animate-spin scale-120" />
               ) : (
-                <span className="font-pop font-bold  text-[26px]">
+                <span className="font-pop xl:font-[500] font-[400]  text-[26px]">
                   {`${//@ts-ignore
                   data[1]?.result["Uint256"].maximumTicket.toString()}${"\\"}${//@ts-ignore
                   data[1]?.result["Uint256"].soldTickets.toString()}`}
@@ -297,7 +305,7 @@ const page = ({ params: { slug } }: any) => {
           <div className="flex items-center">
             <div className="flex flex-col">
               <div
-                className="relative  w-[250px] h-[68px] flex justify-center items-center"
+                className="relative  w-[250px] h-[68px] flex justify-center items-center z-0"
                 onClick={handleBuyTicket}
                 style={{
                   opacity: !write || isPending ? "0.7" : "1",
@@ -333,7 +341,7 @@ const page = ({ params: { slug } }: any) => {
               <a
                 href={`https://opensea.io/assets/matic/${metaData?.token_address}`}
                 target="_blank"
-                className="  text-[13px] text-primary cursor-pointer text-center"
+                className="  text-[13px] text-primary cursor-pointer text-center z-20"
               >
                 view on opensea
               </a>
@@ -342,14 +350,12 @@ const page = ({ params: { slug } }: any) => {
               <Up
                 style={{
                   opacity: !write ? "0.7" : "1",
-                  cursor: !write ? "not-allowed" : "pointer",
+                  // cursor: !write ? "not-allowed" : "pointer",
                 }}
                 className="hover:-translate-y-1 duration-300 cursor-pointer"
                 onClick={() => {
-                  if (!write) {
-                    if (ticketLeftNUmber == 0) {
-                      toast.error("no more Ticker left!")
-                    }
+                  if (ticketLeftNUmber == 0) {
+                    toast.error("no more Ticker left!")
                   } else {
                     handleamount("inc")
                   }
@@ -358,14 +364,12 @@ const page = ({ params: { slug } }: any) => {
               <Down
                 style={{
                   opacity: !write ? "0.7" : "1",
-                  cursor: !write ? "not-allowed" : "pointer",
+                  // cursor: !write ? "not-allowed" : "pointer",
                 }}
                 className="hover:translate-y-1 duration-300 cursor-pointer"
                 onClick={() => {
-                  if (!write) {
-                    if (ticketLeftNUmber == 0) {
-                      toast.error("no more Ticker left!")
-                    }
+                  if (ticketLeftNUmber == 0) {
+                    toast.error("no more Ticker left!")
                   } else {
                     handleamount("dec")
                   }
@@ -375,8 +379,8 @@ const page = ({ params: { slug } }: any) => {
           </div>
         </div>
 
-        <div className="flex justify-between items-center flex-row xl:w-[70%] w-[90%] mx-auto mt-10">
-          <MyButton IHeight={90} IWidth={220} type="button">
+        <div className="flex justify-between items-center flex-row xl:w-[70%] w-[90%] mx-auto md:mt-10">
+          <MyButton IHeight={90} IWidth={220} type="button" className="md:scale-100 scale-[0.76]">
             <a
               className="w-[220px] h-[70px] flex justify-center items-center font-bold text-[1.7rem] "
               href={"/"}
@@ -384,7 +388,7 @@ const page = ({ params: { slug } }: any) => {
               Home
             </a>
           </MyButton>
-          <MyButton IHeight={90} IWidth={220} type="button">
+          <MyButton IHeight={90} IWidth={220} type="button" className="md:scale-100 scale-[0.76]">
             <a
               href={`/tickets/sang?chanceRoomAddress=${slug}&totalSupply=${data[1]?.result[
                 "Uint256"

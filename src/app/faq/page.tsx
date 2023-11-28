@@ -19,6 +19,7 @@ import Flesh from "../../assets/img/home/flesh.svg"
 import Image from "next/image"
 import Link from "next/link"
 import Button from "@/components/Button"
+import { MyButton } from "@/components/ui/MyButton"
 
 const lonfrina = Londrina_Solid({
   subsets: ["latin"],
@@ -72,7 +73,7 @@ const QandA = [
 const Faq = () => {
   return (
     <div className="w-full flex backg h-full overflow-y-auto" style={lonfrina.style}>
-      <div className="w-[25%] 2xl:flex hidden pt-12 pl-4 h-screen">
+      <div className="w-[25%] xl:flex hidden pt-12 pl-4 h-screen">
         <div className="w-[85%] flex flex-col h-full justify-between pb-12">
           <div>
             <div className="flex">
@@ -96,8 +97,8 @@ const Faq = () => {
         </div>
       </div>
       {/* main */}
-      <div className="flex flex-1 flex-col relative h-screen ">
-        <div className="absolute w-full h-full flex justify-center 2xl:items-center scale-90">
+      <div className="flex flex-1 flex-col-reverse relative h-screen ">
+        <div className="absolute w-full h-full flex justify-center scale-90">
           <Image
             src={"/home/vecb.png"}
             width={770}
@@ -160,18 +161,28 @@ const Faq = () => {
             )
           })}
         </div>
-      </div>
-      {/* main */}
-      <div className="w-[25%]  2xl:flex hidden flex-col justify-between pt-0">
-        <div className="w-full flex justify-end pt-3">
-          <Button scale="0.8">
+        <div className="w-full flex justify-center items-center">
+          <MyButton IHeight={90} IWidth={220} type="button" className="mr-5 lg:hidden flex">
             <Link
               href={"/"}
-              className="cursor-pointer w-full h-[65px] pb-[4px] flex items-center justify-center"
+              className="cursor-pointer w-full h-[65px] text-3xl pb-[4px] flex items-center justify-center min-w-[13rem]"
             >
               Home
             </Link>
-          </Button>
+          </MyButton>
+        </div>
+      </div>
+      {/* main */}
+      <div className="w-[25%]  lg:flex hidden flex-col justify-between pt-0">
+        <div className="w-full flex justify-end pt-3">
+          <MyButton IHeight={90} IWidth={220} type="button" className="mr-5">
+            <Link
+              href={"/"}
+              className="cursor-pointer min-w-[13rem] h-[65px] text-3xl pb-[4px] flex items-center justify-center "
+            >
+              Home
+            </Link>
+          </MyButton>
         </div>
         <div>
           <div>

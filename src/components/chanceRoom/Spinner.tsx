@@ -92,6 +92,7 @@ const edr = true
 
 const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
   const { address, isConnecting, isDisconnected } = useAccount()
+  const [WinIndex, setWinIndex] = useState(null)
   const [TimeLeft, setTimeLeft] = useState<string | null>(null) //0 1 2 3
   const [isStarted, setIsStarted] = useState<boolean>(false) //0 1 2 3
   const [status, setStatus] = useState<string[]>([])
@@ -251,9 +252,25 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
 
       const arr = Object.entries(pied).map(([key, value]) => ({ [key]: value }))
       // console.log(arr)
+      let marpiData = arr.map((obj) => ({
+        name: Object.keys(obj)[0],
+        value: Object.values(obj)[0],
+      }))
       //@ts-ignore
       setPieData(arr.map((obj) => ({ name: Object.keys(obj)[0], value: Object.values(obj)[0] })))
       // console.log(arr)
+      //@ts-ignore
+      // setWinIndex((prev: any) => {
+
+      // })
+
+      marpiData.map((pi, i: any) => {
+        // console.log(pi,Winner,"re")
+        if (pi.name.toString().toLowerCase() == Winner.toString().toLowerCase()) {
+          console.log("how")
+          setWinIndex(i)
+        }
+      })
     },
   })
 
@@ -289,7 +306,7 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
             addressOfContract: contractAddress,
             //@ts-ignore
             Winner: WinnerAddr[1],
-            WinnerIndex: 0,
+            WinnerIndex: 1,
           }),
         )
         setBtnDisable(true)
@@ -367,13 +384,19 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
     },
   })
 
+  function logg() {
+    console.log(WinIndex, "pie")
+  }
 
   return (
     <div className="relative w-1/2 flex flex-col items-center ">
+      {/* <button onClick={logg} className="z-[100] absolute">
+        logg
+      </button> */}
       {/* <div className="w-[700px] h-[700px] bg-slate-600">
 
       </div> */}
-      <div className="flex justify-center absolute w-[320px] h-[320px] translate-x-[17px] 2xl:translate-y-[28px] translate-y-[43px] z-10 opacity-70">
+      <div className="flex justify-center absolute h-[473px] sm:translate-x-[17px] translate-x-[43px] 2xl:translate-y-[-45px] translate-y-[-30px] z-10 opacity-70 min-w-[500px]">
         {!isLoading ? (
           <Image
             alt="nft1"
@@ -382,22 +405,22 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
                 ? "https://ipfs.io/ipfs/QmT37EzSmQSUV1iMxxBBmG5T3WAt15rfPZvQfajEhsVATF/pfp0_5566.png"
                 : metaData?.normalized_metadata.image
             }
-            width={320}
-            height={320}
-            className={`opacity-70 z-100 xl:scale-100 scale-90 `}
+            width={482}
+            height={5000}
+            className={`opacity-70 z-100 xl:scale-100 scale-90 rounded-full `}
           />
         ) : (
           <Skeleton
             animation="wave"
-            width={320}
-            height={320}
-            variant="rounded"
+            width={450}
+            height={450}
+            variant="circular"
             // sx={{ mt: "56px" }}
           />
         )}
       </div>
 
-      <div className="absolute w-[320px] h-[320px] flex justify-center items-center translate-x-[17px] 2xl:translate-y-[28px] translate-y-[43px] z-[200]">
+      <div className="absolute w-[320px] h-[320px] flex justify-center items-center sm:translate-x-[17px] translate-x-[55px] 2xl:translate-y-[28px] translate-y-[43px] z-[200]">
         <Needle
           pieData={pieData}
           isStarted={isStarted}
@@ -407,7 +430,7 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
         />
       </div>
 
-      <div className="absolute w-full h-full flex justify-center 2xl:-top-[9.7rem]  -top-[9rem] xl:scale-100 scale-90 z-10">
+      <div className="absolute w-full h-full flex justify-center 2xl:-top-[156px]  -top-[9rem] xl:scale-100 scale-90 z-10">
         <div className="flex justify-center items-center   w-[700px] h-[700px]  z-10">
           {/* EventLoading */}
           {EventLoading ? (
@@ -419,11 +442,12 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
               <PieChart
                 width={300}
                 height={300}
-                className={`flex justify-center items-center  -translate-x-[3.3rem] `}
+                className={`flex justify-center items-center  sm:-translate-x-[3.3rem] -translate-x-[1.3rem] `}
               >
                 <Pie
                   className="opacity-70"
-                  activeIndex={WinnerIndex}
+                  //@ts-ignore
+                  activeIndex={WinIndex}
                   activeShape={renderActiveShape}
                   data={pieData}
                   cx="60%"
@@ -446,13 +470,13 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
         </div>
       </div>
       {/* Spin */}
-      <div className="absolute w-[70%]  flex flex-col justify-center items-center bottom-[10%] z-50 ">
+      <div className="absolute w-[70%]  flex flex-col justify-center items-center bottom-[5%] z-50 ">
         <div className="flex">
           <Image
             alt="hand"
             src={"/hand.png"}
             className="translate-x-9 z-40"
-            width={80}
+            width={100}
             height={50}
           />
 
@@ -464,7 +488,7 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
             onClick={handleStart}
             disabled={btnDisable}
             // disabled
-            isLoading={btnDisable}
+            // isLoading={btnDisable}
           >
             <span className="w-[230px] h-[90px] flex justify-center items-center font-semibold text-[1.2rem]">
               {TimeLeft ? `${status[1]?.slice(-13)}` : "spin"}

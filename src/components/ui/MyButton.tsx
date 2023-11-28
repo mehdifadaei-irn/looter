@@ -4,6 +4,7 @@ import Loader2 from "../../assets/img/loader-2.svg"
 import * as React from "react"
 import { ButtonSVG, SmButtonSVG } from "../Icons"
 import { Button as MBTN } from "@mui/material"
+import { twMerge } from "tailwind-merge"
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean
@@ -16,9 +17,10 @@ const MyButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, children, isLoading, IWidth, IHeight, sm = false, ...props }, ref) => {
     return (
       <button
-        className={
-          "relative flex justify-center items-center hover:scale-x-[1.014] hover:scale-y-[1.008] duration-200 active:scale-[0.98]"
-        }
+        className={twMerge(
+          "relative flex justify-center items-center md:hover:scale-x-[1.014] md:hover:scale-y-[1.008] duration-200 md:active:scale-[0.98] lg:scale-100 scale-[0.92] ",
+          className,
+        )}
         ref={ref}
         disabled={isLoading}
         style={{

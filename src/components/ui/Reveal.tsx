@@ -14,8 +14,8 @@ const Reveal = ({ children, width = "fit-content" }: ReavealProps) => {
   const mainControlls = useAnimation()
   useEffect(() => {
     if (isInView) {
-        // console.log("her")
-        mainControlls.start("visible")
+      // console.log("her")
+      mainControlls.start("visible")
     }
   }, [isInView])
 
@@ -25,8 +25,9 @@ const Reveal = ({ children, width = "fit-content" }: ReavealProps) => {
       style={{
         position: "relative",
         width: width,
-        overflow: "hidden",
+        // overflow: "hidden",
       }}
+      className="scrollbar-hide"
     >
       <motion.div
         variants={{
