@@ -111,14 +111,14 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
   } else {
     const date = new Date()
     return (
-      <div key={i} className=" w-[23rem] flex flex-col items-center relative">
+      <div key={i} className=" w-[23rem] flex flex-col items-center relative overflow-x-auto">
         <div className="w-full flex justify-center items-center h-full absolute -top-[10%] bottom-0 right-0 left-0 flex-col gap-y-3">
           {ChanceRoomState?.at(0) === "Ticket selling" ? null : (
             <div className="w-[70%] z-30 pb-8">
-              <p className={cn("font-bold text-xl opacity-100 z-30  w-full text-center")}>
+              <p className={cn("font-semibold text-lg opacity-100 z-30  w-full text-center")}>
                 {ChanceRoomState?.at(0)}
               </p>
-              <p className={cn("font-bold text-xl opacity-100 z-30  w-full text-center")}>
+              <p className={cn("font-semibold text-lg opacity-100 z-30  w-full text-center")}>
                 {ChanceRoomState?.at(1)}
               </p>
             </div>
@@ -137,7 +137,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
               opacity: ChanceRoomState?.at(0) === "Ticket selling" ? 1 : 0.6,
             }}
           >
-            <div className="w-full flex items-center justify-center ">
+            <div className="w-full flex items-center justify-center scale-[0.95] ">
               <a
                 href={`https://opensea.io/assets/matic/${metaData?.token_address}`}
                 target="_blank"
@@ -168,17 +168,17 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
                 {/* <NftImage contractAddress={contractAddress}/> */}
               </a>
             </div>
-            <p className={cn("text-2xl mt-3")}>{data?.at(3)?.result?.slice(0, 15)}</p>
+            <p className={cn("text-xl mt-3")}>{data?.at(3)?.result?.slice(0, 15)}</p>
             {/* <p className="font-zen text-xl mt-3">{contractAddress?.slice(4, 10)}</p> */}
             <p className="flex">
-              <span className="font-pop font-bold text-[25px]">Spain date: </span>
-              <span className="font-pop font-[500] text-[26px] flex flex-col">
+              <span className="font-pop font-semibold text-[23px]">Spain date: </span>
+              <span className="font-pop font-[400] text-[26px] flex flex-col">
                 <span>
                   {deadtime.getUTCDate()}
                   {deadtime.toLocaleString("default", { month: "short" })}
                 </span>
               </span>
-              <p className="font-pop font-normal text-[26px]">
+              <p className="font-pop font-normal text-[24px]">
                 <span className="w-full text-center">
                   {" - "}
                   {deadtime.getUTCHours()}
@@ -189,8 +189,8 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
             </p>
 
             <p>
-              <span className="font-pop font-bold text-[28px]">suplly: </span>
-              <span className="font-pop font-[500] text-[26px]">
+              <span className="font-pop font-semibold text-[23px]">suplly: </span>
+              <span className="font-pop font-[500] text-[23px]">
                 {//@ts-ignore
                 data?.at(1)?.result?.Uint256?.maximumTicket.toString()}
                 {"/"}
@@ -199,8 +199,8 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
               </span>
             </p>
             <p className="mb-2 flex">
-              <span className="font-pop font-bold text-[28px]">price:</span>
-              <span className="font-pop font-[500] text-[26px] flex">
+              <span className="font-pop font-semibold text-[24px]">price:</span>
+              <span className="font-pop font-[500] text-[24px] flex">
                 {/* @ts-ignore */}
                 {data ? ( //@ts-ignore
                   !parseInt(data?.at(1)?.result?.Uint256?.ticketPrice.toString().slice(0, -1)) /
@@ -212,7 +212,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
                     10 ** 17
                   )
                 ) : null}
-                <span className="font-pop font-normal text-[26px] mr-4">Matic</span>
+                <span className="font-pop font-normal text-[24px] mr-4">Matic</span>
                 <PolygIcon width={35} height={35} />
                 {/* <Image
                   src={"/home/Matic.png"}

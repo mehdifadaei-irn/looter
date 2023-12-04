@@ -28,12 +28,12 @@ const page = ({ params, ...other }: any) => {
   return (
     <div
       className={twMerge(
-        "backg w-full flex flex-col items-center overflow-hidden relative  min-h-[100vh]",
+        "backg w-full flex flex-col items-center overflow-y-hidden overflow-hidden relative  min-h-[100vh]",
       )}
     >
       <Toaster position="top-right" richColors />
       <Navbar />
-      <h3 className="font-[400] text-[56px]  -translate-y-14 opacity-0 xl:opacity-100">
+      <h3 className="font-[400] text-[56px]  -translate-y-14 opacity-0 xl:opacity-100 sm:block hidden">
         Your Tickets
       </h3>
       {/* Tickets  border-2 rounded-3xl bg-[#F7F5D0] */}
@@ -52,7 +52,7 @@ const page = ({ params, ...other }: any) => {
         </div>
 
         <div className="flex flex-col items-center w-full">
-          <p className="font-[400] text-[32px] z-40 text-center">GO TO CHANCE ROOOM</p>
+          <p className="font-[400] text-[32px] z-40 text-center ">GO TO CHANCE ROOOM</p>
           <div className="flex justify-between gap-x-10 w-2/3 md:min-w-[35rem] min-w-[29rem] ">
             <ArrowBack
               width={130}

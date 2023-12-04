@@ -19,7 +19,9 @@ const HomeFooter = () => {
               lottery. Registration and tracking in the blockchain. A chance to get an expensive
               NFT for only one dollar!
               <span>
-                <span className="text-[#7499FF] z-10">more info </span>
+                <a className="text-[#7499FF] z-10" href="https://chain.link/cross-chain" target="_blank">
+                  more info{" "}
+                </a>
                 for chain link and smart contracts.
               </span>
             </p>

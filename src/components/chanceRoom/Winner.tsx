@@ -7,22 +7,27 @@ import Settel from "../../assets/img/home/sett.svg"
 const Winner = () => {
   //@ts-ignore
   const { Winner, addressOfContract } = useSelector((state) => state.winner)
-  if (Winner == "") return null
+  if (Winner == "")
+    return (
+      <div className="flex flex-col text-center justify-end  sm:w-[25%] w-[34%] pb-14 z-50">
+        {/* <Settel /> */}
+      </div>
+    )
   return (
-    <div className="flex flex-col text-center justify-end  sm:w-[25%] w-[34%] pb-14 z-50">
+    <div className="flex flex-col text-center justify-end  sm:w-[25%] w-[34%] pb-14 z-50 text-base">
       <span>winner</span>
       <a href={`https://polygonscan.com/address/${Winner}`} target="_blank" className="underline">
         {Winner.slice(0, 5)}...{Winner.slice(39, 42)}
       </a>
       <span>congrats!</span>
-      <div className="flex text-center w-full justify-center">
+      <div className="text-center w-full justify-center relative sm:flex hidden">
         <div className="flex flex-col">
           <span>owner item #32</span>
           <span>you can settel</span>
         </div>
         <Settel />
       </div>
-      <span>and recieve you NFT prize.</span>
+      <span className="sm:flex hidden">and recieve your NFT prize.</span>
       <a
         className="text-[#2862FF] underline"
         href={`https://polygonscan.com/address/0x00000783facddb2593dafdf596f7962d506d31bd`}

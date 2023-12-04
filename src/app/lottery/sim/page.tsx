@@ -1,72 +1,28 @@
 "use client"
-import { useEffect, useState } from "react"
-import { AnimatePresence, motion } from "framer-motion"
-import useMeasure from "react-use-measure"
-
-export default function Home() {
-  let [ref, { width }] = useMeasure()
-  let [count, setCount] = useState(1)
-  let prev = usePrevious(count)
-  let direction = count > prev ? 1 : -1
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCount((prev) => prev + 1)
-    }, 3000)
-
-    return () => {
-      clearInterval(interval)
-    }
-  }, [])
+import React from "react"
+import { useRef } from "react"
+import { useDraggable } from "react-use-draggable-scroll"
+const page = () => {
+  const ref = useRef<HTMLDivElement>() as React.MutableRefObject<HTMLInputElement>
+  const { events } = useDraggable(ref) // Now we pass the reference to the useDraggable hook:
 
   return (
-    <div className="flex justify-center">
-      <div className="mt-12 w-full max-w-lg text-white">
-        <div className="flex justify-between px-4">
-          <button onClick={() => setCount(count - 1)}>LLLL</button>
-          <button onClick={() => setCount(count + 1)}>RRRR</button>
-        </div>
-        <div className="mt-8 flex justify-center">
-          <div className="aspect-square w-2/5">
-            <div
-              ref={ref}
-              className="relative flex h-full items-center justify-center overflow-hidden bg-gray-700"
-            >
-              <AnimatePresence custom={{ direction, width }}>
-                <motion.div
-                  key={count}
-                  variants={variants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  custom={{ direction, width }}
-                  className={`absolute flex h-2/3 w-2/3 items-center justify-center text-3xl font-bold `}
-                >
-                  <p>{colors[Math.abs(count) % 4]}</p>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div
+      className="flex max-w-[60rem] overflow-x-scroll scrollbar-hide gap-x-4"
+      {...events}
+      ref={ref} // add reference and events to the wrapping div
+    >
+      <div className="flex-none w-52 h-32 bg-red-200" />
+      <div className="flex-none w-52 h-32 bg-red-200" />
+      <div className="flex-none w-52 h-32 bg-red-200" />
+      <div className="flex-none w-52 h-32 bg-red-200" />
+      <div className="flex-none w-52 h-32 bg-red-200" />
+      <div className="flex-none w-52 h-32 bg-red-200" />
+      <div className="flex-none w-52 h-32 bg-red-200" />
+      <div className="flex-none w-52 h-32 bg-red-200" />
+      <div className="flex-none w-52 h-32 bg-red-200" />
     </div>
   )
 }
 
-let variants = {
-  enter: ({ direction, width }: any) => ({ x: direction * width }),
-  center: { x: 0 },
-  exit: ({ direction, width }: any) => ({ x: direction * -width }),
-}
-
-let colors = ["bg-red-500", "bg-blue-500", "bg-green-500", "bg-yellow-500"]
-
-function usePrevious(state: any) {
-  let [tuple, setTuple] = useState([null, state])
-
-  if (tuple[1] !== state) {
-    setTuple([tuple[1], state])
-  }
-
-  return tuple[0]
-}
+export default page

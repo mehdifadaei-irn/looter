@@ -1,15 +1,17 @@
 "use client"
 import React, { useRef, useEffect } from "react"
 import { motion, useInView, useAnimation, useIsPresent } from "framer-motion"
+import { useDraggable } from "react-use-draggable-scroll"
 
 interface ReavealProps {
   children: JSX.Element
-  width?: "fit-content" | "100%"
+  width?: string
 }
 
 const Reveal = ({ children, width = "fit-content" }: ReavealProps) => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
+
 
   const mainControlls = useAnimation()
   useEffect(() => {
@@ -27,7 +29,7 @@ const Reveal = ({ children, width = "fit-content" }: ReavealProps) => {
         width: width,
         // overflow: "hidden",
       }}
-      className="scrollbar-hide"
+      className="scrollbar-hide "
     >
       <motion.div
         variants={{
@@ -37,6 +39,7 @@ const Reveal = ({ children, width = "fit-content" }: ReavealProps) => {
         initial="hidden"
         animate={mainControlls}
         transition={{ duration: 0.6 }}
+        
       >
         {children}
       </motion.div>

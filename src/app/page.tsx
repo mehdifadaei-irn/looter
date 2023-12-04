@@ -20,10 +20,10 @@ export default function Home() {
         {/* List of nft */}
         {/* BuyTicket */}
         <NftList />
-        {/* ClassLink */}
-        <SocialLink />
         {/* Table */}
         <HomeTable />
+        {/* ClassLink */}
+        <SocialLink />
         {/* Footer */}
         <HomeFooter />
       </div>

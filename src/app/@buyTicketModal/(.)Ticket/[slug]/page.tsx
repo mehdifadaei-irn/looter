@@ -220,18 +220,18 @@ const page = ({ params: { slug } }: any) => {
   }
   return (
     <div
-      className="fixed inset-0 bg-zinc-900/20 z-50 bgfblur"
+      className="fixed inset-0 bg-zinc-900/20 z-50 bgfblur flex justify-center"
       style={{}}
       ref={overlay}
       onClick={onClick}
     >
       <Toaster position="top-right" richColors />
       <div
-        className="flex  items-center h-full  justify-center 2xl:w-[65%] xl:w-[80%] w-[90%] mx-auto"
+        className="flex  items-center h-full  justify-center 2xl:min-w-w-[65vw] xl:min-w-[80vw] min-w-[90vw]"
         ref={wrapper}
       >
         <div className="relative bg-secondaryLight w-full  sm:h-[37rem] px-2 rounded-3xl border-4 border-black">
-          <div className="lg:w-full w-[97%] h-full flex xl:flex-col sm:flex-row flex-col justify-between py-5 items-center xl:mx-0 mx-auto">
+          <div className="lg:w-full w-[97%] h-full flex xl:flex-col sm:flex-row flex-col justify-between sm:py-5 pt-2 items-center xl:mx-0 mx-auto">
             <div className="w-full gap-y-2 flex xl:flex-row flex-col-reverse justify-between px-3 sm:items-start items-center">
               <div>
                 <a
@@ -259,24 +259,26 @@ const page = ({ params: { slug } }: any) => {
                     {/* {modalContent.time} */}
                   </span>
                 </p>
-                <p>
-                  <span className="font-pop xl:text-[28px] text-[25px]">suplly: </span>
-                  {isPending ? (
-                    <Loader2 className="mt-1 mr-1 animate-spin scale-120" />
-                  ) : (
-                    <span className="font-pop xl:font-bold font-semibold  text-[26px]">
-                      {`${//@ts-ignore
-                      data[1]?.result["Uint256"].maximumTicket.toString()}${"\\"}${//@ts-ignore
-                      data[1]?.result["Uint256"].soldTickets.toString()}`}
+                <div className="flex sm:flex-col flex-row sm:gap-x-0 gap-x-4">
+                  <p>
+                    <span className="font-pop xl:text-[28px] text-[25px]">suplly: </span>
+                    {isPending ? (
+                      <Loader2 className="mt-1 mr-1 animate-spin scale-120" />
+                    ) : (
+                      <span className="font-pop xl:font-bold font-semibold  text-[26px]">
+                        {`${//@ts-ignore
+                        data[1]?.result["Uint256"].maximumTicket.toString()}${"\\"}${//@ts-ignore
+                        data[1]?.result["Uint256"].soldTickets.toString()}`}
+                      </span>
+                    )}
+                  </p>
+                  <p className="mb-2">
+                    <span className="font-pop xl:text-[28px] text-[25px]">price:</span>
+                    <span className="font-pop xl:font-[500] font-[400] text-[26px]">
+                      {formatEther(data?.at(1)?.result?.Uint256?.ticketPrice)}Matic
                     </span>
-                  )}
-                </p>
-                <p className="mb-2">
-                  <span className="font-pop xl:text-[28px] text-[25px]">price:</span>
-                  <span className="font-pop xl:font-[500] font-[400] text-[26px]">
-                    {formatEther(data?.at(1)?.result?.Uint256?.ticketPrice)}Matic
-                  </span>
-                </p>
+                  </p>
+                </div>
                 {/* <div className="flex xl:flex-col flex-row">
                   <p className="font-pop xl:text-[28px] text-[25px] xl:mr-0 mr-3">suplly:</p>
                   <span className="font-pop xl:font-bold font-semibold  text-[26px]">
@@ -292,7 +294,7 @@ const page = ({ params: { slug } }: any) => {
                   <Skeleton animation="wave" variant="rounded" width={220} height={220} />
                 ) : (
                   <Image
-                    className=" rounded-3xl"
+                    className=" rounded-3xl sm:h-[220px] sm:w-[220px] h-[188px] w-[188px]"
                     alt="nft"
                     src={
                       metaData?.normalized_metadata.image.toString().slice(0, 4) == "http"
@@ -306,7 +308,7 @@ const page = ({ params: { slug } }: any) => {
               </div>
             </div>
             {/* Btns */}
-            <div className="flex justify-between items-center xl:flex-row flex-col w-[90%] mx-auto md:mt-10 mt-0 xl:pr-0 md:pr-5 pr-10">
+            <div className="flex justify-between items-center xl:flex-row flex-col w-[90%] mx-auto md:mt-10 mt-0 xl:pr-0 md:pr-5 pr-10 sm:h-fit h-[12rem] sm:pb-0 pb-[20px]">
               {/* <Button fontW="font-zen" scale="0.85">
                 <a className="w-full h-full" href={"/"}>
                   Home
@@ -317,7 +319,7 @@ const page = ({ params: { slug } }: any) => {
                 IHeight={90}
                 IWidth={220}
                 type="button"
-                className="md:scale-100 scale-[0.76]"
+                className="xl:!scale-100 sm:!scale-[0.85] !scale-[0.70] sm:ml-0 ml-[9px]"
               >
                 <a
                   className="w-[220px] h-[70px] flex justify-center items-center font-bold text-[1.7rem]"
@@ -326,7 +328,7 @@ const page = ({ params: { slug } }: any) => {
                   Home
                 </a>
               </MyButton>
-              <div className="flex items-center xl:translate-x-0 translate-x-6 xl:scale-100 scale-[1.15]">
+              <div className="flex items-center xl:translate-x-0 translate-x-6 md:scale-100  scale-[0.85]">
                 <div className="flex flex-col">
                   <div
                     className="relative  lg:w-[250px] w-[210px] h-[68px] flex justify-center items-center z-0"
@@ -410,7 +412,7 @@ const page = ({ params: { slug } }: any) => {
                 IHeight={90}
                 IWidth={220}
                 type="button"
-                className="md:scale-100 scale-[0.76]"
+                className="xl:!scale-100 sm:!scale-[0.85] !scale-[0.70] sm:ml-0 ml-[9px]"
               >
                 <a
                   href={`/tickets/sang?chanceRoomAddress=${slug}&totalSupply=${data[1]?.result[

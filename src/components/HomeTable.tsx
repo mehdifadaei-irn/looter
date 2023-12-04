@@ -85,7 +85,7 @@ const tableDataBlue: tableDataType[] = [
 const HomeTable = () => {
   return (
     <Reveal width="100%">
-      <div className="font-pop my-10 w-full flex flex-col">
+      <div className="font-pop my-10 w-full flex flex-col mt-28">
         <div className="relative w-full flex items-center justify-center">
           <Week className="md:scale-95 absolute scale-[0.8]" />
           <p className="absolute z-10 font-semibold text-white tracking-widest text-2xl">
@@ -173,7 +173,7 @@ const HomeTable = () => {
                 </div>
                 <div className="flex bg-white text-black font-medium py-2 text-[25px] justify-center border border-black">
                   <p>{item.winner}</p>
-                </div>  
+                </div>
               </>
             ))}
           </div>

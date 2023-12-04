@@ -28,6 +28,7 @@ import { chanceRoomAbi } from "@/assets/abis/samp2"
 import { useDispatch } from "react-redux"
 import { setWinner } from "@/redux/slices/winnerSelcet"
 import { MyButton } from "../ui/MyButton"
+import { Hand } from "../Icons"
 
 const renderActiveShape = (props: any) => {
   const RADIAN = Math.PI / 180
@@ -81,7 +82,7 @@ const renderActiveShape = (props: any) => {
       {/* <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" /> */}
 
       <text x={ex + (cos >= 0 ? 1 : -1) * 0.4} y={ey} dy={1} textAnchor={textAnchor} fill="#999">
-        {`(${(percent * 100).toFixed(2)}%)`}
+        {`(${(percent * 100).toFixed(2)}%)`}22
       </text>
     </g>
   )
@@ -389,14 +390,8 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
   }
 
   return (
-    <div className="relative w-1/2 flex flex-col items-center ">
-      {/* <button onClick={logg} className="z-[100] absolute">
-        logg
-      </button> */}
-      {/* <div className="w-[700px] h-[700px] bg-slate-600">
-
-      </div> */}
-      <div className="flex justify-center absolute h-[473px] sm:translate-x-[17px] translate-x-[43px] 2xl:translate-y-[-45px] translate-y-[-30px] z-10 opacity-70 min-w-[500px]">
+    <div className="relative w-1/2 flex flex-col items-center  ">
+      <div className="flex  justify-center absolute h-[473px] sm:translate-x-[17px] translate-x-[32px] 2xl:translate-y-[-45px] translate-y-[-43px] z-10 opacity-70 min-w-[500px] sm:scale-100 scale-[0.72]">
         {!isLoading ? (
           <Image
             alt="nft1"
@@ -420,7 +415,7 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
         )}
       </div>
 
-      <div className="absolute w-[320px] h-[320px] flex justify-center items-center sm:translate-x-[17px] translate-x-[55px] 2xl:translate-y-[28px] translate-y-[43px] z-[200]">
+      <div className="absolute w-[320px] h-[320px] flex justify-center items-center sm:translate-x-[17px] translate-x-[31px] 2xl:translate-y-[28px] translate-y-[31px] z-[200] sm:scale-100 scale-[0.7]">
         <Needle
           pieData={pieData}
           isStarted={isStarted}
@@ -430,8 +425,8 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
         />
       </div>
 
-      <div className="absolute w-full h-full flex justify-center 2xl:-top-[156px]  -top-[9rem] xl:scale-100 scale-90 z-10">
-        <div className="flex justify-center items-center   w-[700px] h-[700px]  z-10">
+      <div className="absolute w-full h-full flex justify-center 2xl:-top-[156px]  -top-[9rem] xl:scale-100 sm:scale-90 scale-[0.65] z-10">
+        <div className="flex justify-center items-center   min-w-[700px] h-[700px]  z-10">
           {/* EventLoading */}
           {EventLoading ? (
             <div className="z-[600] w-full flex justify-center items-center scale-[9] translate-x-[2.3rem]">
@@ -472,13 +467,9 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
       {/* Spin */}
       <div className="absolute w-[70%]  flex flex-col justify-center items-center bottom-[5%] z-50 ">
         <div className="flex">
-          <Image
-            alt="hand"
-            src={"/hand.png"}
-            className="translate-x-9 z-40"
-            width={100}
-            height={50}
-          />
+          <div className="translate-x-16 z-40">
+            <Hand />
+          </div>
 
           <MyButton
             IHeight={100}

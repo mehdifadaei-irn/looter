@@ -61,7 +61,7 @@ const page = ({ params: { slug } }: lotteryProps) => {
             </MyButton>
             <a
               href={"/"}
-              className="w-[50px] p-2 h-[55px] bg-yellow-100 rounded-full lg:hidden flex justify-center items-center border-slate-900 border-[3px]"
+              className="w-[50px] z-50 p-2 h-[55px] bg-yellow-100 rounded-full lg:hidden flex justify-center items-center border-slate-900 border-[3px]"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
