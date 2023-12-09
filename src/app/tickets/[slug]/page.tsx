@@ -33,13 +33,17 @@ const page = ({ params, ...other }: any) => {
     >
       <Toaster position="top-right" richColors />
       <Navbar />
-      <h3 className="font-[400] text-[56px]  -translate-y-14 opacity-0 xl:opacity-100 sm:block hidden">
+      <h3 className="font-[600] text-[46px]  -translate-y-14 opacity-0 xl:opacity-100 sm:block hidden">
         Your Tickets
       </h3>
       {/* Tickets  border-2 rounded-3xl bg-[#F7F5D0] */}
-      <RectMain width={900} height={490} className="absolute z-0 top-[116px] lg:w-[90%] w-full md:block hidden  " />
+      <RectMain
+        width={900}
+        height={490}
+        className="absolute z-0 top-[116px] lg:w-[90%] w-full md:block hidden  "
+      />
 
-      <div className="flex flex-col justify-between h-[80vh] md:w-[72%] w-full items-center">
+      <div className="flex flex-col justify-between md:h-[80vh] h-[85vh] md:w-[72%] w-full items-center">
         <div className="w-[95%] max-w-[955px]  min-h-[440px]  relative  overflow-hidden">
           <Suspense fallback={<div>helo</div>}>
             <div className="flex flex-col h-full items-center  pt-0 pb-[5rem]">
@@ -52,22 +56,33 @@ const page = ({ params, ...other }: any) => {
         </div>
 
         <div className="flex flex-col items-center w-full">
-          <p className="font-[400] text-[32px] z-40 text-center ">GO TO CHANCE ROOOM</p>
+          <p className="font-[500] text-2xl z-40 text-center ">GO TO CHANCE ROOOM</p>
           <div className="flex justify-between gap-x-10 w-2/3 md:min-w-[35rem] min-w-[29rem] ">
             <ArrowBack
               width={130}
               height={200}
               className="absolute z-50 -right-[41%] bottom-20 lg:block hidden "
             />
-            <MyButton IHeight={90} IWidth={220} type="button">
+            <MyButton
+              IHeight={90}
+              IWidth={220}
+              type="button"
+              className="xl:!scale-100 sm:!scale-[0.85] !scale-[0.70]"
+            >
               <Link
                 href={"/"}
-                className="w-[220px] h-[70px] pb-[4px] flex items-center justify-center font-bold text-[1.4rem]"
+                className="w-[220px] h-[70px] pb-[4px] flex items-center justify-center font-bold text-[1.4rem] "
               >
                 BACK
               </Link>
             </MyButton>
-            <MyButton IHeight={90} IWidth={220} type="button" onClick={handleLetsGo}>
+            <MyButton
+              IHeight={90}
+              IWidth={220}
+              type="button"
+              onClick={handleLetsGo}
+              className="xl:!scale-100 sm:!scale-[0.85] !scale-[0.70]"
+            >
               <p className="w-[220px] h-[70px] pb-[4px] flex items-center justify-center font-bold text-[1.4rem]">
                 LET’S GO
               </p>

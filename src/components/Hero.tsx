@@ -15,21 +15,20 @@ const Hero = () => {
     <>
       <Reveal width="100%">
         <main className=" w-full flex flex-col mb-[100px]" id="#top">
-          <div className="w-full flex justify-center lg:px-0 md:px-10 px-2 lg:mt-0 mt-6">
+          <div className="lg:w-[82%] w-[90%] max-w-[88rem]  xl:w-[85%] mx-auto flex justify-center mt-14">
             <Image
               src={"/home/hero.png"}
               width={1120}
               height={550}
               alt="hero"
-              className="translate-x-5 2xl:scale-95 xl:scale-90 scale-[0.81]"
+              className="translate-x-5 "
             />
           </div>
-
-          <div className="w-[100%] max-w-[88rem]  xl:w-[72%] mx-auto flex xl:justify-start justify-center mt-1">
+          <div className="w-[100%] max-w-[88rem]  xl:w-[85%] mx-auto flex justify-center mt-1">
             <Punk2 className="lg:block hidden mr-[6.5%]" />
             <TextCarusel />
           </div>
-          <div className="w-full flex justify-center mt-5">
+          <div className="w-full flex justify-center md:mt-3 mt-6">
             <Image
               src={"/home/Lunch.png"}
               width={200}
@@ -44,7 +43,7 @@ const Hero = () => {
         </main>
       </Reveal>
       <Reveal width="100%">
-        <h3 className="font-pop  md:font-bold font-semibold md:text-[72px] text-[62px] w-full text-center mb-4">
+        <h3 className="font-pop  xl:font-bold font-semibold xl:text-[72px] lg:text-[60px] md:text-5xl text-4xl w-full text-center mb-4">
           Lottery project
         </h3>
       </Reveal>

@@ -14,7 +14,7 @@ import Link from "next/link"
 const SocialLink = () => {
   return (
     <Reveal width="100%">
-      <div className="font-pop w-full flex flex-col items-center my-14">
+      <div className="font-pop w-[100%] max-w-[83rem]  xl:w-[85%] mx-auto flex flex-col items-center my-14">
         <div>
           <h3 className="font-extrabold text-[40px] tracking-wider">Class Links</h3>
           <BlueLine className="-translate-y-4 scale-75" />
@@ -23,7 +23,7 @@ const SocialLink = () => {
           <Link
             href="https://twitter.com/0xlott"
             target="_blank"
-            className="bg-amber-300 relative xl:w-[35%] w-[78%] flex items-center justify-center rounded-[50px] py-6 border border-black"
+            className="bg-amber-300 relative xl:w-[75%] w-[78%] flex items-center justify-center rounded-[50px] py-6 border border-black"
           >
             <Rocket
               width={100}
@@ -35,7 +35,7 @@ const SocialLink = () => {
           <Link
             href="https://discord.gg/HRKc6KYk"
             target="_blank"
-            className="bg-amber-300 relative xl:w-[35%] w-[78%] flex items-center justify-center rounded-[50px] py-6 border border-black"
+            className="bg-amber-300 relative xl:w-[75%] w-[78%] flex items-center justify-center rounded-[50px] py-6 border border-black"
           >
             <span className="font-bold text-2xl text-slate-900 tracking-wider">Discord</span>
             <div className="absolute right-10 -top-7">
@@ -46,7 +46,7 @@ const SocialLink = () => {
           <Link
             href="https://polygonscan.com/address/0x000004911bede2053923baf3b59e1a9f034482c9#readProxyContract"
             target="_blank"
-            className="bg-amber-300 relative xl:w-[35%] w-[78%] flex items-center justify-center rounded-[50px] py-6 border border-black"
+            className="bg-amber-300 relative xl:w-[75%] w-[78%] flex items-center justify-center rounded-[50px] py-6 border border-black"
           >
             <Image
               src={"/done.png"}
@@ -62,7 +62,7 @@ const SocialLink = () => {
               <Ga className="absolute z-30 -top-5 -right-10" />
             </div>
           </Link>
-          <a className="bg-amber-300 relative xl:w-[35%] w-[78%] flex items-center justify-center rounded-[50px] py-6 border border-black">
+          <a className="bg-amber-300 relative xl:w-[75%] w-[78%] flex items-center justify-center rounded-[50px] py-6 border border-black">
             <span className="font-bold text-2xl text-slate-900 tracking-wider">Apply project</span>
             <Image
               src={"/eyes.png"}
@@ -75,7 +75,7 @@ const SocialLink = () => {
           <Link
             href="https://chain.link/"
             target="_blank"
-            className="bg-amber-300 relative xl:w-[35%] w-[78%] flex items-center justify-center rounded-[50px] py-6 border border-black"
+            className="bg-amber-300 relative xl:w-[75%] w-[78%] flex items-center justify-center rounded-[50px] py-6 border border-black"
           >
             <Image
               src={"/chain.png"}
@@ -88,7 +88,7 @@ const SocialLink = () => {
           </Link>
           <Link
             href={"/faq"}
-            className="bg-amber-300 cursor-pointer relative xl:w-[35%] w-[78%] flex items-center justify-center rounded-[50px] py-6 border border-black"
+            className="bg-amber-300 cursor-pointer relative xl:w-[70%] w-[78%] flex items-center justify-center rounded-[50px] py-7 border border-black"
           >
             <Image
               src={"/faq.png"}

@@ -11,15 +11,19 @@ const HomeFooter = () => {
 
         <div className="flex z-10 lg:pl-[5%] pl-0">
           <div className="flex flex-col gap-y-6 flex-1 z-10">
-            <p className="font-extrabold text-[48px] tracking-wide z-10">
+            <p className="lg:font-extrabold font-semibold lg:text-[48px] text-[30px] lg:tracking-wide z-10">
               What is Oracle chain link and why is it secure?
             </p>
-            <p className="font-[200] text-[32px] tracking-wide flex flex-col z-10">
+            <p className="lg:text-[32px] text-[24px] lg:tracking-wide flex flex-col z-10">
               USecurity, without human intervention. Random numbers. The most transparent type of
               lottery. Registration and tracking in the blockchain. A chance to get an expensive
               NFT for only one dollar!
               <span>
-                <a className="text-[#7499FF] z-10" href="https://chain.link/cross-chain" target="_blank">
+                <a
+                  className="text-[#7499FF] z-10"
+                  href="https://chain.link/cross-chain"
+                  target="_blank"
+                >
                   more info{" "}
                 </a>
                 for chain link and smart contracts.

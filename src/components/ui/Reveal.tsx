@@ -12,7 +12,6 @@ const Reveal = ({ children, width = "fit-content" }: ReavealProps) => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
 
-
   const mainControlls = useAnimation()
   useEffect(() => {
     if (isInView) {
@@ -39,7 +38,6 @@ const Reveal = ({ children, width = "fit-content" }: ReavealProps) => {
         initial="hidden"
         animate={mainControlls}
         transition={{ duration: 0.6 }}
-        
       >
         {children}
       </motion.div>

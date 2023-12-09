@@ -17,6 +17,7 @@ import {
   useContractWrite,
   usePrepareContractWrite,
   useBalance,
+  useContractReads,
 } from "wagmi"
 import { mainAbi } from "@/assets/abis/mainAbis"
 import { stringToColour } from "@/lib/generateColorFromHash"
@@ -99,7 +100,7 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
   const [status, setStatus] = useState<string[]>([])
   const [pieData, setPieData] = useState<{ name: string; value: number }[]>([])
   const [btnDisable, setBtnDisable] = useState<boolean>(false)
-
+  const [imgbase64, setImgbase64] = useState<any>()
   //@ts-ignore
   const { Winner, addressOfContract, WinnerIndex } = useSelector((state) => state.winner)
   const dispatch = useDispatch()
@@ -149,20 +150,20 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
     // setState(index)
   }
 
-  const { data: metaData, isLoading }: { data: any; isLoading: boolean } = useQuery({
-    queryKey: ["getMetadata", `${contractAddress}`],
-    queryFn: async () => {
-      const { data } = await axios.get(
-        `https://deep-index.moralis.io/api/v2.2/nft/${contractAddress}/0?chain=polygon&format=decimal&normalizeMetadata=true&media_items=false`,
-        {
-          headers: {
-            accept: "application/json",
-            "X-API-Key": process.env.NEXT_PUBLIC_MORALIS_API_KEY,
-          },
-        },
-      )
-
-      return data
+  const { data: mainD, isLoading }: { data: any; isLoading: boolean } = useContractRead({
+    //@ts-ignore
+    address: contractAddress,
+    abi: mainAbi,
+    functionName: "tokenURI",
+    args: ["0"],
+    chainId: polygon.id,
+    onSuccess(data) {
+      try {
+        let parsed = atob(data?.slice(29).toString())
+        setImgbase64(JSON?.parse(parsed).image)
+      } catch (error) {
+        console.error("Error parsing JSON:", error)
+      }
     },
   })
   const { data: contractDataLayout, isLoading: isLayoutLoading } = useContractRead({
@@ -395,11 +396,7 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
         {!isLoading ? (
           <Image
             alt="nft1"
-            src={
-              metaData?.normalized_metadata.image.toString().slice(0, 4) == "http"
-                ? "https://ipfs.io/ipfs/QmT37EzSmQSUV1iMxxBBmG5T3WAt15rfPZvQfajEhsVATF/pfp0_5566.png"
-                : metaData?.normalized_metadata.image
-            }
+            src={imgbase64 == undefined ? "/placeholder.png" : imgbase64}
             width={482}
             height={5000}
             className={`opacity-70 z-100 xl:scale-100 scale-90 rounded-full `}

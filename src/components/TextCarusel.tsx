@@ -61,7 +61,7 @@ const TextCarusel = () => {
         setStopCount(true)
         setStartCount(false)
       }}
-      className="relative flex cursor-pointer min-h-[270px] 2xl:h-[320px] xl:h-[330px] h-[340px] lg:w-[58%] w-[80%] items-center justify-center overflow-hidden lg:-translate-x-20 translate-x-0"
+      className="relative flex cursor-pointer min-h-[270px] 2xl:h-[320px] xl:h-[330px] h-[340px] lg:w-[58%] md:w-[80%] w-[88%] items-center justify-center overflow-hidden lg:-translate-x-20 translate-x-0"
     >
       <AnimatePresence custom={{ direction, width }}>
         <motion.div

@@ -12,7 +12,7 @@ import HomeFooter from "@/components/HomeFooter"
 
 export default function Home() {
   return (
-    <div className=" w-full h-auto">
+    <div className=" w-full h-auto overflow-x-hidden">
       <div className=" backg">
         <Navbar />
         {/* Hero section =Home= */}
@@ -21,7 +21,7 @@ export default function Home() {
         {/* BuyTicket */}
         <NftList />
         {/* Table */}
-        <HomeTable />
+        {/* <HomeTable /> */}
         {/* ClassLink */}
         <SocialLink />
         {/* Footer */}

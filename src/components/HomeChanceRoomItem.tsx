@@ -9,10 +9,10 @@ import { useQuery } from "@tanstack/react-query"
 import { polygon } from "wagmi/chains"
 import Link from "next/link"
 import { MyButton } from "./ui/MyButton"
-import NftImage from "./ui/NftImage"
 import { VT323 } from "next/font/google"
 import { cn } from "@/lib/utils"
-import { PolygIcon } from "./Icons"
+import { DummyRect, PolygIcon } from "./Icons"
+import { convertToRandomHexColor, stringToColour } from "@/lib/generateColorFromHash"
 
 const VT323Font = VT323({
   subsets: ["latin"],
@@ -29,27 +29,11 @@ type ChanceRoomItemProps = {
 const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: ChanceRoomItemProps) => {
   const [ChanceRoomState, setChanceRoomSate] = useState<string[]>([])
   const [initialRenderComplete, setInitialRenderComplete] = React.useState(false)
+  const [imgbase64, setImgbase64] = useState<any>()
   React.useEffect(() => {
     // Updating a state causes a re-render
     setInitialRenderComplete(true)
   }, [])
-
-  const { data: metaData }: { data: any } = useQuery({
-    queryKey: ["getMetadata", `${contractAddress}`],
-    queryFn: async () => {
-      const { data } = await axios.get(
-        `https://deep-index.moralis.io/api/v2.2/nft/${contractAddress}/0?chain=polygon&format=decimal&normalizeMetadata=true&media_items=false`,
-        {
-          headers: {
-            accept: "application/json",
-            "X-API-Key": process.env.NEXT_PUBLIC_MORALIS_API_KEY,
-          },
-        },
-      )
-
-      return data
-    },
-  })
 
   const { data, isLoading }: { data: any; isLoading: boolean } = useContractReads({
     contracts: [
@@ -88,7 +72,12 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
       },
     ],
     onSuccess(data) {
-      console.log(data, "2")
+      try {
+        let parsed = atob(data[2].result?.slice(29).toString())
+        setImgbase64(JSON?.parse(parsed).image)
+      } catch (error) {
+        console.error("Error parsing JSON:", error)
+      }
       setChanceRoomSate(data[0]?.result)
     },
   })
@@ -101,7 +90,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
   )
 
   function logg() {
-    console.log(metaData)
+    console.log(imgbase64)
   }
 
   if (!initialRenderComplete) {
@@ -111,14 +100,18 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
   } else {
     const date = new Date()
     return (
-      <div key={i} className=" w-[23rem] flex flex-col items-center relative overflow-x-auto">
-        <div className="w-full flex justify-center items-center h-full absolute -top-[10%] bottom-0 right-0 left-0 flex-col gap-y-3">
+      <div key={i} className=" w-[23rem] flex flex-col items-center relative max-h-[33rem]">
+        <div className="w-full flex justify-center items-center h-full absolute -top-[7%] bottom-0 right-0 left-0 flex-col gap-y-3">
           {ChanceRoomState?.at(0) === "Ticket selling" ? null : (
             <div className="w-[70%] z-30 pb-8">
-              <p className={cn("font-semibold text-lg opacity-100 z-30  w-full text-center")}>
+              <p
+                className={cn(" font-pop text-lg font-bold opacity-100 z-30  w-full text-center")}
+              >
                 {ChanceRoomState?.at(0)}
               </p>
-              <p className={cn("font-semibold text-lg opacity-100 z-30  w-full text-center")}>
+              <p
+                className={cn(" font-pop text-lg font-bold opacity-100 z-30  w-full text-center")}
+              >
                 {ChanceRoomState?.at(1)}
               </p>
             </div>
@@ -139,125 +132,110 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
           >
             <div className="w-full flex items-center justify-center scale-[0.95] ">
               <a
-                href={`https://opensea.io/assets/matic/${metaData?.token_address}`}
+                href={`https://opensea.io/assets/matic/${contractAddress}`}
                 target="_blank"
                 className="relative w-full h-[364px] flex items-center justify-center"
               >
-                <Image
-                  src={"/dumyNft.png"}
-                  className="absolute z-0 top-[2px] bottom-0 right-0 left-0 mx-auto my-auto"
-                  alt="Simp"
-                  width={360}
-                  height={380}
-                />
+                <div className="absolute z-0 top-[2px] bottom-0 right-0 left-0 mx-auto my-auto flex justify-center">
+                  <DummyRect
+                    width={300}
+                    height={300}
+                    color={convertToRandomHexColor(`${contractAddress as string}`)}
+                  />
+                </div>
                 <Image
                   style={{
                     maxWidth: "none",
-                    height: "340px",
+                    height: "280px",
                   }}
                   className=" absolute z-10 rounded-[24%] top-[1px] -translate-x-2  bg-contain mx-auto "
-                  src={
-                    metaData?.normalized_metadata.image.toString().slice(0, 4) == "http"
-                      ? "https://ipfs.io/ipfs/QmT37EzSmQSUV1iMxxBBmG5T3WAt15rfPZvQfajEhsVATF/pfp0_5566.png"
-                      : metaData?.normalized_metadata.image
-                  }
+                  src={imgbase64 == undefined ? "/placeholder.png" : imgbase64}
                   alt="nft"
-                  width={335}
-                  height={320}
+                  width={285}
+                  height={280}
                 />
-                {/* <NftImage contractAddress={contractAddress}/> */}
               </a>
             </div>
-            <p className={cn("text-xl mt-3")}>{data?.at(3)?.result?.slice(0, 15)}</p>
-            {/* <p className="font-zen text-xl mt-3">{contractAddress?.slice(4, 10)}</p> */}
-            <p className="flex">
-              <span className="font-pop font-semibold text-[23px]">Spain date: </span>
-              <span className="font-pop font-[400] text-[26px] flex flex-col">
-                <span>
-                  {deadtime.getUTCDate()}
-                  {deadtime.toLocaleString("default", { month: "short" })}
-                </span>
-              </span>
-              <p className="font-pop font-normal text-[24px]">
-                <span className="w-full text-center">
-                  {" - "}
-                  {deadtime.getUTCHours()}
-                  {":"}
-                  {deadtime.getUTCMinutes()} {"utc"}
+
+            <div className="-translate-y-[78px] flex flex-col items-center">
+              <p className={cn("text-lg font-bold mt-3 text-center w-full ")}>
+                {data?.at(3)?.result?.slice(0, 15)}
+              </p>
+              {/* <p className="font-zen text-xl mt-3">{contractAddress?.slice(4, 10)}</p> */}
+              <p className="flex font-pop text-lg font-bold w-[70%]">
+                <span className="text-center">
+                  Spain date:
+                  <span className="text-[17px] font-[600]">
+                    {deadtime.getUTCDate()}{" "}
+                    {deadtime.toLocaleString("default", { month: "short" })} {" - "}
+                    {deadtime.getUTCHours()}
+                    {":"}
+                    {deadtime.getUTCMinutes()} {"utc"}
+                  </span>
                 </span>
               </p>
-            </p>
 
-            <p>
-              <span className="font-pop font-semibold text-[23px]">suplly: </span>
-              <span className="font-pop font-[500] text-[23px]">
-                {//@ts-ignore
-                data?.at(1)?.result?.Uint256?.maximumTicket.toString()}
-                {"/"}
-                {//@ts-ignore
-                data?.at(1)?.result?.Uint256?.soldTickets.toString()}
-              </span>
-            </p>
-            <p className="mb-2 flex">
-              <span className="font-pop font-semibold text-[24px]">price:</span>
-              <span className="font-pop font-[500] text-[24px] flex">
-                {/* @ts-ignore */}
-                {data ? ( //@ts-ignore
-                  !parseInt(data?.at(1)?.result?.Uint256?.ticketPrice.toString().slice(0, -1)) /
-                  10 ** 17 ? (
-                    <span>0</span>
-                  ) : (
-                    //@ts-ignore
-                    parseInt(data?.at(1)?.result?.Uint256?.ticketPrice.toString().slice(0, -1)) /
-                    10 ** 17
-                  )
-                ) : null}
-                <span className="font-pop font-normal text-[24px] mr-4">Matic</span>
-                <PolygIcon width={35} height={35} />
-                {/* <Image
-                  src={"/home/Matic.png"}
-                  alt="matic"
-                  style={{
-                    opacity: "1"
-                  }}
-                  width={32}
-                  height={32}
-                  className="ml-5"
-                /> */}
-              </span>
-            </p>
+              <p>
+                <span className="font-pop text-lg font-bold">suplly: </span>
+                <span className="font-pop text-lg font-semibold">
+                  {//@ts-ignore
+                  data?.at(1)?.result?.Uint256?.maximumTicket.toString()}
+                  {"/"}
+                  {//@ts-ignore
+                  data?.at(1)?.result?.Uint256?.soldTickets.toString()}
+                </span>
+              </p>
+              <p className="mb-2 flex">
+                <span className="font-pop text-lg font-bold">price:</span>
+                <span className="font-pop text-lg font-bold flex">
+                  {/* @ts-ignore */}
+                  {data ? ( //@ts-ignore
+                    !parseInt(data?.at(1)?.result?.Uint256?.ticketPrice.toString().slice(0, -1)) /
+                    10 ** 17 ? (
+                      <span>0</span>
+                    ) : (
+                      //@ts-ignore
+                      parseInt(data?.at(1)?.result?.Uint256?.ticketPrice.toString().slice(0, -1)) /
+                      10 ** 17
+                    )
+                  ) : null}
+                  <span className="font-pop font-normal text-[24px] mr-4">Matic</span>
+                  <PolygIcon width={30} height={30} />
+                </span>
+              </p>
+            </div>
           </div>
         )}
-
-        <MyButton
-          // scale="0.66"
-          IWidth={95}
-          IHeight={110}
-          sm={true}
-          className="md:scale-100 scale-[1.2]"
-          // onClick={handlePopUp}
-          // isLoading={ChanceRoomState?.at(0) === "Ticket selling" ? false : true}
-          // disable={ChanceRoomState?.at(0) === "Ticket selling" ? false : true}
-        >
-          <Link
-            href={`/Ticket/${contractAddress}`}
-            key={"231zasraw2"}
-            className={cn(
-              "cursor-pointer w-[100px] h-[50px] pb-[4px] flex items-center justify-center font-bold text-3xl ",
-              VT323Font.className,
-            )}
-            scroll={false}
+        <div className="-translate-y-[118px] flex flex-col items-center">
+          <MyButton
+            IWidth={95}
+            IHeight={110}
+            sm={true}
+            className="md:scale-100 scale-[1.2]"
+            // onClick={handlePopUp}
+            // isLoading={ChanceRoomState?.at(0) === "Ticket selling" ? false : true}
+            // disable={ChanceRoomState?.at(0) === "Ticket selling" ? false : true}
           >
-            ADD
-          </Link>
-        </MyButton>
-        <a
-          href={`https://polygonscan.com/address/${contractAddress}`}
-          target="_blank"
-          className=" mt-[0px] text-[13px] text-primary cursor-pointer z-30"
-        >
-          view on Polygonscan
-        </a>
+            <Link
+              href={`/Ticket/${contractAddress}`}
+              key={"231zasraw2"}
+              className={cn(
+                "cursor-pointer w-[100px] h-[50px] pb-[4px] flex items-center justify-center font-bold text-3xl ",
+                VT323Font.className,
+              )}
+              scroll={false}
+            >
+              ADD
+            </Link>
+          </MyButton>
+          <a
+            href={`https://polygonscan.com/address/${contractAddress}`}
+            target="_blank"
+            className="-translate-y-[20px] text-[13px] text-primary cursor-pointer z-30"
+          >
+            view on Polygonscan
+          </a>
+        </div>
       </div>
     )
   }

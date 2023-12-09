@@ -10,6 +10,7 @@ import HomeChanceRoomItem from "./HomeChanceRoomItem"
 
 import { FactoryAbi } from "@/assets/abis/mainAbis"
 import { useScroll, useTransform, motion } from "framer-motion"
+import { ChervRight } from "./Icons"
 
 export interface SimpleDialogProps {
   open: boolean
@@ -42,19 +43,25 @@ const NftList = () => {
   function logg() {
     console.log()
   }
-
+  //scrollbar-hide
   return (
-    <div className="w-full mt-10 overflow-x-auto scrollbar-hide ">
-      <div className="flex  xl:pl-[4rem]  md:pr-[4rem] px-0 xl:justify-between  justify-start gap-x-4 ">
+    <div className="w-full mt-10 ">
+      <div className="grid xl:grid-cols-4 justify-items-center lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 relative items-center justify-center w-[100%] max-w-[77rem]  xl:w-[85%] mx-auto">
+        {/* <button className="absolute left-16 rounded-md border border-black z-50 flex justify-center items-center">
+          <ChervRight w={"50"} height="50" />
+        </button> */}
         {data
           //@ts-ignore
-          ?.slice(-7)
+          ?.slice(-8)
           ?.reverse()
           .map((room: any, i: string) => (
-            <Reveal width="23rem" key={i}>
+            <Reveal key={i}>
               <HomeChanceRoomItem i={i} contractAddress={room} handleClickOpen={handleClickOpen} />
             </Reveal>
           ))}
+        {/* <button className="absolute right-16 rotate-180 rounded-md border border-black z-50 flex justify-center items-center">
+          <ChervRight w={"50"} height="50" />
+        </button> */}
       </div>
       {/* <Toaster richColors position="top-right" /> */}
       {/* <SimpleDialog open={open} onClose={handleClose} modalContent={modalContent} /> */}

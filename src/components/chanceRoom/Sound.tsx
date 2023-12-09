@@ -59,10 +59,10 @@ const Sound = ({ contractAddress }: { contractAddress: any }) => {
         IHeight={90}
         IWidth={220}
         type="button"
-        className="my-2 font-semibold text-[1.2rem] lg:flex hidden"
+        className="my-2 font-semibold text-2xl lg:flex hidden"
         onClick={handleSound}
       >
-        <span className="w-[220px] h-[70px] flex justify-center items-center font-semibold text-[1.2rem]">
+        <span className="w-[220px] h-[70px] flex justify-center items-center font-semibold text-2xl">
           Sound {Sound ? "on" : "off"}
         </span>
       </MyButton>

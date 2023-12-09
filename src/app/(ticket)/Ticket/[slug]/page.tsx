@@ -38,23 +38,7 @@ const page = ({ params: { slug } }: any) => {
   const route = useRouter()
   const account = useAccount()
   const { openConnectModal } = useConnectModal()
-
-  const { data: metaData }: { data: any } = useQuery({
-    queryKey: ["getMetadata", `${slug}`],
-    queryFn: async () => {
-      const { data } = await axios.get(
-        `https://deep-index.moralis.io/api/v2.2/nft/${slug}/0?chain=polygon&format=decimal&normalizeMetadata=true&media_items=false`,
-        {
-          headers: {
-            accept: "application/json",
-            "X-API-Key": process.env.NEXT_PUBLIC_MORALIS_API_KEY,
-          },
-        },
-      )
-
-      return data
-    },
-  })
+  const [imgbase64, setImgbase64] = React.useState<any>()
 
   const [realPricee, setRealPricee] = React.useState<any>()
 
@@ -103,6 +87,13 @@ const page = ({ params: { slug } }: any) => {
       },
     ],
     onSuccess(data) {
+      try {
+        let parsed = atob(data[2].result?.slice(29).toString())
+        setImgbase64(JSON?.parse(parsed).image)
+      } catch (error) {
+        console.error("Error parsing JSON:", error)
+      }
+
       setRealPricee(formatEther(data?.at(1)?.result["Uint256"].ticketPrice))
     },
   })
@@ -205,9 +196,8 @@ const page = ({ params: { slug } }: any) => {
   }
 
   function logg() {}
-  // console.log(metaData?.normalized_metadata.image.toString().slice(0, 2), "met")
   return (
-    <div className=" w-full overflow-x-hidden overflow-y-auto  max-h-screen backg flex items-center justify-between flex-col  relative">
+    <div className=" w-full overflow-x-hidden overflow-y-auto  h-screen backg flex items-center justify-between flex-col  relative">
       <RectMain
         width={800}
         height={580}
@@ -215,8 +205,8 @@ const page = ({ params: { slug } }: any) => {
       />
       <Navbar />
       {/* <button onClick={logg}>Log</button> */}
-      <div className=" w-full h-full flex  items-center flex-col z-20 ">
-        <div className="md:mt-7 md:pb-20 max-w-[900px]  xl:w-[70%] lg:w-[97%] md:w-[84%] sm:w-[90%] w-[100%] pl-7 sm:pr-9 pr-4 rounded-3xl lg:h-[71vh] h-[65vh]  flex flex-col justify-end items-center mx-auto">
+      <div className=" w-full h-full flex  items-center flex-col z-20 md:justify-start justify-center ">
+        <div className="md:mt-7 md:pb-20 max-w-[900px]  xl:w-[70%] lg:w-[97%] md:w-[84%] sm:w-[90%] w-[100%] pl-7 sm:pr-9 pr-4 rounded-3xl lg:h-[71vh] h-[65vh]  flex flex-col sm:justify-end justify-between md:pt-0 pt-[8rem] items-center mx-auto">
           <div className=" flex justify-between md:gap-x-5 w-full md:items-start items-center md:flex-row flex-row lg:gap-y-10 md:gap-y-1 gap-y-3 ">
             <div className="w-[60%]">
               <a
@@ -294,11 +284,7 @@ const page = ({ params: { slug } }: any) => {
                 <Image
                   className=" rounded-3xl sm:h-[220px] sm:w-[220px] h-[168px] w-[168px]"
                   alt="nftt"
-                  src={
-                    metaData?.normalized_metadata.image.toString().slice(0, 4) == "http"
-                      ? "https://ipfs.io/ipfs/QmT37EzSmQSUV1iMxxBBmG5T3WAt15rfPZvQfajEhsVATF/pfp0_5566.png"
-                      : metaData?.normalized_metadata.image
-                  }
+                  src={imgbase64 == undefined ? "/placeholder.png" : imgbase64}
                   width={220}
                   height={220}
                 />
@@ -343,7 +329,7 @@ const page = ({ params: { slug } }: any) => {
               </div>
 
               <a
-                href={`https://opensea.io/assets/matic/${metaData?.token_address}`}
+                href={`https://opensea.io/assets/matic/${slug}`}
                 target="_blank"
                 className="  text-[13px] text-primary cursor-pointer text-center z-20"
               >

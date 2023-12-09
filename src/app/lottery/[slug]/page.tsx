@@ -35,18 +35,18 @@ const page = ({ params: { slug } }: lotteryProps) => {
       <div className="backlottery  absolute w-full z-10  top-0 right-0 bottom-0 left-0">
         {/* Nav */}
         <nav className="flex justify-between w-full xl:pt-8 pt-6 h-[25%] ms:mx-5">
-          <div className="flex flex-col lg:gap-y-7 gap-y-3 items-center lg:justify-center lg:pt-0 lg:w-fit w-[8rem]">
+          <div className="flex flex-col lg:gap-y-7 gap-y-3 items-center lg:justify-center lg:pt-0 lg:w-fit w-[8rem] pl-7">
             <MyButton IHeight={100} IWidth={240} type="button" className="mb-2 lg:flex hidden">
               <a
                 href={`/Ticket/${slug}`}
-                className="w-[220px] h-[70px] flex justify-center items-center font-semibold text-[1.2rem] "
+                className="w-[220px] h-[70px] flex justify-center items-center font-semibold text-2xl "
               >
                 Mint more ticket
               </a>
             </MyButton>
             <a
               href={`/Ticket/${slug}`}
-              className="w-[50px] p-2 h-[55px] bg-yellow-100 rounded-full lg:hidden flex justify-center items-center border-slate-900 border-[3px]"
+              className="w-[50px] p-2 h-[55px] bg-yellow-100 rounded-full lg:hidden flex justify-center items-center border-slate-900 border-[3px] "
             >
               Mint
             </a>
@@ -54,7 +54,7 @@ const page = ({ params: { slug } }: lotteryProps) => {
             <MyButton IHeight={80} IWidth={200} type="button" className="mt-2 lg:flex hidden">
               <a
                 href={"/"}
-                className="cursor-pointer w-[220px] h-[70px] flex justify-center items-center font-semibold text-[1.2rem] "
+                className="cursor-pointer w-[220px] h-[70px] flex justify-center items-center font-semibold text-2xl "
               >
                 BACK
               </a>
@@ -82,9 +82,9 @@ const page = ({ params: { slug } }: lotteryProps) => {
           <div className=" w-full flex justify-center">
             <ChanseRoomName contractAddress={slug} />
           </div>
-          <div className="flex gap-x-2 md:mr-7 mr-3 2xl:min-w-[18rem] lg:min-w-[14rem] md:min-w-[10rem] min-w-[8rem]">
+          <div className="flex gap-x-2 md:mr-7 mr-3 2xl:min-w-[14rem] lg:min-w-[11rem] md:min-w-[10rem] min-w-[7rem]">
             <div className="2xl:block hidden">
-              <Image src={"/eyes.png"} className=" mr-2" width={90} height={50} alt="Eyes" />
+              <Image src={"/eyes.png"} className="" width={90} height={50} alt="Eyes" />
             </div>
             <div className="xl:pr-0">
               <Indentic randString={slug} />

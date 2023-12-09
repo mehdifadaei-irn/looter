@@ -445,6 +445,39 @@ export const PolygIcon: React.FC<any> = ({ width, height, ...props }) => {
     </svg>
   )
 }
+export const ChervRight: React.FC<any> = ({ width, height, ...props }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height={height}
+      width={width}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#09090b"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      {...props}
+    >
+      <path d="m9 18 6-6-6-6" />
+    </svg>
+  )
+}
+export const DummyRect: React.FC<any> = ({ width, height, color = "#B1C5FB", ...props }) => {
+  return (
+    <svg
+      height={height}
+      width={width}
+      viewBox="0 0 381 387"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <rect x="18" y="24" width="363" height="363" rx="87" fill={color} />
+      <rect x="0.5" y="0.5" width="362" height="362" rx="86.5" fill="#D9D9D9" stroke="black" />
+    </svg>
+  )
+}
 export const Hand: React.FC<any> = ({ width, height, ...props }) => {
   return (
     <svg
@@ -459,14 +492,7 @@ export const Hand: React.FC<any> = ({ width, height, ...props }) => {
           d="M88.8293 46.6396C88.8293 69.5239 70.892 88.0743 48.7646 88.0743C26.6388 88.0743 8.69995 69.5239 8.69995 46.6396C8.69995 23.7568 26.6357 5.20325 48.7646 5.20325C70.8935 5.20325 88.8293 23.7537 88.8293 46.6396Z"
           fill="#829CFF"
         />
-        <mask
-          id="mask0_33_14"
-          maskUnits="userSpaceOnUse"
-          x="4"
-          y="0"
-          width="90"
-          height="93"
-        >
+        <mask id="mask0_33_14" maskUnits="userSpaceOnUse" x="4" y="0" width="90" height="93">
           <path d="M4 0.709717H93.5511V92.5982H4V0.709717Z" fill="white" />
         </mask>
         <g mask="url(#mask0_33_14)">

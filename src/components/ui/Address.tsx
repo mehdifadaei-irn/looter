@@ -39,7 +39,12 @@ const Address = () => {
             {(() => {
               if (!connected) {
                 return (
-                  <Button onClick={openConnectModal} type="button" fontW="text-[20px]" styless="-translate-y-2 ml-2">
+                  <Button
+                    onClick={openConnectModal}
+                    type="button"
+                    fontW="text-[20px]"
+                    styless="-translate-y-2 ml-2"
+                  >
                     Connect Wallet
                   </Button>
                 )
@@ -47,7 +52,12 @@ const Address = () => {
 
               if (chain.unsupported) {
                 return (
-                  <Button onClick={openChainModal} type="button" fontW="text-[20px]" styless="-translate-y-2 ml-2">
+                  <Button
+                    onClick={openChainModal}
+                    type="button"
+                    fontW="text-[20px]"
+                    styless="-translate-y-2 ml-2"
+                  >
                     Wrong network
                   </Button>
                 )
@@ -55,7 +65,11 @@ const Address = () => {
 
               return (
                 <div style={{ display: "flex", gap: 12 }}>
-                  <button onClick={openAccountModal} type="button" className="text-xl text-black font-medium">
+                  <button
+                    onClick={openAccountModal}
+                    type="button"
+                    className="text-lg text-black font-medium"
+                  >
                     {account.displayName}
                     {account.ensAvatar}
                     {/* {account.displayBalance ? ` (${account.displayBalance})` : ""} */}

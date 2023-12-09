@@ -35,23 +35,7 @@ const page = ({ params: { slug } }: any) => {
   const route = useRouter()
   const account = useAccount()
   const { openConnectModal } = useConnectModal()
-
-  const { data: metaData }: { data: any } = useQuery({
-    queryKey: ["getMetadata", `${slug}`],
-    queryFn: async () => {
-      const { data } = await axios.get(
-        `https://deep-index.moralis.io/api/v2.2/nft/${slug}/0?chain=polygon&format=decimal&normalizeMetadata=true&media_items=false`,
-        {
-          headers: {
-            accept: "application/json",
-            "X-API-Key": process.env.NEXT_PUBLIC_MORALIS_API_KEY,
-          },
-        },
-      )
-
-      return data
-    },
-  })
+  const [imgbase64, setImgbase64] = useState<any>()
 
   const {
     data,
@@ -97,6 +81,14 @@ const page = ({ params: { slug } }: any) => {
         chainId: polygon.id,
       },
     ],
+    onSuccess(data) {
+      try {
+        let parsed = atob(data[2].result?.slice(29).toString())
+        setImgbase64(JSON?.parse(parsed).image)
+      } catch (error) {
+        console.error("Error parsing JSON:", error)
+      }
+    },
   })
   let ticketLeftNUmber =
     parseInt(data[1]?.result["Uint256"].maximumTicket) -
@@ -230,7 +222,7 @@ const page = ({ params: { slug } }: any) => {
         className="flex  items-center h-full  justify-center 2xl:min-w-w-[65vw] xl:min-w-[80vw] min-w-[90vw]"
         ref={wrapper}
       >
-        <div className="relative bg-secondaryLight w-full  sm:h-[37rem] px-2 rounded-3xl border-4 border-black">
+        <div className="relative bg-secondaryLight sm:w-full w-[90%]  sm:h-[37rem] px-2 rounded-3xl border-4 border-black">
           <div className="lg:w-full w-[97%] h-full flex xl:flex-col sm:flex-row flex-col justify-between sm:py-5 pt-2 items-center xl:mx-0 mx-auto">
             <div className="w-full gap-y-2 flex xl:flex-row flex-col-reverse justify-between px-3 sm:items-start items-center">
               <div>
@@ -296,11 +288,7 @@ const page = ({ params: { slug } }: any) => {
                   <Image
                     className=" rounded-3xl sm:h-[220px] sm:w-[220px] h-[188px] w-[188px]"
                     alt="nft"
-                    src={
-                      metaData?.normalized_metadata.image.toString().slice(0, 4) == "http"
-                        ? "https://ipfs.io/ipfs/QmT37EzSmQSUV1iMxxBBmG5T3WAt15rfPZvQfajEhsVATF/pfp0_5566.png"
-                        : metaData?.normalized_metadata.image
-                    }
+                    src={imgbase64 == undefined ? "/placeholder.png" : imgbase64}
                     width={220}
                     height={220}
                   />
@@ -369,7 +357,7 @@ const page = ({ params: { slug } }: any) => {
                   </div>
 
                   <a
-                    href={`https://opensea.io/assets/matic/${metaData?.token_address}`}
+                    href={`https://opensea.io/assets/matic/${slug}`}
                     target="_blank"
                     className="  text-[13px] text-primary cursor-pointer text-center z-20"
                   >
