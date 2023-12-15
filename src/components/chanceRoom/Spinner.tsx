@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from "react"
-import { PieChart, Pie, Sector, ResponsiveContainer, Cell } from "recharts"
+import { PieChart, Pie, Sector, ResponsiveContainer, Cell, Label } from "recharts"
 
 import Image from "next/image"
 import Button from "../Button"
@@ -130,7 +130,7 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
         textAnchor={x > cx ? "start" : "end"}
         dominantBaseline="central"
         style={{
-          fontSize: 23,
+          fontSize: 19,
           fontWeight: 500,
           zIndex: 300,
           opacity: 1,
@@ -392,7 +392,7 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
 
   return (
     <div className="relative w-1/2 flex flex-col items-center  ">
-      <div className="flex  justify-center absolute h-[473px] sm:translate-x-[17px] translate-x-[32px] 2xl:translate-y-[-45px] translate-y-[-43px] z-10 opacity-70 min-w-[500px] sm:scale-100 scale-[0.72]">
+      <div className="flex  justify-center absolute h-[473px] sm:translate-x-[17px] translate-x-[32px] 2xl:translate-y-[-45px] sm:translate-y-[-42px] translate-y-[-51px] z-10 opacity-70 min-w-[500px] sm:scale-100 scale-[0.72]">
         {!isLoading ? (
           <Image
             alt="nft1"
@@ -422,7 +422,7 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
         />
       </div>
 
-      <div className="absolute w-full h-full flex justify-center 2xl:-top-[156px]  -top-[9rem] xl:scale-100 sm:scale-90 scale-[0.65] z-10">
+      <div className="absolute w-full h-full flex justify-center sm:-top-[154px] sm:ml-2  -top-[18vh] xl:scale-100 sm:scale-90 scale-[0.65] z-10">
         <div className="flex justify-center items-center   min-w-[700px] h-[700px]  z-10">
           {/* EventLoading */}
           {EventLoading ? (
@@ -434,7 +434,7 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
               <PieChart
                 width={300}
                 height={300}
-                className={`flex justify-center items-center  sm:-translate-x-[3.3rem] -translate-x-[1.3rem] `}
+                className={`flex justify-center items-center  sm:-translate-x-[3.4rem] -translate-x-[1.4rem] `}
               >
                 <Pie
                   className="opacity-70"
@@ -462,9 +462,9 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
         </div>
       </div>
       {/* Spin */}
-      <div className="absolute w-[70%]  flex flex-col justify-center items-center bottom-[5%] z-50 ">
+      <div className="absolute w-[70%] 2xl:left-[79px] md:left-[48px]  flex flex-col justify-center items-center bottom-0 md:bottom-[2%]  z-50 ">
         <div className="flex">
-          <div className="translate-x-16 z-40">
+          <div className="translate-x-16 z-40 md:scale-100 scale-90 ">
             <Hand />
           </div>
 
@@ -478,7 +478,7 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
             // disabled
             // isLoading={btnDisable}
           >
-            <span className="w-[230px] h-[90px] flex justify-center items-center font-semibold text-[1.2rem]">
+            <span className="w-[230px] h-[90px] flex justify-center items-center font-bold text-lg">
               {TimeLeft ? `${status[1]?.slice(-13)}` : "spin"}
             </span>
           </MyButton>

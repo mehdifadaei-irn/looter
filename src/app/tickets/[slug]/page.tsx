@@ -31,7 +31,7 @@ const page = ({ params, ...other }: any) => {
         "backg w-full flex flex-col items-center overflow-y-hidden overflow-hidden relative  min-h-[100vh]",
       )}
     >
-      <Toaster position="top-right" richColors />
+      <Toaster position="top-center" richColors />
       <Navbar />
       <h3 className="font-[600] text-[46px]  -translate-y-14 opacity-0 xl:opacity-100 sm:block hidden">
         Your Tickets

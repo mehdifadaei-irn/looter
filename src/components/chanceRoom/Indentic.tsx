@@ -11,6 +11,10 @@ type IdenticProps = {
 
 const Indentic = ({ randString, fg, bg }: IdenticProps) => {
   const { address } = useAccount()
+
+  if (!address) {
+    return null
+  }
   // console.log()
   return (
     <div

@@ -157,17 +157,17 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
               </a>
             </div>
 
-            <div className="-translate-y-[78px] flex flex-col items-center">
+            <div className="-translate-y-[78px] flex flex-col items-center justify-center">
               <p className={cn("text-lg font-bold mt-3 text-center w-full ")}>
                 {data?.at(3)?.result?.slice(0, 15)}
               </p>
               {/* <p className="font-zen text-xl mt-3">{contractAddress?.slice(4, 10)}</p> */}
-              <p className="flex font-pop text-lg font-bold w-[70%]">
-                <span className="text-center">
-                  Spain date:
-                  <span className="text-[17px] font-[600]">
+              <p className="flex font-pop text-lg font-bold w-[90%] justify-center">
+                <span className="text-center leading-normal">
+                  <span className="text-[17px] font-[600] leading-normal">
                     {deadtime.getUTCDate()}{" "}
-                    {deadtime.toLocaleString("default", { month: "short" })} {" - "}
+                    {deadtime.toLocaleString("default", { month: "short" })}
+                    {" - "}
                     {deadtime.getUTCHours()}
                     {":"}
                     {deadtime.getUTCMinutes()} {"utc"}
@@ -176,19 +176,9 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
               </p>
 
               <p>
-                <span className="font-pop text-lg font-bold">suplly: </span>
-                <span className="font-pop text-lg font-semibold">
-                  {//@ts-ignore
-                  data?.at(1)?.result?.Uint256?.maximumTicket.toString()}
-                  {"/"}
-                  {//@ts-ignore
-                  data?.at(1)?.result?.Uint256?.soldTickets.toString()}
-                </span>
-              </p>
-              <p className="mb-2 flex">
-                <span className="font-pop text-lg font-bold">price:</span>
-                <span className="font-pop text-lg font-bold flex">
-                  {/* @ts-ignore */}
+                {/* <span className="font-pop text-lg font-bold">suplly: </span> */}
+
+                <span className="font-pop text-lg font-semibold mr-3">
                   {data ? ( //@ts-ignore
                     !parseInt(data?.at(1)?.result?.Uint256?.ticketPrice.toString().slice(0, -1)) /
                     10 ** 17 ? (
@@ -199,14 +189,20 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
                       10 ** 17
                     )
                   ) : null}
-                  <span className="font-pop font-normal text-[24px] mr-4">Matic</span>
-                  <PolygIcon width={30} height={30} />
+                  <span className="font-pop text-lg font-semibold mr-4">Matic</span>
+                </span>
+                <span className="font-pop text-lg font-semibold">
+                  {//@ts-ignore
+                  data?.at(1)?.result?.Uint256?.maximumTicket.toString()}
+                  {"/"}
+                  {//@ts-ignore
+                  data?.at(1)?.result?.Uint256?.soldTickets.toString()}
                 </span>
               </p>
             </div>
           </div>
         )}
-        <div className="-translate-y-[118px] flex flex-col items-center">
+        <div className="-translate-y-[100px] flex flex-col items-center">
           <MyButton
             IWidth={95}
             IHeight={110}
@@ -231,7 +227,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
           <a
             href={`https://polygonscan.com/address/${contractAddress}`}
             target="_blank"
-            className="-translate-y-[20px] text-[13px] text-primary cursor-pointer z-30"
+            className="-translate-y-[20px] text-[13px] text-primary cursor-pointer z-30 leading-tight tracking-tighter text-base font-noraml"
           >
             view on Polygonscan
           </a>

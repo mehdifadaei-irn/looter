@@ -212,12 +212,12 @@ const page = ({ params: { slug } }: any) => {
   }
   return (
     <div
-      className="fixed inset-0 bg-zinc-900/20 z-50 bgfblur flex justify-center"
+      className="fixed inset-0 bg-zinc-900/20 z-50 bgfblur flex justify-center "
       style={{}}
       ref={overlay}
       onClick={onClick}
     >
-      <Toaster position="top-right" richColors />
+      <Toaster position="top-center" richColors />
       <div
         className="flex  items-center h-full  justify-center 2xl:min-w-w-[65vw] xl:min-w-[80vw] min-w-[90vw]"
         ref={wrapper}

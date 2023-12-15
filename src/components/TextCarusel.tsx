@@ -19,7 +19,7 @@ const TextCarusel = () => {
       if (!Stopcount) {
         setCount((prev) => prev + 1)
       }
-    }, 3000)
+    }, 8000)
 
     if (Stopcount) {
       clearInterval(interval1)

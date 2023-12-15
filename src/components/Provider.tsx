@@ -87,7 +87,7 @@ const Providers: FC<LayoutProps> = ({ children }) => {
             <RainbowKitProvider coolMode chains={chains}>
               {children}
             </RainbowKitProvider>
-            <Toaster position="top-right" richColors />
+            <Toaster position="top-center" richColors />
           </QueryClientProvider>
         </WagmiConfig>
       </Provider>

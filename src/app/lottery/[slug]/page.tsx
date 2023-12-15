@@ -1,25 +1,14 @@
-import Button from "@/components/Button"
 import Image from "next/image"
-import Link from "next/link"
 import React, { useMemo, useState } from "react"
 
 import Spinner from "@/components/chanceRoom/Spinner"
-import Table from "../../../assets/img/home/table.svg"
-import Settel from "../../../assets/img/home/sett.svg"
-import Ticket from "@/../public/home/ticket.svg"
-import Menu from "@/../public/home/align-left.svg"
 
 import Address from "@/components/ui/Address"
 
 import Indentic from "@/components/chanceRoom/Indentic"
 import ChanseRoomName from "@/components/chanceRoom/ChanseRoomName"
-import { Drawer } from "@mui/material"
-import LeftMenu from "@/components/chanceRoom/LeftMenu"
 import Sound from "@/components/chanceRoom/Sound"
 import Winner from "@/components/chanceRoom/Winner"
-import { useContractEvent } from "wagmi"
-import { secondAbi1Bd } from "@/assets/abis/mainAbis"
-import { VrFABI } from "@/assets/abis/smap"
 import { MyButton } from "@/components/ui/MyButton"
 
 type lotteryProps = {
@@ -82,7 +71,7 @@ const page = ({ params: { slug } }: lotteryProps) => {
           <div className=" w-full flex justify-center">
             <ChanseRoomName contractAddress={slug} />
           </div>
-          <div className="flex gap-x-2 md:mr-7 mr-3 2xl:min-w-[14rem] lg:min-w-[11rem] md:min-w-[10rem] min-w-[7rem]">
+          <div className="flex sm:gap-x-2 md:mr-7 mr-3 2xl:min-w-[14rem] lg:min-w-[11rem] md:min-w-[10rem] min-w-[8rem]">
             <div className="2xl:block hidden">
               <Image src={"/eyes.png"} className="" width={90} height={50} alt="Eyes" />
             </div>

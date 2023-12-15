@@ -2,6 +2,7 @@
 import React from "react"
 import { ConnectButton } from "@rainbow-me/rainbowkit"
 import Button from "../Button"
+import { MyButton } from "./MyButton"
 
 const Address = () => {
   return (
@@ -39,14 +40,23 @@ const Address = () => {
             {(() => {
               if (!connected) {
                 return (
-                  <Button
+                  // <Button
+                  //   onClick={openConnectModal}
+                  //   type="button"
+                  //   fontW="text-[20px]"
+                  //   styless="-translate-y-2 ml-2"
+                  // >
+                  //   Connect Wallet
+                  // </Button>
+                  <MyButton
+                    IHeight={90}
+                    IWidth={220}
                     onClick={openConnectModal}
                     type="button"
-                    fontW="text-[20px]"
-                    styless="-translate-y-2 ml-2"
+                    className="-translate-y-2 ml-2"
                   >
-                    Connect Wallet
-                  </Button>
+                    <span className="font-bold text-[23px] tracking-tight">connect wallet</span>
+                  </MyButton>
                 )
               }
 
@@ -68,7 +78,7 @@ const Address = () => {
                   <button
                     onClick={openAccountModal}
                     type="button"
-                    className="text-lg text-black font-medium"
+                    className="sm:text-lg text-sm  text-black font-medium"
                   >
                     {account.displayName}
                     {account.ensAvatar}

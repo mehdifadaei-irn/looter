@@ -24,7 +24,7 @@ const Hero = () => {
               className="translate-x-5 "
             />
           </div>
-          <div className="w-[100%] max-w-[88rem]  xl:w-[85%] mx-auto flex justify-center mt-1">
+          <div className="w-[100%] max-w-[88rem] sm:min-h-fit min-h-[47vh]  xl:w-[85%] mx-auto flex justify-center mt-1">
             <Punk2 className="lg:block hidden mr-[6.5%]" />
             <TextCarusel />
           </div>

@@ -85,7 +85,7 @@ const ChanceRoomTicketNumber = ({
           chance to win
         </p>
       </div>
-      <Toaster position="top-right" richColors />
+      <Toaster position="top-center" richColors />
     </>
   )
 }
