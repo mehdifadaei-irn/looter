@@ -158,7 +158,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
             </div>
 
             <div className="-translate-y-[78px] flex flex-col items-center justify-center">
-              <p className={cn("text-lg font-bold mt-3 text-center w-full ")}>
+              <p className={cn("text-lg font-pop font-bold mt-3 text-center w-full ")}>
                 {data?.at(3)?.result?.slice(0, 15)}
               </p>
               {/* <p className="font-zen text-xl mt-3">{contractAddress?.slice(4, 10)}</p> */}
@@ -227,7 +227,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
           <a
             href={`https://polygonscan.com/address/${contractAddress}`}
             target="_blank"
-            className="-translate-y-[20px] text-[13px] text-primary cursor-pointer z-30 leading-tight tracking-tighter text-base font-noraml"
+            className="-translate-y-[20px] font-pop text-sm text-primary cursor-pointer z-30 text-base font-medium "
           >
             view on Polygonscan
           </a>
