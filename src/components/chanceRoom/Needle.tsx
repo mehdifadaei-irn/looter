@@ -37,7 +37,7 @@ const Needle = ({
     if (isStarted) {
       interval1 = setInterval(() => {
         if (!stop) {
-          setCount((count) => count + 10)
+          setCount((count) => count + 13)
         }
         console.log("w")
       }, timeInter)

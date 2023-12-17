@@ -96,7 +96,7 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
   const { address, isConnecting, isDisconnected } = useAccount()
   const [WinIndex, setWinIndex] = useState(null)
   const [TimeLeft, setTimeLeft] = useState<string | null>(null) //0 1 2 3
-  const [isStarted, setIsStarted] = useState<boolean>(false) //0 1 2 3
+  const [isStarted, setIsStarted] = useState<boolean>(true) //0 1 2 3
   const [status, setStatus] = useState<string[]>([])
   const [pieData, setPieData] = useState<{ name: string; value: number }[]>([])
   const [btnDisable, setBtnDisable] = useState<boolean>(false)
@@ -412,7 +412,7 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
         )}
       </div>
 
-      <div className="absolute w-[320px] h-[320px] flex justify-center items-center sm:translate-x-[17px] translate-x-[31px] 2xl:translate-y-[28px] translate-y-[31px] z-[200] sm:scale-100 scale-[0.7]">
+      <div className="absolute w-[320px] h-[320px] flex justify-center items-center sm:translate-x-[17px] translate-x-[31px] 2xl:translate-y-[37px] md:translate-y-[39px] translate-y-[32px] z-[200] sm:scale-100 scale-[0.6]">
         <Needle
           pieData={pieData}
           isStarted={isStarted}

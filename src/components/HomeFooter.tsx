@@ -49,8 +49,8 @@ const HomeFooter = () => {
             className="flex gap-x-5 items-center cursor-pointer z-10  hover:scale-[1.008] duration-200 active:scale-[0.98]"
           >
             <OpenSeaIcon
-              width={51}
-              height={51}
+              width={47}
+              height={47}
               className="hover:scale-[1.018] duration-200  active:scale-[0.98]"
             />
             <span>opensea</span>
@@ -60,16 +60,9 @@ const HomeFooter = () => {
             target="_blank"
             className="flex gap-x-5 items-center cursor-pointer z-10 hover:scale-[1.008] duration-200 active:scale-[0.98]"
           >
-            {/* <Image
-              src={"/twiblack.png"}
-              width={50}
-              className="hover:scale-[1.018] duration-200"
-              height={50}
-              alt="frog"
-            /> */}
             <TwitterIcon
-              width={47}
-              height={47}
+              width={43}
+              height={43}
               className="hover:scale-[1.018] duration-200 active:scale-[0.98]"
             />
             <span>Twitter</span>

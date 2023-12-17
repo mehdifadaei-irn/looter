@@ -204,10 +204,10 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
         )}
         <div className="-translate-y-[100px] flex flex-col items-center">
           <MyButton
-            IWidth={95}
-            IHeight={110}
+            IWidth={137}
+            IHeight={115}
             sm={true}
-            className="md:scale-100 scale-[1.2]"
+            className="md:scale-x-[1.2] scale-[1.2]"
             // onClick={handlePopUp}
             // isLoading={ChanceRoomState?.at(0) === "Ticket selling" ? false : true}
             // disable={ChanceRoomState?.at(0) === "Ticket selling" ? false : true}
@@ -216,12 +216,12 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
               href={`/Ticket/${contractAddress}`}
               key={"231zasraw2"}
               className={cn(
-                "cursor-pointer w-[100px] h-[50px] pb-[4px] flex items-center justify-center font-bold text-3xl ",
+                "cursor-pointer w-[120px] h-[50px] pb-[4px] flex items-center justify-center font-bold tracking-tight text-2xl ",
                 VT323Font.className,
               )}
               scroll={false}
             >
-              ADD
+              Mint and Play
             </Link>
           </MyButton>
           <a
