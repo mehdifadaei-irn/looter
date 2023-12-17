@@ -96,7 +96,7 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
   const { address, isConnecting, isDisconnected } = useAccount()
   const [WinIndex, setWinIndex] = useState(null)
   const [TimeLeft, setTimeLeft] = useState<string | null>(null) //0 1 2 3
-  const [isStarted, setIsStarted] = useState<boolean>(true) //0 1 2 3
+  const [isStarted, setIsStarted] = useState<boolean>(false) //0 1 2 3
   const [status, setStatus] = useState<string[]>([])
   const [pieData, setPieData] = useState<{ name: string; value: number }[]>([])
   const [btnDisable, setBtnDisable] = useState<boolean>(false)
