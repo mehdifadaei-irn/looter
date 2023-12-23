@@ -252,7 +252,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
           <a
             href={`https://polygonscan.com/address/${contractAddress}`}
             target="_blank"
-            className="-translate-y-[20px] font-pop text-sm text-primary cursor-pointer z-30 text-base font-medium "
+            className="-translate-y-[20px] font-pop text-primary cursor-pointer z-30 text-base font-medium "
           >
             view on Polygonscan
           </a>
