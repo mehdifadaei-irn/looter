@@ -61,7 +61,7 @@ const TextCarusel = () => {
         setStopCount(true)
         setStartCount(false)
       }}
-      className="relative flex cursor-pointer min-h-[270px] 2xl:h-[320px] xl:h-[330px] h-[340px] lg:w-[58%] md:w-[80%] w-[88%] items-center justify-center overflow-hidden lg:-translate-x-20 translate-x-0"
+      className="relative flex cursor-pointer min-h-[270px] 2xl:h-[320px] xl:h-[330px] h-[440px] lg:w-[58%] md:w-[80%] w-[88%] items-center justify-center overflow-hidden lg:-translate-x-20 translate-x-0"
     >
       <AnimatePresence custom={{ direction, width }}>
         <motion.div
@@ -71,9 +71,9 @@ const TextCarusel = () => {
           animate="center"
           exit="exit"
           custom={{ direction, width }}
-          className={`absolute flex items-center justify-center text-3xl font-bold `}
+          className={`absolute flex items-center justify-center text-3xl font-bold min-h-[270px] 2xl:h-[320px] xl:h-[330px] h-[440px]`}
         >
-          <p className="w-full  text-black  text-center font-[600] md:text-[23px] text-[20px] font-pop ">
+          <p className="w-full text-black  text-center font-[600] md:text-[23px] text-[20px] font-pop ">
             <span className="tracking-tight">{texts[Math.abs(count) % 4]}</span>A fixed and limited
             number of tickets will be sold to draw an NFT. Organizer will set the number of
             tickets, their price, and the deadline of the Sang Lottery at the beginning when She/He

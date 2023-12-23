@@ -12,10 +12,9 @@ const popping1 = Inter({
 })
 const zenD = Zen_Dots({ subsets: ["latin"], weight: ["400"] })
 export const metadata: Metadata = {
-  title: "Lootery",
+  title: "ChanceRoom",
   description: "NFT Polygon",
   icons: {
-    
     icon: "/iconLog.svg",
   },
 }

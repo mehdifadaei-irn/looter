@@ -44,7 +44,7 @@ const Hero = () => {
       </Reveal>
       <Reveal width="100%">
         <h3 className="font-pop  xl:font-bold font-semibold xl:text-[72px] lg:text-[60px] md:text-5xl text-4xl w-full text-center mb-4">
-          Lottery project
+          Lottery Project
         </h3>
       </Reveal>
     </>
