@@ -99,10 +99,10 @@ const page = ({ params: { slug } }: any) => {
   })
 
   let ticketLeftNUmber =
-    parseInt(data[1]?.result["Uint256"].maximumTicket) -
-    parseInt(data[1]?.result["Uint256"].soldTickets)
-
-  //@ts-ignore
+    //@ts-ignore
+    parseInt(data?.at(1)?.result["Uint256"].maximumTicket) -
+    //@ts-ignore
+    parseInt(data?.at(1)?.result["Uint256"].soldTickets)
 
   const balanceOfTicket = useDebounce(realPricee)
   const balanceOfTicket1 = (balanceOfTicket * amount).toString()
