@@ -109,7 +109,8 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
     return (
       <div key={i} className=" w-[23rem] flex flex-col items-center relative max-h-[33rem]">
         <div className="w-full flex justify-center items-center h-full absolute -top-[7%] bottom-0 right-0 left-0 flex-col gap-y-3">
-          {ChanceRoomState?.at(0) === "Ticket selling" ? null : ChanceRoomState?.at(0) ===
+          {ChanceRoomState?.at(0) === "Ticket selling" ||
+          ChanceRoomState?.at(0) === "Not initialized" ? null : ChanceRoomState?.at(0) ===
             "Sold out" ? (
             <div className="w-[70%] z-30 flex justify-center items-center pt-16">
               <Image
