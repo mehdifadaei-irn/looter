@@ -91,11 +91,13 @@ const page = ({ params: { slug } }: any) => {
     },
   })
   let ticketLeftNUmber =
-    parseInt(data[1]?.result["Uint256"].maximumTicket) -
-    parseInt(data[1]?.result["Uint256"].soldTickets)
+    //@ts-ignore
+    parseInt(data?.at(1)?.result["Uint256"].maximumTicket) -
+    //@ts-ignore
+    parseInt(data?.at(1)?.result["Uint256"].soldTickets)
 
   //@ts-ignore
-  const realPrice = formatEther(data?.at(1)?.result["Uint256"].ticketPrice)
+  const realPrice = formatEther(data?.at(1)?.result["Uint256"]?.ticketPrice)
   // console.log(data?.at(1)?.result.Uint256?.ticketPrice)
   const balanceOfTicket = useDebounce(realPrice)
   //@ts-ignore

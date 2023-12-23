@@ -250,7 +250,7 @@ const page = ({ params: { slug } }: any) => {
                   suplly:{" "}
                 </span>
                 <span className="font-pop font-normal xl:text-[26px] text-[24px]">
-                  {data[1]?.result["Uint256"].maximumTicket.toString()}
+                  {data?.at(1)?.result["Uint256"].maximumTicket.toString()}
                 </span>
               </p>
               <div className="flex lg:flex-col flex-row lg:gap-x-0 gap-x-4">
@@ -259,7 +259,11 @@ const page = ({ params: { slug } }: any) => {
                     price:
                   </span>
                   <span className="font-pop xl:font-[400] font-[300] xl:text-[26px] text-[24px]">
-                    {formatEther(data?.at(1)?.result?.Uint256?.ticketPrice)}Matic
+                    {
+                      //@ts-ignore
+                      formatEther(data[1]?.result?.Uint256?.ticketPrice)
+                    }
+                    Matic
                   </span>
                 </p>
                 <p className="font-pop xl:font-bold font-[400] xl:text-[28px] text-[25px]">
