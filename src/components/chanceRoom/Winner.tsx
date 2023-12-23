@@ -27,7 +27,7 @@ const Winner = () => {
         </div>
         <Settel />
       </div>
-      <span className="sm:flex hidden">and recieve your NFT prize.</span>
+      <span className="sm:flex hidden mx-auto">and recieve your NFT prize.</span>
       <a
         className="text-[#2862FF] underline"
         href={`https://polygonscan.com/address/0x00000783facddb2593dafdf596f7962d506d31bd`}

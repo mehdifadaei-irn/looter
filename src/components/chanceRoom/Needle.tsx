@@ -8,11 +8,12 @@ import Spinner from "../../assets/img/home/stopper.svg"
 import Spinner1 from "../../assets/img/home/stoppp.svg"
 import { toast } from "sonner"
 import { useSelector } from "react-redux"
-import { useContractEvent, useContractRead } from "wagmi"
+import { useContractEvent, useContractRead, useAccount } from "wagmi"
 import { VrFABI } from "@/assets/abis/smap"
-import { secondAbiBC3 } from "@/assets/abis/mainAbis"
+import { mainAbi, secondAbiBC3 } from "@/assets/abis/mainAbis"
 import { polygon } from "wagmi/chains"
 import { chanceRoomAbi } from "@/assets/abis/samp2"
+import Image from "next/image"
 
 const Needle = ({
   pieData,
@@ -29,6 +30,8 @@ const Needle = ({
   const [stop, setStop] = useState<boolean>(false)
   const [timeInter, setTimeInter] = useState<number>(50)
   const dispatch = useDispatch()
+  const { address } = useAccount()
+
   //@ts-ignore
   const { Winner, addressOfContract, WinnerIndex } = useSelector((state) => state.winner)
 
@@ -114,7 +117,7 @@ const Needle = ({
 
   useContractEvent({
     address: contractAddress,
-    abi: secondAbiBC3,
+    abi: mainAbi,
     eventName: "VRFResponse",
     listener(log) {
       console.log(log)
@@ -122,8 +125,23 @@ const Needle = ({
       setTimeout(() => {
         refetch()
         //@ts-ignore
-        stopCounting(WinnerAddr[1])
-      }, 4000)
+        stopCounting(Winner)
+        if (address?.toLocaleLowerCase() == Winner?.toLocaleLowerCase()) {
+          toast.success(
+            <div className="flex flex-row items-center justify-center gap-x-5">
+              <span className="text-lg font-bold">You Won Congrats</span>
+              <Image src={"/pepoM.gif"} alt="my gif1" height={30} width={30} />
+            </div>,
+          )
+        } else {
+          toast(
+            <div className="flex flex-row items-center justify-center gap-x-5">
+              <span className="text-lg font-bold">Sadge</span>
+              <Image src={"/Sadge.png"} alt="sadge" height={30} width={30} />
+            </div>,
+          )
+        }
+      }, 5000)
     },
   })
 

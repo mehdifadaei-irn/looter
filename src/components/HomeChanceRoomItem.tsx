@@ -70,6 +70,13 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
         functionName: "name",
         chainId: polygon.id,
       },
+      {
+        address: contractAddress,
+        //@ts-ignore
+        abi: mainAbi,
+        functionName: "lockedNFT",
+        chainId: polygon.id,
+      },
     ],
     onSuccess(data) {
       try {
@@ -102,7 +109,23 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
     return (
       <div key={i} className=" w-[23rem] flex flex-col items-center relative max-h-[33rem]">
         <div className="w-full flex justify-center items-center h-full absolute -top-[7%] bottom-0 right-0 left-0 flex-col gap-y-3">
-          {ChanceRoomState?.at(0) === "Ticket selling" ? null : (
+          {ChanceRoomState?.at(0) === "Ticket selling" ? null : ChanceRoomState?.at(0) ===
+            "Sold out" ? (
+            <div className="w-[70%] z-30 flex justify-center items-center pt-16">
+              <Image
+                style={{
+                  maxWidth: "none",
+                  height: "220px",
+                  marginTop: "7rem",
+                }}
+                className=" absolute z-10 rounded-[24%] top-[1px] -translate-x-2  bg-contain mx-auto "
+                src={"/soldOut.png"}
+                alt="soldOut"
+                width={225}
+                height={220}
+              />
+            </div>
+          ) : (
             <div className="w-[70%] z-30 pb-8">
               <p
                 className={cn(" font-pop text-lg font-bold opacity-100 z-30  w-full text-center")}
@@ -132,7 +155,9 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
           >
             <div className="w-full flex items-center justify-center scale-[0.95] ">
               <a
-                href={`https://opensea.io/assets/matic/${contractAddress}`}
+                href={`https://opensea.io/assets/matic/${data[4].result?.at(1)}/${parseInt(
+                  data[4].result?.at(2),
+                )}`}
                 target="_blank"
                 className="relative w-full h-[364px] flex items-center justify-center"
               >

@@ -16,8 +16,6 @@ import {
   useAccount,
   useContractWrite,
   usePrepareContractWrite,
-  useBalance,
-  useContractReads,
 } from "wagmi"
 import { mainAbi } from "@/assets/abis/mainAbis"
 import { stringToColour } from "@/lib/generateColorFromHash"
@@ -185,6 +183,8 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
     data: Events,
     isLoading: EventLoading,
     mutate,
+    mutateAsync,
+    reset,
   } = useMutation({
     mutationKey: ["getEvents", `${contractAddress}`],
     mutationFn: async () => {
@@ -382,12 +382,14 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
     listener(log) {
       // console.log(log)
       toast("fetching new Users...")
-      mutate()
+      mutateAsync()
     },
   })
 
   function logg() {
-    console.log(WinIndex, "pie")
+    // mutateAsync()
+    // mutate()
+    reset()
   }
 
   return (
@@ -482,6 +484,9 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
               {TimeLeft ? `${status[1]?.slice(-13)}` : "spin"}
             </span>
           </MyButton>
+          {/* <button onClick={logg} className="z-100">
+            LOGGGGGG
+          </button> */}
         </div>
         {/* <span>Time Left: (1:20:30)</span> */}
       </div>

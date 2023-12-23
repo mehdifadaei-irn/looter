@@ -73,7 +73,7 @@ const page = ({ params: { slug } }: lotteryProps) => {
           </div>
           <div className="flex sm:gap-x-2 md:mr-7 mr-3 2xl:min-w-[14rem] lg:min-w-[11rem] md:min-w-[10rem] min-w-[8rem]">
             <div className="2xl:block hidden">
-              <Image src={"/eyes.png"} className="" width={90} height={50} alt="Eyes" />
+              <Image src={"/Ticket.gif"} className="" width={150} height={90} alt="Eyes" />
             </div>
             <div className="xl:pr-0">
               <Indentic randString={slug} />
@@ -90,10 +90,10 @@ const page = ({ params: { slug } }: lotteryProps) => {
           {/*  */}
           <div className="flex-col w-[25%] justify-end pl-24  pb-4 sm:flex hidden ">
             <Image
-              src={"/audio/pepe-music.gif"}
-              width={430}
+              src={"/11.avif"}
+              width={330}
               className="xl:block hidden"
-              height={430}
+              height={330}
               alt="frog"
             />
           </div>

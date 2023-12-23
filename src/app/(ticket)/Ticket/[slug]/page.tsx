@@ -328,13 +328,13 @@ const page = ({ params: { slug } }: any) => {
                 </span>
               </div>
 
-              <a
+              {/* <a
                 href={`https://opensea.io/assets/matic/${slug}`}
                 target="_blank"
                 className="  text-[13px] text-primary cursor-pointer text-center z-20"
               >
                 view on opensea
-              </a>
+              </a> */}
             </div>
             <div className="mb-4 lg:-translate-x-6 translate-x-1 flex flex-col gap-y-2">
               <Up
