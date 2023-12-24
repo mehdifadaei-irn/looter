@@ -27,6 +27,7 @@ import Link from "next/link"
 import { useDebounce } from "@/hooks/useDebounce"
 import { MyButton } from "@/components/ui/MyButton"
 import { BlueBttn } from "@/components/Icons"
+
 const page = ({ params: { slug } }: any) => {
   const router = useRouter()
   const overlay = useRef(null)
@@ -97,7 +98,8 @@ const page = ({ params: { slug } }: any) => {
     parseInt(data?.at(1)?.result["Uint256"].soldTickets)
 
   //@ts-ignore
-  const realPrice = formatEther(data?.at(1)?.result["Uint256"]?.ticketPrice)
+  const realPrice = formatEther(data[1]?.result["Uint256"]?.ticketPrice)
+  // const realPrice = "0.1"
   // console.log(data?.at(1)?.result.Uint256?.ticketPrice)
   const balanceOfTicket = useDebounce(realPrice)
   //@ts-ignore
@@ -194,6 +196,8 @@ const page = ({ params: { slug } }: any) => {
     return () => document.removeEventListener("keydown", onKeyDown)
   }, [onKeyDown])
 
+  console.log(data[1], "222")
+
   function handleamount(work: "inc" | "dec") {
     // toast("sorry you can buy just 1 ticket for now!")
     if (work === "inc") {
@@ -261,26 +265,20 @@ const page = ({ params: { slug } }: any) => {
                     ) : (
                       <span className="font-pop xl:font-bold font-semibold  text-[26px]">
                         {`${//@ts-ignore
-                        data[1]?.result["Uint256"].maximumTicket.toString()}${"\\"}${//@ts-ignore
-                        data[1]?.result["Uint256"].soldTickets.toString()}`}
+                        data
+                          ?.at(1)
+                          ?.result["Uint256"].maximumTicket.toString()}${"\\"}${//@ts-ignore
+                        data?.at(1)?.result["Uint256"].soldTickets.toString()}`}
                       </span>
                     )}
                   </p>
                   <p className="mb-2">
                     <span className="font-pop xl:text-[28px] text-[25px]">price:</span>
                     <span className="font-pop xl:font-[500] font-[400] text-[26px]">
-                      {formatEther(data?.at(1)?.result?.Uint256?.ticketPrice)}Matic
+                      {formatEther(data[1]?.result?.Uint256?.ticketPrice)}Matic
                     </span>
                   </p>
                 </div>
-                {/* <div className="flex xl:flex-col flex-row">
-                  <p className="font-pop xl:text-[28px] text-[25px] xl:mr-0 mr-3">suplly:</p>
-                  <span className="font-pop xl:font-bold font-semibold  text-[26px]">
-                    {`${//@ts-ignore
-                    data[1]?.result["Uint256"].maximumTicket.toString()}${"\\"}${//@ts-ignore
-                    data[1]?.result["Uint256"].soldTickets.toString()}`}
-                  </span>
-                </div> */}
               </div>
               {/*  */}
               <div className="bg-slate-100 h-fit py-1 w-fit px-1 border-2 border-secondary rounded-3xl flex justify-center items-center">
@@ -405,9 +403,10 @@ const page = ({ params: { slug } }: any) => {
                 className="xl:!scale-100 sm:!scale-[0.85] !scale-[0.70] sm:ml-0 ml-[9px]"
               >
                 <a
-                  href={`/tickets/sang?chanceRoomAddress=${slug}&totalSupply=${data[1]?.result[
-                    "Uint256"
-                  ].maximumTicket.toString()}`}
+                  href={`/tickets/sang?chanceRoomAddress=${slug}&totalSupply=${parseInt(
+                    data[1]?.result["Uint256"].maximumTicket,
+                  )}`}
+                  // href={`/tickets/sang?chanceRoomAddress=${slug}&totalSupply=20`}
                   className="w-[220px] h-[70px] flex justify-center items-center font-bold text-[1.7rem]"
                 >
                   Continue

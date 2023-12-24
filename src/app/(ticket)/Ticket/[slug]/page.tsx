@@ -195,7 +195,9 @@ const page = ({ params: { slug } }: any) => {
     }
   }
 
-  function logg() {}
+  function logg() {
+    console.log(data)
+  }
   return (
     <div className=" w-full overflow-x-hidden overflow-y-auto  h-screen backg flex items-center justify-between flex-col  relative">
       <RectMain

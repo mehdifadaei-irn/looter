@@ -17,10 +17,10 @@ async function getData(contractAddress: string) {
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
 
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data")
-  }
+  // if (!res.ok) {
+  //   // This will activate the closest `error.js` Error Boundary
+  //   throw new Error("Failed to fetch data")
+  // }
 
   return res.json()
 }
@@ -55,7 +55,7 @@ const ChanseRoomName = async ({ contractAddress }: { contractAddress: string }) 
         }
       >
         <p className="xl:font-bold sm:font-medium font-bold  xl:text-[22px] sm:text-[17px] text-[20px] xl:pt-0 sm:pt-2 pt-8 text-center ">
-          {data1?.normalized_metadata.name}
+          {data1?.normalized_metadata?.name == null ? "noName" : data1?.normalized_metadata.name}
         </p>
       </Suspense>
     </div>
