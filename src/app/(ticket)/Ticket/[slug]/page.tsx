@@ -261,10 +261,7 @@ const page = ({ params: { slug } }: any) => {
                     price:
                   </span>
                   <span className="font-pop xl:font-[400] font-[300] xl:text-[26px] text-[24px]">
-                    {
-                      //@ts-ignore
-                      formatEther(data[1]?.result?.Uint256?.ticketPrice)
-                    }
+                    {realPricee}
                     Matic
                   </span>
                 </p>
