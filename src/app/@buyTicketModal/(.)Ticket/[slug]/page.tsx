@@ -121,7 +121,8 @@ const page = ({ params: { slug } }: any) => {
       if (ticketLeftNUmber == 0) {
         toast.error("no more Ticker left!")
       } else {
-        toast.error("You don't have enough matic + Gas for this transaction.")
+        console.log(err)
+        if (!mainData) toast.error("You don't have enough matic + Gas for this transaction.")
       }
     },
   })
