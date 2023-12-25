@@ -119,7 +119,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
                   height: "220px",
                   marginTop: "7rem",
                 }}
-                className=" absolute z-10 rounded-[24%] top-[1px] -translate-x-2  bg-contain mx-auto "
+                className=" absolute z-10 rounded-[24%] top-[1px] -translate-x-2  bg-contain mx-auto opacity-80 "
                 src={"/soldOut.png"}
                 alt="soldOut"
                 width={225}
@@ -247,7 +247,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
               )}
               scroll={false}
             >
-              Mint and Play
+              Mint & Play
             </Link>
           </MyButton>
           <a
