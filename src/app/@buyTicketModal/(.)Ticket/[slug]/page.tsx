@@ -36,6 +36,7 @@ const page = ({ params: { slug } }: any) => {
   const route = useRouter()
   const account = useAccount()
   const [mainData, setMainData] = useState<any>()
+  const [errEnable, setErrEnable] = useState<boolean>(false)
   const { openConnectModal } = useConnectModal()
   const [imgbase64, setImgbase64] = useState<any>()
 
@@ -122,7 +123,7 @@ const page = ({ params: { slug } }: any) => {
         toast.error("no more Ticker left!")
       } else {
         console.log(err)
-        if (!mainData) toast.error("You don't have enough matic + Gas for this transaction.")
+        if (errEnable) toast.error("You don't have enough matic + Gas for this transaction.")
       }
     },
   })
@@ -381,6 +382,7 @@ const page = ({ params: { slug } }: any) => {
                         }}
                         className="hover:-translate-y-1 duration-300 cursor-pointer"
                         onClick={() => {
+                          setErrEnable(true)
                           if (ticketLeftNUmber == 0) {
                             toast.error("no more Ticker left!")
                           } else {
@@ -395,6 +397,7 @@ const page = ({ params: { slug } }: any) => {
                         }}
                         className="hover:translate-y-1 duration-300 cursor-pointer"
                         onClick={() => {
+                          setErrEnable(true)
                           if (ticketLeftNUmber == 0) {
                             toast.error("no more Ticker left!")
                           } else {
