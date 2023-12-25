@@ -35,6 +35,7 @@ const page = ({ params: { slug } }: any) => {
   const [amount, setAmount] = useState<number>(1)
   const route = useRouter()
   const account = useAccount()
+  const [mainData, setMainData] = useState<any>()
   const { openConnectModal } = useConnectModal()
   const [imgbase64, setImgbase64] = useState<any>()
 
@@ -89,16 +90,16 @@ const page = ({ params: { slug } }: any) => {
       } catch (error) {
         console.error("Error parsing JSON:", error)
       }
+      setMainData(data)
     },
   })
   let ticketLeftNUmber =
     //@ts-ignore
-    parseInt(data?.at(1)?.result["Uint256"].maximumTicket) -
-    //@ts-ignore
-    parseInt(data?.at(1)?.result["Uint256"].soldTickets)
+    parseInt(mainData?.at(1)?.result["Uint256"].maximumTicket) -
+    parseInt(mainData?.at(1)?.result["Uint256"].soldTickets)
 
   //@ts-ignore
-  const realPrice = formatEther(data[1]?.result["Uint256"]?.ticketPrice)
+  const realPrice = formatEther(mainData?.at(1).result["Uint256"]?.ticketPrice || "")
   // const realPrice = "0.1"
   // console.log(data?.at(1)?.result.Uint256?.ticketPrice)
   const balanceOfTicket = useDebounce(realPrice)
@@ -164,7 +165,7 @@ const page = ({ params: { slug } }: any) => {
   }
 
   //@ts-ignore
-  const timstamp = `${data?.at(1)?.result?.Uint256?.deadLine.toString().slice(0, -1)}${"0000"}`
+  const timstamp = `${mainData?.at(1)?.result?.Uint256?.deadLine.toString().slice(0, -1)}${"0000"}`
 
   const deadtime = new Date(
     //@ts-ignore
@@ -196,7 +197,7 @@ const page = ({ params: { slug } }: any) => {
     return () => document.removeEventListener("keydown", onKeyDown)
   }, [onKeyDown])
 
-  console.log(data[1], "222")
+  // console.log(data[1], "222")
 
   function handleamount(work: "inc" | "dec") {
     // toast("sorry you can buy just 1 ticket for now!")
@@ -268,10 +269,10 @@ const page = ({ params: { slug } }: any) => {
                       ) : (
                         <span className="font-pop xl:font-bold font-semibold  text-[26px]">
                           {`${//@ts-ignore
-                          data
+                          mainData
                             ?.at(1)
                             ?.result["Uint256"].maximumTicket.toString()}${"\\"}${//@ts-ignore
-                          data?.at(1)?.result["Uint256"].soldTickets.toString()}`}
+                          mainData?.at(1)?.result["Uint256"].soldTickets.toString()}`}
                         </span>
                       )}
                     </p>
