@@ -1,26 +1,22 @@
 "use client"
+import { VrFABI } from "@/assets/abis/smap"
 import React from "react"
-import { useRef } from "react"
-import { useDraggable } from "react-use-draggable-scroll"
-const page = () => {
-  const ref = useRef<HTMLDivElement>() as React.MutableRefObject<HTMLInputElement>
-  const { events } = useDraggable(ref) // Now we pass the reference to the useDraggable hook:
+import { toast } from "sonner"
+import { useContractEvent } from "wagmi"
 
+const page = () => {
+  useContractEvent({
+    address: "0x3d2341ADb2D31f1c5530cDC622016af293177AE0",
+    abi: VrFABI,
+    eventName: "RandomnessRequestFulfilled",
+    listener(log: any) {
+      console.log(log[0]?.args?.requestId, "e")
+      toast("nice")
+    },
+  })
   return (
-    <div
-      className="flex max-w-[60rem] overflow-x-scroll scrollbar-hide gap-x-4"
-      {...events}
-      ref={ref} // add reference and events to the wrapping div
-    >
-      <div className="flex-none w-52 h-32 bg-red-200" />
-      <div className="flex-none w-52 h-32 bg-red-200" />
-      <div className="flex-none w-52 h-32 bg-red-200" />
-      <div className="flex-none w-52 h-32 bg-red-200" />
-      <div className="flex-none w-52 h-32 bg-red-200" />
-      <div className="flex-none w-52 h-32 bg-red-200" />
-      <div className="flex-none w-52 h-32 bg-red-200" />
-      <div className="flex-none w-52 h-32 bg-red-200" />
-      <div className="flex-none w-52 h-32 bg-red-200" />
+    <div className="w-full h-screen">
+      <h1>hello</h1>
     </div>
   )
 }

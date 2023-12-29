@@ -112,7 +112,13 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
           {ChanceRoomState?.at(0) === "Ticket selling" ||
           ChanceRoomState?.at(0) === "Not initialized" ? null : ChanceRoomState?.at(0) ===
             "Sold out" ? (
-            <div className="w-[70%] z-30 flex justify-center items-center pt-16">
+            <a
+              href={`https://opensea.io/assets/matic/${data[4].result?.at(1)}/${parseInt(
+                data[4].result?.at(2),
+              )}`}
+              target="_blank"
+              className="w-[70%] z-30 flex justify-center items-center pt-16"
+            >
               <Image
                 style={{
                   maxWidth: "none",
@@ -125,7 +131,7 @@ const HomeChanceRoomItem = ({ nft, handleClickOpen, i, contractAddress }: Chance
                 width={225}
                 height={220}
               />
-            </div>
+            </a>
           ) : (
             <div className="w-[70%] z-30 pb-8">
               <p

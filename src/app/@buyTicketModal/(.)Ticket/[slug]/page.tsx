@@ -166,6 +166,16 @@ const page = ({ params: { slug } }: any) => {
     }
   }
 
+  const [isHovered, setIsHovered] = useState(false)
+
+  const handleMouseEnter = () => {
+    setIsHovered(true)
+  }
+
+  const handleMouseLeave = () => {
+    setIsHovered(false)
+  }
+
   //@ts-ignore
   const timstamp = `${mainData?.at(1)?.result?.Uint256?.deadLine.toString().slice(0, -1)}${"0000"}`
 
@@ -289,6 +299,13 @@ const page = ({ params: { slug } }: any) => {
                         </span>
                       </p>
                     </div>
+                    <a
+                      href={`https://opensea.io/assets/matic/${slug}`}
+                      target="_blank"
+                      className="  text-[13px] text-primary cursor-pointer text-center z-20"
+                    >
+                      view on opensea
+                    </a>
                   </div>
                   {/*  */}
                   <div className="bg-slate-100 h-fit py-1 w-fit px-1 border-2 border-secondary rounded-3xl flex justify-center items-center">
@@ -329,12 +346,16 @@ const page = ({ params: { slug } }: any) => {
                   <div className="flex items-center xl:translate-x-0 translate-x-6 md:scale-100  scale-[0.85]">
                     <div className="flex flex-col">
                       <div
-                        className="relative  lg:w-[250px] w-[210px] h-[68px] flex justify-center items-center z-0"
                         onClick={handleBuyTicket}
                         style={{
                           opacity: !write || isPending ? "0.7" : "1",
                           cursor: !write || isPending ? "not-allowed" : "pointer",
                         }}
+                        className={`animated-div ${
+                          isHovered ? "paused" : ""
+                        } relative  lg:w-[250px] w-[210px] h-[68px] flex justify-center items-center z-0`}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
                       >
                         <span
                           style={{
@@ -365,14 +386,13 @@ const page = ({ params: { slug } }: any) => {
                           {isPending ? "Pending..." : "Mint"}
                         </span>
                       </div>
-
-                      <a
-                        href={`https://opensea.io/assets/matic/${slug}`}
-                        target="_blank"
-                        className="  text-[13px] text-primary cursor-pointer text-center z-20"
-                      >
-                        view on opensea
-                      </a>
+                      <p className="w-full text-center flex justify-center font-pop xl:font-[500] font-[400] text-[25px]">
+                        {
+                          //@ts-ignore
+                          balanceOfTicket * amount
+                        }
+                        Matic
+                      </p>
                     </div>
                     <div className="mb-4 lg:-translate-x-6 translate-x-1 flex flex-col gap-y-2">
                       <Up

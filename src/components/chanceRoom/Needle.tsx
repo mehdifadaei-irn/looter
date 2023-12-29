@@ -118,15 +118,17 @@ const Needle = ({
   useContractEvent({
     address: contractAddress,
     abi: mainAbi,
-    eventName: "VRFResponse",
-    listener(log) {
-      console.log(log)
+    eventName: "Response",
+    listener(log: any) {
       refetch()
       setTimeout(() => {
         refetch()
         //@ts-ignore
-        stopCounting(Winner)
-        if (address?.toLocaleLowerCase() == Winner?.toLocaleLowerCase()) {
+        stopCounting(log[0]?.args?.winner)
+        // dispatch(
+        //   setWinner({ addressOfContract: contractAddress, Winner: address, WinnerIndex: mainIndex }),
+        // )
+        if (address?.toLocaleLowerCase() == log[0]?.args?.winner?.toLocaleLowerCase()) {
           toast.success(
             <div className="flex flex-row items-center justify-center gap-x-5">
               <span className="text-lg font-bold">You Won Congrats</span>
@@ -136,7 +138,7 @@ const Needle = ({
         } else {
           toast(
             <div className="flex flex-row items-center justify-center gap-x-5">
-              <span className="text-lg font-bold">Sadge</span>
+              <span className="text-lg font-bold">better luck next time</span>
               <Image src={"/Sadge.png"} alt="sadge" height={30} width={30} />
             </div>,
           )

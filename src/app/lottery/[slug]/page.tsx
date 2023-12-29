@@ -10,6 +10,7 @@ import ChanseRoomName from "@/components/chanceRoom/ChanseRoomName"
 import Sound from "@/components/chanceRoom/Sound"
 import Winner from "@/components/chanceRoom/Winner"
 import { MyButton } from "@/components/ui/MyButton"
+import RandomImage from "@/components/chanceRoom/RandomImage"
 
 type lotteryProps = {
   params: {
@@ -21,7 +22,7 @@ const page = ({ params: { slug } }: lotteryProps) => {
   return (
     <div className="w-full min-h-[100vh] relative overflow-hidden ">
       <div className="w-full bg-[#B1C5FB] absolute z-0 h-screen " />
-      <div className="backlottery  absolute w-full z-10  top-0 right-0 bottom-0 left-0">
+      <div className="backlottery  absolute w-full z-10  top-0 right-0 bottom-0 left-0 xl:!bg-cover !bg-auto ">
         {/* Nav */}
         <nav className="flex justify-between w-full xl:pt-8 pt-6 h-[25%] ms:mx-5">
           <div className="flex flex-col lg:gap-y-7 gap-y-3 items-center lg:justify-center lg:pt-0 lg:w-fit w-[8rem] pl-7">
@@ -71,16 +72,16 @@ const page = ({ params: { slug } }: lotteryProps) => {
           <div className=" w-full flex justify-center">
             <ChanseRoomName contractAddress={slug} />
           </div>
-          <div className="flex sm:gap-x-2 md:mr-7 mr-3 2xl:min-w-[14rem] lg:min-w-[11rem] md:min-w-[10rem] min-w-[8rem]">
+          <div className="flex sm:gap-x-2 md:mr-7 mr-3 2xl:min-w-[14rem] lg:min-w-[11rem] md:min-w-[10rem] w-fit">
             <div className="2xl:block hidden">
-              <Image src={"/Ticket.gif"} className="" width={150} height={90} alt="Eyes" />
+              <Image src={"/eyes.png"} className="" width={110} height={80} alt="Eyes" />
             </div>
             <div className="xl:pr-0">
               <Indentic randString={slug} />
 
               {/* <Image src={"/acc.png"} className="pt-" width={50} height={50} alt="acc" /> */}
             </div>
-            <div className="w-full pt-1 h-[24%] flex justify-center items-center ">
+            <div className="w-full pt-1 h-[24%] justify-center items-center sm:flex hidden ">
               <Address />
             </div>
           </div>
@@ -88,7 +89,8 @@ const page = ({ params: { slug } }: lotteryProps) => {
 
         <div className="w-full flex h-[75%] md:justify-start justify-end ">
           {/*  */}
-          <div className="flex-col w-[25%] justify-end pl-24  pb-4 sm:flex hidden ">
+          <RandomImage />
+          {/* <div className="flex-col w-[25%] justify-end pl-24  pb-4 sm:flex hidden ">
             <Image
               src={"/11.avif"}
               width={330}
@@ -96,7 +98,7 @@ const page = ({ params: { slug } }: lotteryProps) => {
               height={330}
               alt="frog"
             />
-          </div>
+          </div> */}
           {/*  */}
           <Spinner contractAddress={slug} />
           {/* <button onClick={logg}>clogg</button> */}

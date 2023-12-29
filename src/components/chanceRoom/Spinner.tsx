@@ -128,7 +128,7 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
         textAnchor={x > cx ? "start" : "end"}
         dominantBaseline="central"
         style={{
-          fontSize: 19,
+          fontSize: 16,
           fontWeight: 500,
           zIndex: 300,
           opacity: 1,
@@ -140,7 +140,7 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
           ? percent == 0
             ? ""
             : "empty"
-          : name.slice(0, 6)}
+          : `${name.slice(0, 3)}..${name.slice(-4)}`}
       </text>
     )
   }
@@ -307,7 +307,7 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
           setWinner({
             addressOfContract: contractAddress,
             //@ts-ignore
-            Winner: WinnerAddr[1],
+            Winner: Winner,
             WinnerIndex: 1,
           }),
         )
@@ -375,6 +375,7 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
       setIsStarted(true)
     },
   })
+  
   useContractEvent({
     address: contractAddress,
     abi: mainAbi,

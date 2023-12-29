@@ -28,14 +28,15 @@ async function getData(contractAddress: string) {
 const ChanseRoomName = async ({ contractAddress }: { contractAddress: string }) => {
   const data1 = await getData(contractAddress)
 
-  function loff9() {
-    console.log(data1)
-  }
-
-  // console.log(data1)
-
   return (
-    <div className="flex flex-col justify-start items-center w-[98%]  -translate-y-5">
+    <a
+      href={`https://opensea.io/assets/matic/${JSON.parse(data1.metadata)
+        ?.id?.toString()
+        ?.split(":")
+        ?.at(4)}`}
+      target={"_blank"}
+      className="flex flex-col justify-start items-center w-[98%]  -translate-y-5"
+    >
       <Suspense
         fallback={
           <div className="w-full flex items-center justify-center">
@@ -58,7 +59,7 @@ const ChanseRoomName = async ({ contractAddress }: { contractAddress: string }) 
           {data1?.normalized_metadata?.name == null ? "noName" : data1?.normalized_metadata.name}
         </p>
       </Suspense>
-    </div>
+    </a>
   )
 }
 

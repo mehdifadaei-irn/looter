@@ -69,12 +69,13 @@ const page = ({ params, ...other }: any) => {
               type="button"
               className="xl:!scale-100 sm:!scale-[0.85] !scale-[0.70]"
             >
-              <Link
-                href={"/"}
+              <a
+                href={`/Ticket/${other.searchParams?.chanceRoomAddress}`}
+                //http://localhost:3000/Ticket/0x00000F76EAf28E48FF9e8515e57961A376E81bDB
                 className="w-[220px] h-[70px] pb-[4px] flex items-center justify-center font-bold text-[1.4rem] "
               >
                 BACK
-              </Link>
+              </a>
             </MyButton>
             <MyButton
               IHeight={90}
