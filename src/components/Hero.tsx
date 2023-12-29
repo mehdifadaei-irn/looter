@@ -28,7 +28,7 @@ const Hero = () => {
             <Punk2 className="lg:block hidden mr-[6.5%]" />
             <TextCarusel />
           </div>
-          <div className="w-full flex justify-center md:mt-3 mt-6">
+          {/* <div className="w-full flex justify-center md:mt-3 mt-6 ">
             <Image
               src={"/home/Lunch.png"}
               width={200}
@@ -36,10 +36,7 @@ const Hero = () => {
               alt="Lunch"
               className="hover:scale-x-[1.014] hover:scale-y-[1.008] duration-200 active:scale-[0.98]"
             />
-            {/* <MyButton IHeight={90} IWidth={200}>
-              <span className="font-pop font-bold text-[26px]">LUNCH</span>
-            </MyButton> */}
-          </div>
+          </div> */}
         </main>
       </Reveal>
       <Reveal width="100%">
