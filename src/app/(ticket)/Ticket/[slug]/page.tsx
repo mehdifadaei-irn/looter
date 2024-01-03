@@ -2,7 +2,7 @@
 import Button from "@/components/Button"
 import Image from "next/image"
 import Link from "next/link"
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 
 import Loader2 from "../../../../assets/img/loader-2.svg"
 import BlueBtn from "../../../../assets/img/blueButton.svg"
@@ -34,13 +34,13 @@ import { MyButton } from "@/components/ui/MyButton"
 const edr = true
 
 const page = ({ params: { slug } }: any) => {
-  const [amount, setAmount] = React.useState<number>(1)
+  const [amount, setAmount] = useState<number>(1)
   const route = useRouter()
   const account = useAccount()
+  const [mainData, setMainData] = useState<any>()
+  const [errEnable, setErrEnable] = useState<boolean>(false)
   const { openConnectModal } = useConnectModal()
-  const [imgbase64, setImgbase64] = React.useState<any>()
-
-  const [realPricee, setRealPricee] = React.useState<any>()
+  const [imgbase64, setImgbase64] = useState<any>()
 
   const {
     data,
@@ -94,7 +94,7 @@ const page = ({ params: { slug } }: any) => {
         console.error("Error parsing JSON:", error)
       }
 
-      setRealPricee(formatEther(data?.at(1)?.result["Uint256"].ticketPrice))
+      setMainData(data)
     },
   })
 
@@ -104,7 +104,10 @@ const page = ({ params: { slug } }: any) => {
     //@ts-ignore
     parseInt(data?.at(1)?.result["Uint256"].soldTickets)
 
-  const balanceOfTicket = useDebounce(realPricee)
+  //@ts-ignore
+  const realPrice = formatEther(mainData?.at(1).result["Uint256"]?.ticketPrice || "")
+  const balanceOfTicket = useDebounce(realPrice)
+  //@ts-ignore
   const balanceOfTicket1 = (balanceOfTicket * amount).toString()
 
   const { config: mainConf } = usePrepareContractWrite({
@@ -162,6 +165,16 @@ const page = ({ params: { slug } }: any) => {
     }
   }
 
+  const [isHovered, setIsHovered] = useState(false)
+
+  const handleMouseEnter = () => {
+    setIsHovered(true)
+  }
+
+  const handleMouseLeave = () => {
+    setIsHovered(false)
+  }
+
   //@ts-ignore
   const timstamp = `${data?.at(1)?.result?.Uint256?.deadLine.toString().slice(0, -1)}${"0000"}`
 
@@ -199,208 +212,214 @@ const page = ({ params: { slug } }: any) => {
     console.log(data)
   }
   return (
-    <div className=" w-full overflow-x-hidden overflow-y-auto  h-screen backg flex items-center justify-between flex-col  relative">
-      <RectMain
-        width={800}
-        height={580}
-        className="absolute z-0 top-[13vh] w-[90%] min-w-[56rem] lg:block hidden "
-      />
+    <div className="h-screen">
       <Navbar />
-      {/* <button onClick={logg}>Log</button> */}
-      <div className=" w-full h-full flex  items-center flex-col z-20 md:justify-start justify-center ">
-        <div className="md:mt-7 md:pb-20 max-w-[900px]  xl:w-[70%] lg:w-[97%] md:w-[84%] sm:w-[90%] w-[100%] pl-7 sm:pr-9 pr-4 rounded-3xl lg:h-[71vh] h-[65vh]  flex flex-col sm:justify-end justify-between md:pt-0 pt-[8rem] items-center mx-auto">
-          <div className=" flex justify-between md:gap-x-5 w-full md:items-start items-center md:flex-row flex-row lg:gap-y-10 md:gap-y-1 gap-y-3 ">
-            <div className="w-[60%]">
-              <a
-                href={`https://polygonscan.com/address/${slug}`}
-                target="_blank"
-                className="font-bold xl:text-[30px] text-[25px] font-pop underline w-full"
-              >
-                <span className="">
-                  {/* <span className="hidden xl:block">{slug}</span> */}
-                  <span className="block">{slug?.slice(0, 9)}</span>
-                </span>
-              </a>
-              {isLoading ? (
-                <div>loading</div>
-              ) : (
-                <p className="font-zen 2xl:text-2xl text-lg md:mt-3">
-                  {data?.at(3).result.slice(0, 15)}
-                </p>
-              )}
-
-              <p>
-                <span className="font-pop xl:font-bold font-[400] xl:text-[28px] text-[23px]">
-                  Spain date:{" "}
-                </span>
-                <span className="font-pop font-normal text-[24px]">
-                  {`${deadtime.getUTCDate()} ${deadtime.toLocaleString("default", {
-                    month: "long",
-                  })} -${deadtime.getUTCHours()}:${deadtime.getUTCMinutes()}:${deadtime.getUTCSeconds()} `}
-                  UTC
-                  {/* {modalContent.time} */}
-                </span>
-              </p>
-              {/* <ChanseRoomName contractAddress={slug} /> */}
-              <p>
-                <span className="font-pop xl:font-bold font-[400] xl:text-[28px] text-[24px]">
-                  You Have {!balanceOf ? "0" : balanceOf?.toString()} Ticket
-                </span>
-              </p>
-              <p>
-                <span className="font-pop xl:font-bold font-[400] xl:text-[28px] text-[24px] md:flex hidden">
-                  suplly:{" "}
-                </span>
-                <span className="font-pop font-normal xl:text-[26px] text-[24px]">
-                  {data?.at(1)?.result["Uint256"].maximumTicket.toString()}
-                </span>
-              </p>
-              <div className="flex lg:flex-col flex-row lg:gap-x-0 gap-x-4">
-                <p className="mb-2">
-                  <span className="font-pop xl:font-bold font-[400] xl:text-[28px] text-[24px]">
-                    price:
-                  </span>
-                  <span className="font-pop xl:font-[400] font-[300] xl:text-[26px] text-[24px]">
-                    {realPricee}
-                    Matic
-                  </span>
-                </p>
-                <p className="font-pop xl:font-bold font-[400] xl:text-[28px] text-[25px]">
-                  suplly
-                </p>
-                {isPending ? (
-                  <Loader2 className="mt-1 mr-1 animate-spin scale-120" />
-                ) : (
-                  <span className="font-pop xl:font-[500] font-[400]  text-[25px]">
-                    {`${//@ts-ignore
-                    data[1]?.result["Uint256"].maximumTicket.toString()}${"\\"}${//@ts-ignore
-                    data[1]?.result["Uint256"].soldTickets.toString()}`}
-                  </span>
-                )}
-              </div>
-            </div>
-
-            <div className="bg-slate-100 h-fit py-1 md:w-fit w-[50%] px-1 border-2 border-secondary rounded-3xl flex justify-center items-center">
-              {isLoading ? (
-                <Skeleton animation="wave" variant="rounded" width={220} height={220} />
-              ) : (
-                <Image
-                  className=" rounded-3xl sm:h-[220px] sm:w-[220px] h-[168px] w-[168px]"
-                  alt="nftt"
-                  src={imgbase64 == undefined ? "/placeholder.png" : imgbase64}
-                  width={220}
-                  height={220}
-                />
-              )}
-            </div>
-          </div>
-
-          <div className="flex items-center h-[86px]">
-            <div className="flex flex-col">
-              <div
-                className="relative  w-[250px] h-[68px] flex justify-center items-center z-0 xl:!scale-100 sm:!scale-[0.85] !scale-[0.70]"
-                onClick={handleBuyTicket}
-                style={{
-                  opacity: !write || isPending ? "0.7" : "1",
-                  cursor: !write || isPending ? "not-allowed" : "pointer",
-                }}
-              >
-                <span
-                  style={{
-                    opacity: !write || isPending ? "0.7" : "1",
-                    cursor: !write || isPending ? "not-allowed" : "pointer",
-                  }}
-                  className={`absolute top-[10px]  ${
-                    isPending ? "left-[8%] " : "left-[22%]"
-                  } font-medium text-[30px] z-50 font-pop text-black cursor-pointer`}
-                >
-                  {isPending ? <Loader2 className="mt-2  animate-spin scale-120" /> : `${amount}`}
-                </span>
-                <div className={isPending ? "scale-x-[1.3] scale-y-[1.1] mr-5" : ""}>
-                  <BlueBttn width={180} height={150} />
+      <div className="flex justify-center items-center h-[85%]">
+        <div className="flex  items-center h-full  justify-center 2xl:min-w-w-[65vw] xl:min-w-[80vw] min-w-[90vw]">
+          {isLoading ? (
+            <div>Loading</div>
+          ) : (
+            <div className="relative bg-secondaryLight sm:w-full w-[90%]  sm:h-[37rem] px-2 rounded-3xl border-4 border-black">
+              <div className="lg:w-full w-[97%] h-full flex xl:flex-col sm:flex-row flex-col justify-between sm:py-5 pt-2 items-center xl:mx-0 mx-auto">
+                <div className="w-full gap-y-2 flex xl:flex-row flex-col-reverse justify-between px-3 sm:items-start items-center">
+                  <div>
+                    <a
+                      href={`https://polygonscan.com/address/${slug}`}
+                      target="_blank"
+                      className="font-medium xl:text-[30px] text-[25px] font-pop underline w-full"
+                    >
+                      <span className="">
+                        {/* <span className="hidden xl:block">{slug}</span> */}
+                        <span className="block">{slug?.slice(0, 16)}....</span>
+                      </span>
+                    </a>
+                    <p className="font-zen 2xl:text-2xl text-xl mt-3">
+                      {data?.at(3).result.slice(0, 15)}
+                    </p>
+                    <p>
+                      <span className="font-pop xl:font-bold font-[500] xl:text-[28px] text-[25px]">
+                        Spain date:{" "}
+                      </span>
+                      <span className="font-pop font-normal text-[26px]">
+                        {`${deadtime.getUTCDate()} ${deadtime.toLocaleString("default", {
+                          month: "long",
+                        })} -${deadtime.getUTCHours()}:${deadtime.getUTCMinutes()}:${deadtime.getUTCSeconds()} `}
+                        UTC
+                        {/* {modalContent.time} */}
+                      </span>
+                    </p>
+                    <div className="flex sm:flex-col flex-row sm:gap-x-0 gap-x-4 sm:h-auto h-7">
+                      <p>
+                        <span className="font-pop xl:text-[28px] text-[25px]">suplly: </span>
+                        {isPending ? (
+                          <Loader2 className="mt-1 mr-1 animate-spin scale-120" />
+                        ) : (
+                          <span className="font-pop xl:font-bold font-semibold  text-[26px]">
+                            {`${//@ts-ignore
+                            mainData
+                              ?.at(1)
+                              ?.result["Uint256"].maximumTicket.toString()}${"\\"}${//@ts-ignore
+                            mainData?.at(1)?.result["Uint256"].soldTickets.toString()}`}
+                          </span>
+                        )}
+                      </p>
+                      <p className="mb-2">
+                        <span className="font-pop xl:text-[28px] text-[25px]">price: </span>
+                        <span className="font-pop xl:font-[500] font-[400] text-[26px]">
+                          {realPrice}Matic
+                        </span>
+                      </p>
+                    </div>
+                    <a
+                      href={`https://opensea.io/assets/matic/${slug}`}
+                      target="_blank"
+                      className="  text-[13px] text-primary cursor-pointer text-center z-20"
+                    >
+                      view on opensea
+                    </a>
+                  </div>
+                  {/*  */}
+                  <div className="bg-slate-100 h-fit py-1 w-fit px-1 border-2 border-secondary rounded-3xl flex justify-center items-center">
+                    {isLoading ? (
+                      <Skeleton animation="wave" variant="rounded" width={220} height={220} />
+                    ) : (
+                      <Image
+                        className=" rounded-3xl sm:h-[220px] sm:w-[220px] h-[188px] w-[188px]"
+                        alt="nft"
+                        src={imgbase64 == undefined ? "/placeholder.png" : imgbase64}
+                        width={220}
+                        height={220}
+                      />
+                    )}
+                  </div>
                 </div>
-                <span
-                  className="absolute top-[13px] pl-4 font-bold  z-50 font-pop text-black"
-                  style={{
-                    opacity: !write || isPending ? "0.7" : "1",
-                    cursor: !write || isPending ? "not-allowed" : "pointer",
-                    fontSize: !write || isPending ? "23px" : "28px",
-                  }}
-                >
-                  {isPending ? "Pending..." : "Mint"}
-                </span>
+                {/* Btns */}
+                <div className="flex justify-between items-center xl:flex-row flex-col w-[90%] mx-auto md:mt-10 mt-0 xl:pr-0 md:pr-5 pr-10 sm:h-fit h-[12rem] sm:pb-0 pb-[5px]">
+                  {/* <Button fontW="font-zen" scale="0.85">
+                <a className="w-full h-full" href={"/"}>
+                  Home
+                </a>
+              </Button> */}
+
+                  <MyButton
+                    IHeight={90}
+                    IWidth={220}
+                    type="button"
+                    className="xl:!scale-100 sm:!scale-[0.85] !scale-[0.70] sm:ml-0 ml-[9px] z-50"
+                  >
+                    <a
+                      className="w-[220px] h-[70px] flex justify-center items-center font-bold text-[1.7rem]"
+                      href={"/"}
+                    >
+                      Home
+                    </a>
+                  </MyButton>
+                  <div className="flex items-center xl:translate-x-0 translate-x-6 md:scale-100  scale-[0.85] z-0">
+                    <div className="flex flex-col">
+                      <div
+                        onClick={handleBuyTicket}
+                        style={{
+                          opacity: !write || isPending ? "0.7" : "1",
+                          cursor: !write || isPending ? "not-allowed" : "pointer",
+                        }}
+                        className={`animated-div ${
+                          isHovered ? "paused" : ""
+                        } relative  lg:w-[250px] w-[210px] h-[68px] flex justify-center items-center z-0`}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                      >
+                        <span
+                          style={{
+                            opacity: !write || isPending ? "0.7" : "1",
+                            cursor: !write || isPending ? "not-allowed" : "pointer",
+                          }}
+                          className={`absolute lg:top-[10px] top-[8px]  ${
+                            isPending ? "left-[8%] " : "lg:left-[22%] left-[16%]"
+                          } font-medium text-[30px] z-50 font-pop text-black cursor-pointer`}
+                        >
+                          {isPending ? (
+                            <Loader2 className="mt-2  animate-spin scale-120" />
+                          ) : (
+                            `${amount}`
+                          )}
+                        </span>
+                        <div className={isPending ? "scale-x-[1.3] scale-y-[1.1] mr-5" : ""}>
+                          <BlueBttn width={180} height={150} />
+                        </div>
+                        <span
+                          className="absolute top-[13px] pl-4 font-bold  z-50 font-pop text-black"
+                          style={{
+                            opacity: !write || isPending ? "0.7" : "1",
+                            cursor: !write || isPending ? "not-allowed" : "pointer",
+                            fontSize: !write || isPending ? "23px" : "28px",
+                          }}
+                        >
+                          {isPending ? "Pending..." : "Mint"}
+                        </span>
+                      </div>
+                      <p className="w-full text-center flex justify-center font-pop xl:font-[500] font-[400] text-[25px]">
+                        {
+                          //@ts-ignore
+                          balanceOfTicket * amount
+                        }
+                        Matic
+                      </p>
+                    </div>
+                    <div className="mb-4 lg:-translate-x-6 translate-x-1 flex flex-col gap-y-2">
+                      <Up
+                        style={{
+                          opacity: !write ? "0.7" : "1",
+                          // cursor: !write ? "not-allowed" : "pointer",
+                        }}
+                        className="hover:-translate-y-1 duration-300 cursor-pointer"
+                        onClick={() => {
+                          setErrEnable(true)
+                          if (ticketLeftNUmber == 0) {
+                            toast.error("no more Ticker left!")
+                          } else {
+                            handleamount("inc")
+                          }
+                        }}
+                      />
+                      <Down
+                        style={{
+                          opacity: !write ? "0.7" : "1",
+                          // cursor: !write ? "not-allowed" : "pointer",
+                        }}
+                        className="hover:translate-y-1 duration-300 cursor-pointer"
+                        onClick={() => {
+                          setErrEnable(true)
+                          if (ticketLeftNUmber == 0) {
+                            toast.error("no more Ticker left!")
+                          } else {
+                            handleamount("dec")
+                          }
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <MyButton
+                    IHeight={90}
+                    IWidth={220}
+                    type="button"
+                    className="xl:!scale-100 sm:!scale-[0.85] !scale-[0.70] sm:ml-0 ml-[9px] z-50"
+                  >
+                    <a
+                      href={`/tickets/sang?chanceRoomAddress=${slug}&totalSupply=${parseInt(
+                        data[1]?.result["Uint256"].maximumTicket,
+                      )}`}
+                      // href={`/tickets/sang?chanceRoomAddress=${slug}&totalSupply=20`}
+                      className="w-[220px] h-[70px] flex justify-center items-center font-bold text-[1.7rem]"
+                    >
+                      Continue
+                    </a>
+                  </MyButton>
+                </div>
               </div>
-
-              {/* <a
-                href={`https://opensea.io/assets/matic/${slug}`}
-                target="_blank"
-                className="  text-[13px] text-primary cursor-pointer text-center z-20"
-              >
-                view on opensea
-              </a> */}
+              {/*  */}
             </div>
-            <div className="mb-4 lg:-translate-x-6 translate-x-1 flex flex-col gap-y-2">
-              <Up
-                style={{
-                  opacity: !write ? "0.7" : "1",
-                  // cursor: !write ? "not-allowed" : "pointer",
-                }}
-                className="hover:-translate-y-1 duration-300 cursor-pointer"
-                onClick={() => {
-                  if (ticketLeftNUmber == 0) {
-                    toast.error("no more Ticker left!")
-                  } else {
-                    handleamount("inc")
-                  }
-                }}
-              />
-              <Down
-                style={{
-                  opacity: !write ? "0.7" : "1",
-                  // cursor: !write ? "not-allowed" : "pointer",
-                }}
-                className="hover:translate-y-1 duration-300 cursor-pointer"
-                onClick={() => {
-                  if (ticketLeftNUmber == 0) {
-                    toast.error("no more Ticker left!")
-                  } else {
-                    handleamount("dec")
-                  }
-                }}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="flex justify-between items-center flex-row xl:w-[70%] w-[90%] mx-auto ">
-          <MyButton
-            IHeight={90}
-            IWidth={220}
-            type="button"
-            className="xl:!scale-100 sm:!scale-[0.85] !scale-[0.70]"
-          >
-            <a
-              className="w-[220px] h-[70px] flex justify-center items-center font-bold text-[1.7rem]  "
-              href={"/"}
-            >
-              Home
-            </a>
-          </MyButton>
-          <MyButton
-            IHeight={90}
-            IWidth={220}
-            type="button"
-            className="xl:!scale-100 sm:!scale-[0.85] !scale-[0.70]"
-          >
-            <a
-              href={`/tickets/sang?chanceRoomAddress=${slug}&totalSupply=${data[1]?.result[
-                "Uint256"
-              ].maximumTicket.toString()}`}
-              className="w-[220px] h-[70px] flex justify-center items-center font-bold text-[1.7rem]"
-            >
-              Continue
-            </a>
-          </MyButton>
+          )}
         </div>
       </div>
     </div>

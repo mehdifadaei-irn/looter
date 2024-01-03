@@ -11,6 +11,7 @@ import Sound from "@/components/chanceRoom/Sound"
 import Winner from "@/components/chanceRoom/Winner"
 import { MyButton } from "@/components/ui/MyButton"
 import RandomImage from "@/components/chanceRoom/RandomImage"
+import { Toaster } from "sonner"
 
 type lotteryProps = {
   params: {
@@ -105,6 +106,7 @@ const page = ({ params: { slug } }: lotteryProps) => {
           <Winner />
         </div>
       </div>
+      <Toaster position="top-center" richColors expand={true} />
     </div>
   )
 }

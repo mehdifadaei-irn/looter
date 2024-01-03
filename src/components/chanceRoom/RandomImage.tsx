@@ -19,7 +19,7 @@ const RandomImage = () => {
       if (!Stopcount) {
         setCount((prev) => prev + 1)
       }
-    }, 7000)
+    }, 17000)
 
     if (Stopcount) {
       clearInterval(interval1)

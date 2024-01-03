@@ -101,8 +101,6 @@ const page = ({ params: { slug } }: any) => {
 
   //@ts-ignore
   const realPrice = formatEther(mainData?.at(1).result["Uint256"]?.ticketPrice || "")
-  // const realPrice = "0.1"
-  // console.log(data?.at(1)?.result.Uint256?.ticketPrice)
   const balanceOfTicket = useDebounce(realPrice)
   //@ts-ignore
   const balanceOfTicket1 = (balanceOfTicket * amount).toString()
@@ -259,7 +257,7 @@ const page = ({ params: { slug } }: any) => {
                     >
                       <span className="">
                         {/* <span className="hidden xl:block">{slug}</span> */}
-                        <span className="block">{slug?.slice(0, 10)}</span>
+                        <span className="block">{slug?.slice(0, 16)}....</span>
                       </span>
                     </a>
                     <p className="font-zen 2xl:text-2xl text-xl mt-3">
@@ -277,7 +275,7 @@ const page = ({ params: { slug } }: any) => {
                         {/* {modalContent.time} */}
                       </span>
                     </p>
-                    <div className="flex sm:flex-col flex-row sm:gap-x-0 gap-x-4">
+                    <div className="flex sm:flex-col flex-row sm:gap-x-0 gap-x-4 sm:h-auto h-7">
                       <p>
                         <span className="font-pop xl:text-[28px] text-[25px]">suplly: </span>
                         {isPending ? (
@@ -293,7 +291,7 @@ const page = ({ params: { slug } }: any) => {
                         )}
                       </p>
                       <p className="mb-2">
-                        <span className="font-pop xl:text-[28px] text-[25px]">price:</span>
+                        <span className="font-pop xl:text-[28px] text-[25px]">price: </span>
                         <span className="font-pop xl:font-[500] font-[400] text-[26px]">
                           {realPrice}Matic
                         </span>
@@ -323,27 +321,21 @@ const page = ({ params: { slug } }: any) => {
                   </div>
                 </div>
                 {/* Btns */}
-                <div className="flex justify-between items-center xl:flex-row flex-col w-[90%] mx-auto md:mt-10 mt-0 xl:pr-0 md:pr-5 pr-10 sm:h-fit h-[12rem] sm:pb-0 pb-[20px]">
-                  {/* <Button fontW="font-zen" scale="0.85">
-                <a className="w-full h-full" href={"/"}>
-                  Home
-                </a>
-              </Button> */}
-
+                <div className="flex justify-between items-center xl:flex-row flex-col w-[90%] mx-auto md:mt-10 mt-0 xl:pr-0 md:pr-5 pr-10 sm:h-fit h-[12rem] sm:pb-0 pb-[5px]">
                   <MyButton
                     IHeight={90}
                     IWidth={220}
                     type="button"
-                    className="xl:!scale-100 sm:!scale-[0.85] !scale-[0.70] sm:ml-0 ml-[9px]"
+                    className="xl:!scale-100 sm:!scale-[0.85] !scale-[0.70] sm:ml-0 ml-[9px] z-50"
+                    onClick={() => {
+                      onDismiss()
+                    }}
                   >
-                    <a
-                      className="w-[220px] h-[70px] flex justify-center items-center font-bold text-[1.7rem]"
-                      href={"/"}
-                    >
+                    <span className="w-[220px] h-[70px] flex justify-center items-center font-bold text-[1.7rem]">
                       Home
-                    </a>
+                    </span>
                   </MyButton>
-                  <div className="flex items-center xl:translate-x-0 translate-x-6 md:scale-100  scale-[0.85]">
+                  <div className="flex items-center xl:translate-x-0 translate-x-6 md:scale-100  scale-[0.85] z-0">
                     <div className="flex flex-col">
                       <div
                         onClick={handleBuyTicket}
@@ -432,7 +424,7 @@ const page = ({ params: { slug } }: any) => {
                     IHeight={90}
                     IWidth={220}
                     type="button"
-                    className="xl:!scale-100 sm:!scale-[0.85] !scale-[0.70] sm:ml-0 ml-[9px]"
+                    className="xl:!scale-100 sm:!scale-[0.85] !scale-[0.70] sm:ml-0 ml-[9px] z-50"
                   >
                     <a
                       href={`/tickets/sang?chanceRoomAddress=${slug}&totalSupply=${parseInt(

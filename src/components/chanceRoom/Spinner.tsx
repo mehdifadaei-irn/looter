@@ -81,7 +81,8 @@ const renderActiveShape = (props: any) => {
       {/* <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" /> */}
 
       <text x={ex + (cos >= 0 ? 1 : -1) * 0.4} y={ey} dy={1} textAnchor={textAnchor} fill="#999">
-        {`(${(percent * 100).toFixed(2)}%)`}22
+        {/* {`(${(percent * 100).toFixed(2)}%)`}22 */}
+        winner
       </text>
     </g>
   )
@@ -375,7 +376,7 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
       setIsStarted(true)
     },
   })
-  
+
   useContractEvent({
     address: contractAddress,
     abi: mainAbi,
