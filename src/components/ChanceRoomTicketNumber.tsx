@@ -78,7 +78,7 @@ const ChanceRoomTicketNumber = ({
         )}
       </div>
       <p className="font-bold text-3xl my-5">{nftName}</p>
-      <div className="bg-[#EDD136] w-[350px] min-h-[6rem] px-2 h-[110px] rounded-3xl border-2 border-black flex justify-center items-center">
+      <div className="bg-[#EDD136] sm:w-[350px] w-auto min-h-[6rem] px-2 h-[110px] rounded-3xl border-2 border-black flex justify-center items-center">
         <p className="lg:font-normal font-bold lg:text-[28px] text-[22px] text-center">
           you have{" "}
           {!balanceOf ? "0" : ((parseInt(balanceOf) / totallSupply) * 100).toString().slice(0, 4)}%

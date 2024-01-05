@@ -43,8 +43,8 @@ const page = ({ params, ...other }: any) => {
         className="absolute z-0 top-[116px] lg:w-[90%] w-full md:block hidden  "
       />
 
-      <div className="flex flex-col justify-between md:h-[80vh] h-[85vh] md:w-[72%] w-full items-center">
-        <div className="w-[95%] max-w-[955px]  min-h-[440px]  relative  overflow-hidden">
+      <div className="flex flex-col justify-between md:h-[80vh] sm:h-[85vh] md:w-[72%] w-full items-center">
+        <div className="w-[95%] max-w-[955px]   relative  overflow-hidden">
           <Suspense fallback={<div>helo</div>}>
             <div className="flex flex-col h-full items-center  pt-0 pb-[5rem]">
               <ChanceRoomTicketNumber
@@ -57,7 +57,7 @@ const page = ({ params, ...other }: any) => {
 
         <div className="flex flex-col items-center w-full">
           <p className="font-[500] text-2xl z-40 text-center ">GO TO CHANCE ROOOM</p>
-          <div className="flex justify-between gap-x-10 w-2/3 md:min-w-[35rem] min-w-[29rem] ">
+          <div className="flex sm:flex-row flex-col sm:items-start items-center justify-between gap-x-10 w-2/3 md:min-w-[35rem] min-w-[29rem] ">
             <ArrowBack
               width={130}
               height={200}
@@ -67,7 +67,7 @@ const page = ({ params, ...other }: any) => {
               IHeight={90}
               IWidth={220}
               type="button"
-              className="xl:!scale-100 sm:!scale-[0.85] !scale-[0.70]"
+              className="xl:!scale-100 sm:!scale-[0.85] !scale-[0.80]"
             >
               <a
                 href={`/Ticket/${other.searchParams?.chanceRoomAddress}`}
@@ -82,7 +82,7 @@ const page = ({ params, ...other }: any) => {
               IWidth={220}
               type="button"
               onClick={handleLetsGo}
-              className="xl:!scale-100 sm:!scale-[0.85] !scale-[0.70]"
+              className="xl:!scale-100 sm:!scale-[0.85] !scale-[0.80]"
             >
               <p className="w-[220px] h-[70px] pb-[4px] flex items-center justify-center font-bold text-[1.4rem]">
                 LET’S GO
