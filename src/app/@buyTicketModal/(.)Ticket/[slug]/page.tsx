@@ -233,7 +233,7 @@ const page = ({ params: { slug } }: any) => {
   } else
     return (
       <div
-        className="fixed inset-0 bg-zinc-900/20 z-50 bgfblur flex justify-center "
+        className="fixed inset-0 bg-zinc-900/20 z-50 bgfblur flex justify-center  "
         style={{}}
         ref={overlay}
         onClick={onClick}
@@ -247,13 +247,13 @@ const page = ({ params: { slug } }: any) => {
             <div>Loading</div>
           ) : (
             <div className="relative bg-secondaryLight sm:w-full w-[90%]  sm:h-[37rem] px-2 rounded-3xl border-4 border-black">
-              <div className="lg:w-full w-[97%] h-full flex xl:flex-col sm:flex-row flex-col justify-between sm:py-5 pt-2 items-center xl:mx-0 mx-auto">
+              <div className="lg:w-full w-[97%] h-full flex xl:flex-col sm:flex-row flex-col justify-between sm:py-5 pt-2 items-center xl:mx-0 mx-auto sm:gap-y-0 gap-y-5 sm:pb-0 pb-5">
                 <div className="w-full gap-y-2 flex xl:flex-row flex-col-reverse justify-between px-3 sm:items-start items-center">
                   <div>
                     <a
                       href={`https://polygonscan.com/address/${slug}`}
                       target="_blank"
-                      className="font-medium xl:text-[30px] text-[25px] font-pop underline w-full"
+                      className="font-medium xl:text-[30px] md:text-[25px] text-lg font-pop underline w-full"
                     >
                       <span className="">
                         {/* <span className="hidden xl:block">{slug}</span> */}
@@ -263,11 +263,9 @@ const page = ({ params: { slug } }: any) => {
                     <p className="font-zen 2xl:text-2xl text-xl mt-3">
                       {data?.at(3).result.slice(0, 15)}
                     </p>
-                    <p>
-                      <span className="font-pop xl:font-bold font-[500] xl:text-[28px] text-[25px]">
-                        Spain date:{" "}
-                      </span>
-                      <span className="font-pop font-normal text-[26px]">
+                    <p className="font-pop xl:font-bold md:font-[500] font-normal xl:text-[28px] md:text-[25px] text-lg">
+                      <span className=" ">Spain date: </span>
+                      <span className="">
                         {`${deadtime.getUTCDate()} ${deadtime.toLocaleString("default", {
                           month: "long",
                         })} -${deadtime.getUTCHours()}:${deadtime.getUTCMinutes()}:${deadtime.getUTCSeconds()} `}
@@ -277,11 +275,13 @@ const page = ({ params: { slug } }: any) => {
                     </p>
                     <div className="flex sm:flex-col flex-row sm:gap-x-0 gap-x-4 sm:h-auto h-7">
                       <p>
-                        <span className="font-pop xl:text-[28px] text-[25px]">suplly: </span>
+                        <span className="font-pop xl:text-[28px] md:text-[25px] text-lg">
+                          suplly:{" "}
+                        </span>
                         {isPending ? (
                           <Loader2 className="mt-1 mr-1 animate-spin scale-120" />
                         ) : (
-                          <span className="font-pop xl:font-bold font-semibold  text-[26px]">
+                          <span className="font-pop xl:font-bold font-semibold  md:text-[25px] text-lg">
                             {`${//@ts-ignore
                             mainData
                               ?.at(1)
@@ -291,8 +291,10 @@ const page = ({ params: { slug } }: any) => {
                         )}
                       </p>
                       <p className="mb-2">
-                        <span className="font-pop xl:text-[28px] text-[25px]">price: </span>
-                        <span className="font-pop xl:font-[500] font-[400] text-[26px]">
+                        <span className="font-pop xl:text-[28px] md:text-[25px] text-lg">
+                          price:{" "}
+                        </span>
+                        <span className="font-pop xl:font-[500] font-[400] md:text-[25px] text-lg">
                           {realPrice}Matic
                         </span>
                       </p>
