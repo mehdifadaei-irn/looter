@@ -101,7 +101,7 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
   const [btnDisable, setBtnDisable] = useState<boolean>(false)
   const [imgbase64, setImgbase64] = useState<any>()
   //@ts-ignore
-  const { Winner, addressOfContract, WinnerIndex } = useSelector((state) => state.winner)
+  const { Winner, addressOfContract } = useSelector((state) => state.winner)
   const dispatch = useDispatch()
 
   const curentData = new Date()
@@ -468,7 +468,7 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
       {/* Spin */}
       <div className="absolute w-[70%] 2xl:left-[79px] md:left-[48px]  flex flex-col justify-center items-center bottom-0 md:bottom-[2%]  z-50 ">
         <div className="flex">
-          <div className="translate-x-16 z-40 md:scale-100 scale-90 ">
+          <div className="translate-x-16 z-40 md:scale-100 sm:scale-90 scale-75 ">
             <Hand />
           </div>
 
@@ -476,11 +476,12 @@ const Spinner = ({ contractAddress }: { contractAddress: `0x${string}` }) => {
             IHeight={100}
             IWidth={240}
             type="button"
-            className={`my-2 ${!write ? "opacity-70" : "opacity-100"}`}
+            className={`my-2 ${!write ? "!opacity-70" : "!opacity-100"} ${
+              !write ? "!cursor-not-allowed" : "!cursor-pointer"
+            } sm:scale-100 scale-75`}
             onClick={handleStart}
             disabled={btnDisable}
-            // disabled
-            // isLoading={btnDisable}
+            // isLoading={!write}
           >
             <span className="w-[230px] h-[90px] flex justify-center items-center font-bold text-lg">
               {TimeLeft ? `${status[1]?.slice(-13)}` : "spin"}

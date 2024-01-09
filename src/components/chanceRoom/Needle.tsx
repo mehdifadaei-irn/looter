@@ -33,7 +33,7 @@ const Needle = ({
   const { address } = useAccount()
 
   //@ts-ignore
-  const { Winner, addressOfContract, WinnerIndex } = useSelector((state) => state.winner)
+  const { Winner, addressOfContract } = useSelector((state) => state.winner)
 
   useEffect(() => {
     let interval1: any
@@ -125,13 +125,17 @@ const Needle = ({
         refetch()
         //@ts-ignore
         stopCounting(log[0]?.args?.winner)
-        // dispatch(
-        //   setWinner({ addressOfContract: contractAddress, Winner: address, WinnerIndex: mainIndex }),
-        // )
+        dispatch(
+          setWinner({
+            addressOfContract: contractAddress,
+            Winner: log[0]?.args?.winner,
+            WinnerIndex: 2, // nothing
+          }),
+        )
         if (address?.toLocaleLowerCase() == log[0]?.args?.winner?.toLocaleLowerCase()) {
           toast.success(
             <div className="flex flex-row items-center justify-center gap-x-5">
-              <span className="text-lg font-bold">You Won Congrats</span>
+              <span className="text-lg font-bold">You Won Congrats!</span>
               <Image src={"/pepoM.gif"} alt="my gif1" height={30} width={30} />
             </div>,
           )

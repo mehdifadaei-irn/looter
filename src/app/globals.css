@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer utilities {
-  @variants responsive {
+  responsive {
     /* Hide scrollbar for Chrome, Safari and Opera */
     .scrollbar-hide::-webkit-scrollbar {
       display: none;
@@ -58,14 +58,6 @@
   font-family: "Poppins", sans-serif !important;
   /* font-family: "VT323", monospace; */
 }
-
-/* .recharts-responsive-container {
-  width: 250% !important;
-} */
-
-.font-zen {
-  /* font-family: "Zen Dots", cursive !important; */
-}
 .grid-cont {
   display: grid;
   grid-template-columns: 10% 13% 13% 13% 13% 13%;
@@ -89,14 +81,12 @@
   width: 10px;
 }
 
-/* Track */
-::-webkit-scrollbar-track {
+body::-webkit-scrollbar-track {
   background: transparent;
   border-radius: 5px;
 }
 
-/* Handle */
-::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb {
   background: #fdc600;
   border-radius: 5px;
 }

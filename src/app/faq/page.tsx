@@ -28,45 +28,56 @@ const lonfrina = Londrina_Solid({
 
 const QandA = [
   {
-    question: "+ WHAT BLOCKCHAIN IS IT ON?",
-    answer: "The project is developed on the ETH blockchain",
+    question: "+ How is the Winner Determined?",
+    answer: `The process for determining the winner is as follows : 
+    Ticket Generation: By purchasing or receiving a free ticket, you increase your chances in the lottery drawing.
+    Chance Room: After the ticket sale concludes, participants access the Chance Room.
+    Transparent Drawing: The first person to press the "Spin" button initiates a transparent and verifiable lottery.
+    Winner Announcement: The winner is selected from ticket holders (NFTs on Polygon) and automatically receives the original NFT on the Ethereum network.
+    With this process, the winner is determined fairly and transparently, and participants can trust the lottery results on the blockchain `,
   },
   {
-    question: "+ WHAT CAN YOU DO WITH YOUR LOOT ITEM?",
+    question: "+ What Happens If Ticket Sales Do Not Reach the Threshold?",
+    answer: "In that case, a refund will be issued.",
+  },
+  {
+    question: "+ When is the Lottery Drawing for Each Project?",
+    answer: `The lottery drawing takes place after the completion of ticket sales. The first person among ticket holders who presses the "Spin" button initiates the drawing.`,
+  },
+  {
+    question: "+ Why is Our NFT Lottery Secure and Transparent?",
+    answer: `Our NFT Lottery is secure and transparent because:
+    \n
+    Chainlink VRF: Ensures fair and verifiable random selection.
+    Decentralization: Eliminates human or bot intervention.
+    Cross-Chain Functionality (CCIP): Enables secure asset transfer between blockchains.
+    Public Ledger: Records transactions transparently on the blockchain.
+    Smart Contract Automation: Ensures error-free and programmed execution.`,
+  },
+  {
+    question: "+ What is an NFT Lottery? ",
     answer:
-      "You can hold it, sell it and trade it. With your spooky, you have access to an amazing 3D football cafe in the Decentraland metaverse!You also can vote and decide what we all are going to do in the DAO!",
+      "An NFT Lottery is a type of lottery system that involves Non-Fungible Tokens (NFTs). In our context, it means participants can enter the lottery by locking their NFTs (unique digital assets) to generate tickets. These tickets are then available for purchase, with prices starting at  $1 or more, and sometimes even offered for free. The participants have a chance to win the original NFT hosted on the Ethereum network. The entire process, from ticket creation to the transparent draw and winner announcement, is facilitated in a secure and decentralized manner through smart contracts and innovative technologies like Chainlink's Verifiable Random Function (VRF) and Cross-Chain Communication and Interoperability Protocol (CCIP). This approach ensures fairness, transparency, and the seamless transfer of assets between different blockchains, such as Ethereum and Polygon",
   },
   {
-    question: "+ WHEN IS THE MINT DATE?",
-    answer: "c1",
-  },
-  {
-    question: "+ WHAT IS THE MINT PRICE?",
-    answer: "Our Society decided to set the price for WL to  0.009 ETH",
-  },
-  {
-    question: "+ What are horror awards based on? ",
-    answer: "c2",
-  },
-  {
-    question: "+ How and when will the winners be determined?  ",
+    question: "+ What is ChanceRoooms?  ",
     answer:
-      "Your win depends on the performance of your team.  2 days after the end of the World Cup, prizes will be paid based on the global ranking according to the table below.",
+      "ChanceRooms is Smart Contract on Polygon Network that run Automatically on different preset rules that any one can join it. This smart contract is not upgradable so the rules are permanents. ChanceRooms is NFT collection that shows the Locked NFT as token id 0 and other id is for who attend to chance room, each attender get and NFT ticket as asset and can be trade or transfer to others. On each ChanceRoom when the condition committed roll up phase is permit and with help of Chain Link VRF winner selected in fair and decentralist way. The Locked NFT will transfer to Winner and other Looser NFTs Tickets can’t refund any more. The fund that collect in Chance Rooms will send to creator of that chance room.",
   },
   {
-    question: "+ Do all items have a chance to win?  ",
+    question: "+ What is an VRF? ",
     answer:
-      "Yes.  All items have a chance to win.  You try your luck by keeping your item until the end of the World Cup.  Or you bet by selling it in the secondary market and buying the desired item which is your favorite team. you can guess :)",
+      "As you know block chian is transparent and any one can involve in validating the blocks. In this manner is not possible to generate a real random number because the miners (validator) can have chance to manipulate the results. So in this case we need to get the random number from some where else, a third party that we called oracle. The duty of this oracle is to generate a Verified Random Number that is not manipulate. Now the best secure oracle that provide this service is Chain Link that we can be sure that the random number that use is really random.",
   },
   {
-    question: "+ Which accessories are the basis?  ",
+    question: "+ How to create a ChanceRoom?",
     answer:
-      "Each item representing a country is accompanied by one of these layers.  Bronze, silver, and golden cup.  And items with balls and beer and placard hand cards have a chance for the losing team to win.",
+      "To create a ChanceRoom, you have two options: mining a new ChanceRoom or purchasing one from the ChanceRoom Factory collection owned by other miners who haven't initialized their ChanceRoom yet. It's crucial to understand that once a ChanceRoom has been initialized, it cannot be initialized again.",
   },
   {
-    question: "+ WHAT BLOCKCHAIN IS IT ON?",
+    question: "+ What is word after ChanceRoom?",
     answer:
-      "You can hold it, sell it and trade it. With your spooky, you have access to an amazing 3D football cafe in the Decentraland metaverse!You also can vote and decide for what we all are going to do in the DAO!",
+      "ChanceRooms are different in rules so they have different Name also! So better to read the rules of each Chance room before attend in that.",
   },
 ]
 
@@ -133,9 +144,12 @@ const Faq = () => {
             return (
               <div className="mx-auto w-full max-w-lg rounded-2xl bg-white p-2 " key={i}>
                 <Disclosure>
-                  {({ open }) => (
+                  {({ open, close }) => (
                     <>
                       <Disclosure.Button
+                        // onClick={() => {
+                        //   close()
+                        // }}
                         className={`flex w-full justify-between rounded-lg ${BgColor} px-4 py-2 text-left text-sm font-medium text-[#333333] focus:outline-none focus-visible:ring  focus-visible:ring-opacity-75`}
                       >
                         <span>{item.question}</span>

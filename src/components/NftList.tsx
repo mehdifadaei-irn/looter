@@ -2,7 +2,6 @@
 import React, { useRef } from "react"
 import Reveal from "./ui/Reveal"
 
-import { useDraggable } from "react-use-draggable-scroll"
 import { useContractRead } from "wagmi"
 
 import { useConnectModal } from "@rainbow-me/rainbowkit"

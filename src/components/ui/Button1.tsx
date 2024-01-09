@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils"
 import { cva, VariantProps } from "class-variance-authority"
-// import { Loader2 } from "lucide-react"
 import Loader2 from "../../assets/img/loader-2.svg"
 import * as React from "react"
 

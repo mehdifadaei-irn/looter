@@ -3,7 +3,7 @@ import React from "react"
 import { ConnectButton } from "@rainbow-me/rainbowkit"
 import Button from "../Button"
 import { MyButton } from "./MyButton"
-
+import Glass from "../../assets/img/glasses.svg"
 const Address = () => {
   return (
     <ConnectButton.Custom>
@@ -40,14 +40,6 @@ const Address = () => {
             {(() => {
               if (!connected) {
                 return (
-                  // <Button
-                  //   onClick={openConnectModal}
-                  //   type="button"
-                  //   fontW="text-[20px]"
-                  //   styless="-translate-y-2 ml-2"
-                  // >
-                  //   Connect Wallet
-                  // </Button>
                   <MyButton
                     IHeight={90}
                     IWidth={220}
@@ -62,14 +54,17 @@ const Address = () => {
 
               if (chain.unsupported) {
                 return (
-                  <Button
+                  <div
+                    className="border-zinc-900 pr-4  border-[2.5px] flex rounded-[50px] mt-2 gap-x-2 cursor-pointer"
                     onClick={openChainModal}
-                    type="button"
-                    fontW="text-[20px]"
-                    styless="-translate-y-2 ml-2"
                   >
-                    Wrong network
-                  </Button>
+                    <div className="flex justify-center w-20 items-center h-[56px]  border-r-2 border-x-zinc-900">
+                      <Glass className="translate-y-2 -translate-x-[4px]" width="60" />
+                    </div>
+                    <div className="flex justify-center items-center h-[56px]">
+                      <p className="font-semibold text-[29px] leading-10">wrong network</p>
+                    </div>
+                  </div>
                 )
               }
 
@@ -78,7 +73,7 @@ const Address = () => {
                   <button
                     onClick={openAccountModal}
                     type="button"
-                    className="sm:text-lg text-sm  text-black font-medium"
+                    className="sm:text-sm text-sm  text-black font-normal"
                   >
                     {account.displayName}
                     {account.ensAvatar}

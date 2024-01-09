@@ -7,6 +7,7 @@ import Settel from "../../assets/img/home/sett.svg"
 const Winner = () => {
   //@ts-ignore
   const { Winner, addressOfContract } = useSelector((state) => state.winner)
+
   if (Winner == "")
     return (
       <div className="flex flex-col text-center justify-end  sm:w-[25%] w-[34%] pb-14 z-50">

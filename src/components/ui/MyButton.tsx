@@ -1,9 +1,6 @@
-import { cn } from "@/lib/utils"
-import { cva, VariantProps } from "class-variance-authority"
 import Loader2 from "../../assets/img/loader-2.svg"
 import * as React from "react"
 import { ButtonSVG, SmButtonSVG } from "../Icons"
-import { Button as MBTN } from "@mui/material"
 import { twMerge } from "tailwind-merge"
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {

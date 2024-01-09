@@ -1,7 +1,6 @@
 "use client"
 import React, { useRef, useEffect } from "react"
 import { motion, useInView, useAnimation, useIsPresent } from "framer-motion"
-import { useDraggable } from "react-use-draggable-scroll"
 
 interface ReavealProps {
   children: JSX.Element

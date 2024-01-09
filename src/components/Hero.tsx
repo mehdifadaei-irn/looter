@@ -1,12 +1,6 @@
 import React from "react"
-import Ghost from "../assets/img/Ghost.svg"
-import Punk1 from "../assets/img/punk1.svg"
-import Circle from "../assets/img/circle.svg"
 import Punk2 from "../assets/img/home/punk33.svg"
-import Button from "./Button"
 import Reveal from "./ui/Reveal"
-import Link from "next/link"
-import { MyButton } from "./ui/MyButton"
 import Image from "next/image"
 import TextCarusel from "./TextCarusel"
 
@@ -28,15 +22,6 @@ const Hero = () => {
             <Punk2 className="lg:block hidden mr-[6.5%]" />
             <TextCarusel />
           </div>
-          {/* <div className="w-full flex justify-center md:mt-3 mt-6 ">
-            <Image
-              src={"/home/Lunch.png"}
-              width={200}
-              height={90}
-              alt="Lunch"
-              className="hover:scale-x-[1.014] hover:scale-y-[1.008] duration-200 active:scale-[0.98]"
-            />
-          </div> */}
         </main>
       </Reveal>
       <Reveal width="100%">

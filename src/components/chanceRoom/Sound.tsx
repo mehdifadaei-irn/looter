@@ -9,44 +9,83 @@ import { mainAbi } from "@/assets/abis/mainAbis"
 
 const Sound = ({ contractAddress }: { contractAddress: any }) => {
   const [Sound, setSound] = useState(true)
-  const [isRoledUp, setisRoledUp] = useState(false)
+  const [isRoledUp, setisRoledUp] = useState<"" | boolean>("")
 
-  const [play, { stop }] = useSound("/audio/chance.mp3", {
+  const [play, { stop }] = useSound("/audio/FreeMe.mp3", {
     volume: 0.1,
     // interrupt: false,
     // onload:true
-  })
+  }) //first play
   const [play1, { stop: stopS }] = useSound("/audio/drop.mp3", {
     volume: 0.1,
     // interrupt: false,
     // onload:true
   })
+  const [play2, { stop: stopS2 }] = useSound("/audio/WiinerU.mp3", {
+    volume: 0.1,
+    // interrupt: false,
+    // onload:true
+  })
+
+  //start
   useContractEvent({
     address: contractAddress,
     abi: mainAbi,
     eventName: "Rollup",
     listener(log) {
+      setisRoledUp(true)
       stop()
       play1()
-      setisRoledUp(true)
+    },
+  })
+
+  //end
+  useContractEvent({
+    address: contractAddress,
+    abi: mainAbi,
+    eventName: "Response",
+    listener(log) {
+      setisRoledUp(false)
+      stop()
+      stopS()
+      play2()
     },
   })
 
   useEffect(() => {
     if (Sound) {
-      play()
+      if (isRoledUp === "") {
+        play()
+      }
+      if (isRoledUp === true) {
+        stop()
+        play1()
+      }
+      if (isRoledUp === false) {
+        stop()
+        stopS()
+        play2()
+      }
     }
-  }, [play])
+  }, [isRoledUp])
 
   function handleSound() {
     if (Sound) {
       stop()
       stopS()
+      stopS2()
     } else {
-      if (isRoledUp) {
-        play1()
-      } else {
+      if (isRoledUp === "") {
         play()
+      }
+      if (isRoledUp === true) {
+        stop()
+        play1()
+      }
+      if (isRoledUp === false) {
+        stop()
+        stopS()
+        play2()
       }
     }
 
